@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "",
+    "sources": [
+        "../sass/custom_variables.scss"
+    ],
+    "names": [],
+    "file": "custom_variables.min.css"
+}

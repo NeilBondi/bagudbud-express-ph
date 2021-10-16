@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,mBAAmB,CACnB,mBAAmB,CACnB,mBAAmB,CAAC,WAAW,CAC/B,mBAAmB,CAAC,WAAW,AAAC,CAC/B,UAAU,CAAE,mBAAmB,CAC/B,AAED,AAAA,YAAY,CAAC,WAAW,AAAC,CACxB,SAAS,CAAE,iBAAiB,CAC5B,AACD,AAAA,eAAe,CAAC,WAAW,AAAC,CAC3B,SAAS,CAAE,cAAc,CACzB,AACD,AAAA,YAAY,CAAC,WAAW,AAAC,CACxB,SAAS,CAAE,cAAc,CACzB,AACD,AAAA,eAAe,CAAC,WAAW,AAAC,CAC3B,SAAS,CAAE,gBAAgB,CAC3B",
+    "sources": [
+        "../sass/animations.scss"
+    ],
+    "names": [],
+    "file": "animations.min.css"
+}

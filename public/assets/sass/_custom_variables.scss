@@ -1,0 +1,23 @@
+// map font sizes
+$font-sizes: (
+	"xx-small": 0.65rem,
+	"x-small": 0.75rem,
+	"small": 1rem,
+	"medium": 1.25rem,
+	"large": 1.5rem,
+	"x-large": 1.75rem,
+	"xl-large": 2rem,
+);
+
+$font-sizes-mobile: (
+	"xx-small": 0.5rem,
+	"x-small": 0.75rem,
+	"small": 0.874rem,
+	"medium": 1rem,
+	"large": 1.248rem,
+	"x-large": 1.75rem,
+	"xl-large": 2rem,
+);
+
+$primary: #3cd87a;
+$secondary: #00000080;

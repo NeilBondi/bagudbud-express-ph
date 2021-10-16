@@ -1,0 +1,251 @@
+// variables
+$primary: #3cd87a;
+
+.z-index-1 {
+	z-index: 10;
+}
+.z-index-negative {
+	z-index: -1;
+}
+
+// custom width
+.w-10 {
+	width: 8%;
+}
+
+.w-90 {
+	width: 90%;
+}
+
+.w-70 {
+	width: 70%;
+}
+
+.w-26 {
+	width: 26%;
+}
+
+.w-35 {
+	width: 35%;
+}
+
+.display-4 {
+	font-size: clamp(20px, 3vw, 1.5rem) !important;
+}
+.display-5 {
+	font-size: clamp(18px, 3vw, 1.25rem) !important;
+}
+.display-6 {
+	font-size: clamp(16px, 3vw, 1.15rem) !important;
+}
+.display-7 {
+	font-size: clamp(14px, 3vw, 1rem) !important;
+}
+.display-8 {
+	font-size: clamp(12px, 3vw, 0.85rem) !important;
+}
+.display-9 {
+	font-size: clamp(10px, 3vw, 0.75rem) !important;
+}
+
+@media screen and (min-width: 1550px) {
+	.w-full-90 {
+		width: 75% !important;
+	}
+
+	.w-35 {
+		width: 35%;
+	}
+}
+
+@media screen and (min-width: 1400px) {
+	.w-full-100 {
+		width: 90% !important;
+	}
+
+	.w-full-90 {
+		width: 90% !important;
+	}
+}
+
+@media screen and (max-width: 1400px) {
+	.w-26 {
+		width: 30%;
+	}
+
+	.display-4 {
+		font-size: 20px !important;
+	}
+	.display-5 {
+		font-size: 18px !important;
+	}
+	.display-6 {
+		font-size: 16px !important;
+	}
+	.display-7 {
+		font-size: 14px !important;
+	}
+	.display-8 {
+		font-size: 12px !important;
+	}
+	.display-9 {
+		font-size: 10px !important;
+	}
+}
+
+@media screen and (max-width: 990px) {
+	.w-full-90 {
+		width: 60% !important;
+	}
+
+	.w-26 {
+		width: 35%;
+	}
+}
+
+@media screen and (min-width: 900px) {
+	.w-full-90 {
+		width: 90% !important;
+	}
+}
+
+// custom height
+.h-full {
+	height: 100vh;
+}
+
+// custom left property in absolute
+.start-10 {
+	left: 10%;
+}
+
+// custom height for social media
+.facebook-btn,
+.google-btn {
+	transition: 0.25s ease;
+}
+.facebook-btn,
+.google-btn {
+	transition: 0.25s ease;
+}
+.facebook-btn:hover,
+.google-btn:hover {
+	color: #fff !important;
+	border-color: #00000000 !important;
+}
+
+.facebook-btn:hover {
+	background: #1c60f1 !important;
+}
+.google-btn:hover {
+	background: #0be77d !important;
+}
+
+// pseudo-class
+.title::after,
+.a-link::after,
+.a-link::before,
+.a-link2::after {
+	position: absolute;
+	content: "";
+	bottom: 0;
+	left: 0;
+	width: 70%;
+	height: 3px;
+	background: $primary;
+	z-index: -1;
+}
+
+.a-link2:hover::after {
+	animation: links3 0.65s ease forwards;
+}
+
+.a-link:hover::after {
+	animation: links 0.45s ease forwards;
+}
+.a-link:hover::before {
+	animation: links2 0.45s ease 0.15s forwards;
+}
+
+.or-separator::after {
+	position: absolute;
+	content: "";
+	top: 50%;
+	left: 2rem;
+	height: 2px;
+	width: 5rem;
+	transform: translateY(-50%);
+	background: #00000021;
+}
+
+.or-separator::before {
+	position: absolute;
+	content: "";
+	top: 50%;
+	right: 2rem;
+	height: 2px;
+	width: 5rem;
+	transform: translateY(-50%);
+	background: #00000021;
+}
+
+.a-link:after,
+.a-link::before,
+.a-link2::after {
+	width: 100%;
+	height: 2px;
+}
+
+.a-link::before {
+	left: -150%;
+}
+
+.button-active-dark:hover {
+	background: none;
+}
+
+.button-active-transparent:hover {
+	background: #00000008 !important;
+}
+
+// custom opacity
+
+.opacity-10 {
+	opacity: 0.1;
+}
+
+.form-opacity {
+	opacity: 0.5;
+}
+
+.password-container:focus ~ span {
+	opacity: 0.75 !important;
+}
+
+// animations
+
+//link animations
+@keyframes links {
+	from {
+		left: 0%;
+	}
+	to {
+		left: 100%;
+	}
+}
+@keyframes links2 {
+	from {
+		left: -150%;
+	}
+	to {
+		left: 0%;
+	}
+}
+@keyframes links3 {
+	from {
+		clip-path: circle(0% at 50% 50%);
+	}
+	to {
+		clip-path: circle(100% at 50% 50%);
+	}
+}

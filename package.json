@@ -1,0 +1,14 @@
+{
+	"name": "bagudbud-express",
+	"version": "1.0.0",
+	"description": "Bagudbud Express",
+	"main": "index.js",
+	"type": "module",
+	"dependencies": {},
+	"devDependencies": {},
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"author": "",
+	"license": "ISC"
+}
