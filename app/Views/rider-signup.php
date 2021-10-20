@@ -35,7 +35,7 @@
             <!-- right container -->
 
             <div class="col col-md-8 px-xl-5 mx-auto py-5 my-4">  
-                <form action="<?= base_url('/email-verification') ?>" class="container">
+                <form action="" class="container" id="form">
 
                     <div class="row row-cols-1 row-cols-lg-2 mb-5">
                         <div class="col d-flex justify-content-center align-items-center px-1 px-lg-2 px-xxl-5">
@@ -114,6 +114,7 @@
                             <div class="mt-xxl-3 mb-lg-2 d-flex flex-column">
                                 <label for="phone-number" class="fw-bold display-7 form-label col-form-label col-form-label-sm mt-1 mt-lg-0">Phone number</label>
                                 <input type="number" name="phone-number" class="form-control form-control-sm py-2 py-xxl-3 fw-lighter" id="phone-number" placeholder="Phone number">
+                                <span class="text-danger text-center display-8 fw-bold mt-2 d-none alerts">Error message!</span>
                             </div>
                         </div>
 
@@ -160,7 +161,7 @@
                         <div class="col ps-1 ps-lg-2 ps-xxl-5">
                             <div class="mt-xxl-3 mb-lg-2 d-flex flex-column">
                             <label for="municipality" class="fw-bold display-7 form-label col-form-label col-form-label-sm mt-1 mt-lg-0">Municipality</label>
-                                <input class="form-control form-control-sm py-2 py-xxl-3 fw-lighter" list="municipality-list" id="municipality" placeholder="Municipality">
+                                <input class="form-control form-control-sm py-2 py-xxl-3 fw-lighter" name="municipality" list="municipality-list" id="municipality" placeholder="Municipality">
                                 <datalist id="municipality-list">
                                     <option value="Baao">
                                     <option value="Bato">
@@ -197,19 +198,14 @@
                     <!-- Rider Vehicle type Name -->
 
                     <div class="row row-cols-1 row-cols-lg-2 mt-3">
-                        <div class="col ps-1 ps-lg-2 ps-xxl-5">
+                         <div class="col ps-1 ps-lg-2 ps-xxl-5">
                             <div class="mt-xxl-3 mb-lg-2 d-flex flex-column">
                                 <label for="vehicle-type" class="fw-bold display-7 form-label col-form-label col-form-label-sm mt-1 mt-lg-0">Vehicle Type</label>
-                                <div class="d-flex pt-2">
-                                    <div class="form-check form-check-inline">
-                                        <input class="vehicle-type form-check-input fw-lighter" type="radio" name="vehicle" checked id="motorcycle" value="motorcycle">
-                                        <label class="form-check-label display-7" for="motorcycle">Motorcycle</label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <input class="vehicle-type form-check-input fw-lighter" type="radio" name="vehicle" id="bicycle" value="bicycle">
-                                        <label class="form-check-label display-7" for="bicycle">Bicycle</label>
-                                    </div>
-                                </div>
+                                <select name="vehicle-type" class="form-select form-select-md py-xl-2 py-xxl-3 fw-lighter" id="vehicle-type" aria-label="Default select example">
+                                    <option selected>Vehicle Type</option>
+                                    <option value="Motorcycle">Motorcycle</option>
+                                    <option value="Bicycle">Bicycle</option>
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -297,8 +293,9 @@
             </div>
         </div>
     </div>
-    
-    <script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script type="text/javascript">
         const vehicleType = document.querySelectorAll('.vehicle-type');
         const forRiders = document.querySelector('.for-riders');
         const forBikers = document.querySelector('.for-bikers');
@@ -313,5 +310,158 @@
                 }
             });
         });
+
+        //ajax
+        $(document).ready(function () {
+
+            $("input").attr("required", true);
+            $("input[type=checkbox]").removeAttr("required");
+            var bool_email = true;
+            var bool_cpass = true;
+            var bool_pass = true;
+            var passcheck = true;
+            var bool_number = true;
+
+            $('#password').keyup(function (e) {  //check the passwotd length while typing
+                if($(this).val().length < 8){
+                    $('#password').css('border', '2px solid red');
+                    $(this).next().text('Password must Greater Than 8').removeClass('d-none');
+                    return bool_pass = false;
+                }
+                else{
+                    $('#password').css('border', '');
+                    $(this).next().text('').addClass('d-none');
+                    // $('.warning2').html('');
+                    return bool_pass = true;
+                }
+            });
+
+            $('#confirm-password').keyup(function (e) {
+                var pass = $('#password').val();  //check the passwotd length while typing
+                if($(this).val() != pass){
+                    $('#confirm-password').css('border', '2px solid red');
+                    $(this).next().text('Not Correct').removeClass('d-none');
+                    bool_cpass = false;
+                }
+                else{
+                    $('#confirm-password').css('border', '');
+                    $(this).next().text('').addClass('d-none');
+                    bool_cpass = true;
+                    
+                }
+            });
+
+            //number validation
+            $('#phone-number').keyup(function (e) {
+                var num = $(this).val(); 
+                var filter = /^(09|\+63)\d{9}$/;
+                 
+                if(filter.test(num)){
+                    // alert('ok');
+                    $(this).next().text('').addClass('d-none');
+                    bool_number = true;
+                }else{
+                    // alert('no');
+                    $(this).next().text('Invalid Number').removeClass('d-none');
+                    bool_number = false;
+                }
+            });
+
+            $('#email').keyup(function () { //check email availability
+             var email = $('#email').val();
+                if (email != ''){
+                    $.ajax({
+                        url: "<?= base_url('RiderSignup/check_Email'); ?>",
+                        method: "POST",
+                        dataType: "json",
+                        data: {email:email},
+                        success: function (res) {
+                            if(res.code == 404){
+                                $('#email').next().text(res.msg).removeClass('d-none');
+                                bool_email = false;
+                            }
+                            else if(res.code == 400){
+                                $('#email').next().text(res.msg).removeClass('d-none');
+                                bool_email = false;
+                            }
+                            else{
+                                $('#email').next().text('').addClass('d-none');
+                                bool_email = true;
+                            }
+                        }
+                    });
+                }
+           
+             });
+
+             $('#form').submit(function (e) { 
+                 e.preventDefault();
+                
+                var pass = $('#password').val();
+                var cpass = $('#confirm-password').val();
+
+                if(pass == cpass){
+                    passcheck = true;
+                }else{
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'check your passwords!'
+                    });
+                    return false;
+                }
+
+                if($('#notif-checkbox').is(':checked') && $('#terms-and-policies').is(':checked')){
+                    
+                }else{
+                    Swal.fire({
+                        icon: 'question',
+                        title: 'Oops...',
+                        text: ' Please accept Receiving Notifications and to the Terms of Service and Policy to continue '
+                    });
+                    return false;
+                }
+
+                var data = new FormData(this);
+                if(bool_cpass && bool_pass && bool_email && passcheck && bool_number){
+                    var data = new FormData(this);
+                    $.ajax({
+                        type: "post",
+                        url: "<?= base_url('RiderSignup/register');?>",
+                        data: data,
+                        dataType: "json",
+                        contentType: false,
+                        cache: false,
+                        processData: false,
+                        success: function (res) {
+                            if(res.code == 505){
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Oops...',
+                                    text: res.msg
+                                });
+                            }else{
+                                $('form').trigger('reset');
+                                location.href = `${res.redirect}?user-email=${res.user_email}`;
+                            }
+                        }
+                    });
+                }else{
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!'
+                    });
+                // alert('Something wrong');
+                }
+                 
+             });
+            
+        });
+
+        function refreshPage() {
+            location.reload(true);
+        }
+
     </script>
 <?= $this->endSection(); ?>
