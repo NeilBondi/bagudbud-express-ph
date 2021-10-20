@@ -123,6 +123,7 @@
                             <div class="mt-xxl-3 mb-lg-2 d-flex flex-column">
                                 <label for="phone-number" class="fw-bold display-7 form-label col-form-label col-form-label-sm mt-1 mt-lg-0">Phone number</label>
                                 <input type="number" name="phone-number" class="form-control form-control-sm py-2 py-xxl-3 fw-lighter" id="phone-number" placeholder="Phone number">
+                                <span class="text-danger text-center display-8 fw-bold mt-2 d-none alerts">Error message!</span>
                             </div>
                         </div>
 
@@ -272,6 +273,7 @@
             var bool_cpass = true;
             var bool_pass = true;
             var passcheck = true;
+            var bool_number = true;
 
             $('#password').keyup(function (e) {  //check the passwotd length while typing
                 if($(this).val().length < 8){
@@ -282,7 +284,6 @@
                 else{
                     $('#password').css('border', '');
                     $(this).next().text('').addClass('d-none');
-                    // $('.warning2').html('');
                     return bool_pass = true;
                 }
             });
@@ -302,7 +303,23 @@
                 }
             });
 
-            $('#email').change(function () { //check email availability
+            //number validation
+            $('#phone-number').keyup(function (e) {
+                var num = $(this).val(); 
+                var filter = /^(09|\+63)\d{9}$/;
+                 
+                if(filter.test(num)){
+                    // alert('ok');
+                    $(this).next().text('').addClass('d-none');
+                    bool_number = true;
+                }else{
+                    // alert('no');
+                    $(this).next().text('Invalid Number').removeClass('d-none');
+                    bool_number = false;
+                }
+            });
+
+            $('#email').keyup(function () { //check email availability
              var email = $('#email').val();
                 if (email != ''){
                     $.ajax({
@@ -330,14 +347,14 @@
            
              });
 
-
+             //submit form data
             $('#form').submit(function (e) { 
                 e.preventDefault();
 
                 var pass = $('#password').val();
                 var cpass = $('#confirm-password').val();
 
-                if(pass == cpass){
+                if(pass == cpass){//compara passwords
                     passcheck = true;
                 }else{
                     Swal.fire({
@@ -360,7 +377,7 @@
                 }
 
                 var data = new FormData(this);
-                if(bool_cpass && bool_pass && bool_email && passcheck){
+                if(bool_cpass && bool_pass && bool_email && passcheck && bool_number){
                     var data = new FormData(this);
                     $.ajax({
                         type: "post",
@@ -383,20 +400,19 @@
                             }
                         }
                     });
-                        // alert('ok');
-                }else{
+                }else{ // if something error occur
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
                         text: 'Something went wrong!'
                     });
-                // alert('Something wrong');
                 }
             });
 
 
         });
 
+        //refresh pages/ remove all previous inputs
         function refreshPage() {
             location.reload(true);
         }
