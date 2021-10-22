@@ -20,6 +20,7 @@ class Filters extends BaseConfig
 		'toolbar'  => \CodeIgniter\Filters\DebugToolbar::class,
 		'honeypot' => \CodeIgniter\Filters\Honeypot::class,
 		'auth'     => \App\Filters\Auth::class,
+		'rauth'     => \App\Filters\RAuth::class,
 	];
 
 	/**
