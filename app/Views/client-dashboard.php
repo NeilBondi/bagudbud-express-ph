@@ -112,12 +112,10 @@
                                             <tbody>
 
                                                 <!-- item start -->
-                                                
-                                                <tr class="items" style="cursor: pointer;">
+                                                <!-- change the aria-label. change the number only based on the id in db ex. for the next item data-label="item-2" -->
+                                                <tr class="items" data-label="item-1" style="cursor: pointer;">
                                                     <td>
                                                         <div class="py-2">
-                                                            <!-- insert id here -->
-                                                            <input type="text" name="id" id="id" value="1" hidden>
                                                             <!-- Recipient name -->
                                                             <h6 class="my-0 text-black"><b>John Doe</b></h6>
                                                             <!-- addres -->
