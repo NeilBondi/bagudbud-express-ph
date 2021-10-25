@@ -320,7 +320,7 @@ class ClientSignup extends BaseController
 
 	$client = new Client_Signup();
 		if($client->insert($data)){
-			//send email process
+			// send email process
 			// $to = $C_email;
 			// $subject = 'Account Verification';
 
@@ -332,7 +332,7 @@ class ClientSignup extends BaseController
 			// $email->setMessage($body);			
 
 			// if($email->send()){
-				//go to EmailVerification Page
+				// go to EmailVerification Page
 				echo json_encode([
 					'redirect' => base_url('/email-verification'),
 					'user_email' => $C_email
