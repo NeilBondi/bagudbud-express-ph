@@ -36,17 +36,17 @@
                 <div class="row" style="width: 30rem;">
                     <div class="col form-container d-flex flex-column align-items-center">  
                         <img src="<?= base_url('/public/assets/img/Artboard 12@72x-8.png'); ?>" class="logo-form img-fluid w-90 mb-4 mb-xxl-5 px-5" alt="logo">
-                        <form action="" class="container d-flex flex-column">
+                        <form action="<?= base_url('RiderLogin/login'); ?>" method="POST" class="container d-flex flex-column">
                             <div class="d-inline-flex mb-2 mb-xxl-3">
                                 <h3 class="signin-title title position-relative fw-bolder display-4">Sign in</h3>
                             </div>
 
                             <!-- Error message -->
-
-                            <div class="alert alert-danger d-none d-flex justify-content-center align-items-center p-2 py-3" role="alert">
-                                <p class="display-7 m-0 fw-normal">Email or password is incorrect!</p>
+                            <?php if(session()->getFlashdata('msg')):?>  
+                            <div class="alert alert-danger d-flex justify-content-center align-items-center p-2 py-3" role="alert">
+                                <p class="display-7 m-0 fw-normal"><?= session()->getFlashdata('msg') ?></p>
                             </div>
-
+                            <?php endif;?>
                             <!-- End of error message -->
 
 
@@ -101,7 +101,7 @@
         $(() => {
             $('.password-icon').click(function() {
                 let getUrl = window.location;
-                let baseUrl = `${getUrl.protocol}//${getUrl.host}/${getUrl.pathname.split('/')[1]}`;
+                let baseUrl = `${getUrl.protocol}//${getUrl.host}/${getUrl.pathname.split('/')[2]}`;
                 if ($(this).attr('src') === `${baseUrl}/public/assets/img/visible-eye.png`) {
                     $(this).attr('src', `${baseUrl}/public/assets/img/blind.png`);
                     $('.password-container').attr('type', 'password');
@@ -121,7 +121,6 @@
 
         // const passwordIcon = document.querySelector('.password-icon');
 
-        // passwordIcon.addEventListener();    
-
+        // passwordIcon.addEventListener();   
     </script>
 <?= $this->endSection(); ?>
