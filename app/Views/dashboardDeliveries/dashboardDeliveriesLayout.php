@@ -72,6 +72,9 @@
                                 <h5 class="card-title position-relative title text-black">Add Delivery</h5>
                             </div>
                             <div class="row row-cols-1 row-cols-lg-2">
+
+                                <!-- name -->
+
                                 <div class="col">
                                     <div class="mt-xxl-3 mb-lg-2 d-flex flex-column">
                                         <label for="name" class="fw-bold display-7 form-label col-form-label col-form-label-sm mt-1 mt-lg-0">Name</label>
@@ -79,7 +82,7 @@
                                     </div>
                                 </div>
 
-                                <!-- Confirm Password -->
+                                <!-- Phone number -->
 
                                 <div class="col">
                                     <div class="mt-xxl-3 mb-lg-2 d-flex flex-column">
@@ -89,6 +92,9 @@
                                 </div>
                             </div>
                             <div class="row row-cols-1 row-cols-lg-2">
+
+                                <!-- address -->
+
                                 <div class="col">
                                     <div class="mt-xxl-3 mb-lg-2 d-flex flex-column">
                                         <label for="address" class="fw-bold display-7 form-label col-form-label col-form-label-sm mt-1 mt-lg-0">Address</label>
@@ -96,7 +102,7 @@
                                     </div>
                                 </div>
 
-                                <!-- Confirm Password -->
+                                <!-- Minicipality -->
 
                                 <div class="col">
                                     <div class="mt-xxl-3 mb-lg-2 d-flex flex-column">
@@ -117,23 +123,16 @@
                             </div>
                             <div class="mt-5">
                                 <button type="reset" class="btn cancel-btn btn-outline-primary text-secondary">Cancel</button>
+
+                                <!-- Submit btn -->
+
                                 <button type="submit" class="btn btn-primary">Add</button>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
-            <footer>
-                <div class="footer clearfix mb-0 text-muted">
-                    <div class="float-start">
-                        <p>2021 &copy; Mazer</p>
-                    </div>
-                    <div class="float-end">
-                        <p>Crafted with <span class="text-danger"><i class="bi bi-heart"></i></span> by <a
-                                href="http://ahmadsaugi.com">A. Saugi</a></p>
-                    </div>
-                </div>
-            </footer>
+
         </div>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -150,7 +149,7 @@
                     $('.items').each(function() {
                         $(this).click(function() {
                             // delivery details path
-                            let id = $(this).find('#id').val();
+                            let id = $(this).attr('data-label').split('-')[1];
                             location.href = `${baseUrl}/client-dashboard/${currentUrl}/${id}`
                         });
                     });
