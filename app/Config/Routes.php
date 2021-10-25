@@ -33,15 +33,18 @@ $routes->setAutoRoute(true);
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 $routes->get('/', 'Home::index');
-$routes->get('/dashboard', 'Dashboard::index',['filter' => 'auth']);
+// $routes->get('/dashboard', 'Dashboard::index',['filter' => 'auth']);
 
 $myRoutes = array(
 	"rider-login" => "RiderLogin::index",
 	"client-login" => "ClientLogin::index",
 	"rider-signup" => "RiderSignup::index",
 	"client-signup" => "ClientSignup::index",
-	"email-verification" => "EmailVerification::index"
-	// "dashboard" => "Dashboard::index"
+	"email-verification" => "EmailVerification::index",
+	"client-dashboard/deliveries" => "ClientDashboard::index",
+	"client-dashboard/pending" => "ClientDashboard::pending",
+	"client-dashboard/deliveries/(:num)" => "ClientDashboard::details/$1",
+	"client-dashboard/pending/(:num)" => "ClientDashboard::details/$1"
 );
 
 $routes->map($myRoutes);

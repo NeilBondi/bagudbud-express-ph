@@ -153,7 +153,7 @@ $primary: #3cd87a;
 	width: 70%;
 	height: 3px;
 	background: $primary;
-	z-index: -1;
+	z-index: 100;
 }
 
 .a-link2:hover::after {
