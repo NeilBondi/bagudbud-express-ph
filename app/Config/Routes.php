@@ -44,7 +44,10 @@ $myRoutes = array(
 	"client-dashboard/deliveries" => "ClientDashboard::index",
 	"client-dashboard/pending" => "ClientDashboard::pending",
 	"client-dashboard/deliveries/(:num)" => "ClientDashboard::details/$1",
-	"client-dashboard/pending/(:num)" => "ClientDashboard::details/$1"
+	"client-dashboard/pending/(:num)" => "ClientDashboard::details/$1",
+	"forgot-password" => "ForgotPassword::index",
+	"forgot-password/code-verification" => "ForgotPassword::codeVerification",
+	"forgot-password/new-password" => "ForgotPassword::newPassword"
 );
 
 $routes->map($myRoutes);
