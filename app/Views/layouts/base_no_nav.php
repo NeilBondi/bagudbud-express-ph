@@ -7,6 +7,7 @@
 	<title><?= $page_title ?></title>
 	<link rel="shortcut icon" href="<?= base_url() ?>/public/assets/img/iconBagudbud.png" type="image/x-icon">
 	<link rel="stylesheet" href="<?= base_url() ?>/public/assets/css/main.min.css">
+	<link rel="stylesheet" href="<?= base_url() ?>/public/assets/css/app.css">
 	<link rel="stylesheet" href="<?= base_url() ?>/public/assets/css/customs.min.css">
 	<link rel="stylesheet" href="<?= base_url() ?>/public/assets/css/animations.min.css">
 	<link rel="preconnect" href="https://fonts.googleapis.com">

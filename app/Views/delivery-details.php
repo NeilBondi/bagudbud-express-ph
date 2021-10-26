@@ -81,7 +81,7 @@
                                     </div>
                                     <div class="card-body">
                                         <div class="section-headers row">
-                                            <div class="col-8">
+                                            <div class="col-8 mb-4">
                                                 <button class="btn back-btn d-inline-flex align-items-center p-0">
                                                     <i class="fas fa-arrow-left"></i>
                                                     <span class="font-semibold ms-2">Back</span>
@@ -94,7 +94,7 @@
                                                     <span class="track-id">123456789</span>
                                                 </span>
                                                 <span class="mt-2">
-                                                    Status
+                                                    Status:
                                                     <!-- Insert Status here -->
                                                     <span class="status">Active</span>
                                                 </span>

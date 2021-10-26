@@ -3,6 +3,11 @@
 	--track-inactive-color: #dbdada;
 	--track-active-color: #1ec360;
 }
+
+html {
+	height: 100vh;
+}
+
 .card-button {
 	cursor: pointer;
 	transition: all 100ms ease;
@@ -227,6 +232,7 @@ ul.tracking-updates {
 }
 
 .popup-blur-active {
+	height: 100vh;
 	overflow-y: hidden;
 }
 
