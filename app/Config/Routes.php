@@ -34,6 +34,8 @@ $routes->setAutoRoute(true);
 // route since we don't have to scan directories.
 $routes->get('/', 'Home::index');
 // $routes->get('/dashboard', 'Dashboard::index',['filter' => 'auth']);
+$routes->get('/c_resetOTP', 'PassReset/C_ResetPass::displayOTP',['filter' => 'pauth']);
+$routes->get('/c_resetNewPass', 'PassReset/C_ResetPass::displayResetPass',['filter' => 'pauth']);
 
 $myRoutes = array(
 	"rider-login" => "RiderLogin::index",
@@ -45,9 +47,7 @@ $myRoutes = array(
 	"client-dashboard/pending" => "ClientDashboard::pending",
 	"client-dashboard/deliveries/(:num)" => "ClientDashboard::details/$1",
 	"client-dashboard/pending/(:num)" => "ClientDashboard::details/$1",
-	"forgot-password" => "ForgotPassword::index",
-	"forgot-password/code-verification" => "ForgotPassword::codeVerification",
-	"forgot-password/new-password" => "ForgotPassword::newPassword"
+	"c_resetPassword" => "PassReset/C_ResetPass::index"
 );
 
 $routes->map($myRoutes);
