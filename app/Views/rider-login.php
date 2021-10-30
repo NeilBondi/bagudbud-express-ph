@@ -72,7 +72,7 @@
                                 </div>
                                 <div class="d-flex justify-content-center align-items-center">
                                     <p class="overflow-hidden">
-                                        <a href="" class="display-7 fw-bold link-dark text-decoration-none position-relative overflow-hidden a-link ms-1 pb-0">Forgot Password?</a>
+                                        <a href="<?= base_url('/r_resetPassword') ?>" class="display-7 fw-bold link-dark text-decoration-none position-relative overflow-hidden a-link ms-1 pb-0">Forgot Password?</a>
                                     </p>
                                 </div>
                             </div>
