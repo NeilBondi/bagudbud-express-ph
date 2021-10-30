@@ -43,8 +43,22 @@
                         <li class="sidebar-item active">
                             <a href="index.html" class='sidebar-link'>
                                 <i class="bi bi-grid-fill"></i>
+                                <span>Dashboard</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item  has-sub">
+                            <a href="#" class='sidebar-link'>
+                                <i class="bi bi-stack"></i>
                                 <span>Deliveries</span>
                             </a>
+                            <ul class="submenu ">
+                                <li class="submenu-item ">
+                                    <a href="component-alert.html">Success Requests</a>
+                                </li>
+                                <li class="submenu-item ">
+                                    <a href="component-badge.html">Cancelled Requests</a>
+                                </li>
+                            </ul>
                         </li>
                         <li class="sidebar-item">
                             <a href="index.html" class='sidebar-link'>
@@ -58,9 +72,16 @@
             </div>
         </div>
         <div id="main">
-            <header class="mb-3">
-                <a href="#" class="burger-btn d-block d-xl-none">
+            <header class="mb-3 d-flex justify-content-between align-items-center">
+                <a href="#" class="burger-btn d-inline-block d-xl-none">
                     <i class="bi bi-justify fs-3"></i>
+                </a>
+                <a href="" class="btn d-block d-sm-none">
+                    <div class="avatar avatar-md">
+                        <img src="<?= base_url('/public/assets/dashboard/images/faces/1.jpg')?>" alt="Face 1">
+                    </div>
+                    <span class="mx-2">John Doe</span>
+                    <img src="<?= base_url('/public/assets/img/arrow-down.svg')?>" alt="">
                 </a>
             </header>
             <?= $this->renderSection('content') ?>
@@ -98,7 +119,7 @@
                                 <div class="col">
                                     <div class="mt-xxl-3 mb-lg-2 d-flex flex-column">
                                         <label for="address" class="fw-bold display-7 form-label col-form-label col-form-label-sm mt-1 mt-lg-0">Address</label>
-                                        <input type="text" name="address" class="form-control form-control-sm py-2 fw-lighter" id="address" placeholder="Address">
+                                        <input type="text" name="address" class="form-control form-control-sm py-2 fw-lighter" id="address" placeholder="Zone or Street / Barangay">
                                     </div>
                                 </div>
 
@@ -111,14 +132,35 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="row row-cols-1 row-cols-lg-2">
+
+                                <!-- address -->
+
+                                <div class="col">
+                                    <div class="mt-xxl-3 mb-lg-2 d-flex flex-column">
+                                        <label for="product-name" class="fw-bold display-7 form-label col-form-label col-form-label-sm mt-1 mt-lg-0">Product Name</label>
+                                        <input type="text" name="product-name" class="form-control form-control-sm py-2 fw-lighter" id="product-name" placeholder="Product Name">
+                                    </div>
+                                </div>
+
+                                <!-- Minicipality -->
+
+                                <div class="col">
+                                    <div class="mt-xxl-3 mb-lg-2 d-flex flex-column">
+                                        <label for="product-price" class="fw-bold display-7 form-label col-form-label col-form-label-sm mt-1 mt-lg-0">Product Price</label>
+                                        <input type="text" name="product-price" class="form-control form-control-sm py-2 fw-lighter" id="product-price" placeholder="Product Price">
+                                    </div>
+                                </div>
+                            </div>
                             <div class="col">
                                 <div class="mt-xxl-3 mb-lg-2 d-flex flex-column">
                                     <label for="product-name" class="fw-bold display-7 form-label col-form-label col-form-label-sm mt-1 mt-lg-0">Mode of Payment</label>
                                     <select class="form-select form-select-sm py-2 fw-lighter" aria-label=".form-select-sm example" name="product-name">
-                                        <option selected>Cash On Delivery (COD)</option>
-                                        <option value="GCash">GCash</option>
-                                        <option value="PayMaya">PayMaya</option>
+                                        <option selected value="COD">Cash On Delivery (COD)</option>
+                                        <option value="COP">Cash on Pickup</option>
                                     </select>
+                                    <span class="method-description display-8 mt-3 text-muted">Cash on Delivery provides lorem ipsum dolor sit amet consectetur adipisicing elit. Officia eveniet esse fugiat ex.</span>
+                                    <span class="method-description display-8 mt-3 text-muted d-none">Cash on Pickup implements lorem ipsum dolor sit amet consectetur adipisicing elit. Officia eveniet esse fugiat ex.</span>
                                 </div>
                             </div>
                             <div class="mt-5">
@@ -174,6 +216,16 @@
                     })
                     // console.log($('.add-delivery'))
                     // $('.modal').modal('show');
+
+                    $('.method-description').prev('select').change(function() {
+                        if ($(this).val() === 'COD') {
+                            $('.method-description').first().removeClass('d-none');
+                            $('.method-description').last().addClass('d-none');
+                        } else {
+                            $('.method-description').last().removeClass('d-none');
+                            $('.method-description').first().addClass('d-none');
+                        }
+                    })
                 });
             </script>
            

@@ -42,7 +42,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-md-8">
-                                                <h6 class="text-muted font-semibold">Pending</h6>
+                                                <h6 class="text-muted font-semibold">Pending Requests</h6>
 
                                                 <!-- Insert Pending Count -->
 
@@ -62,7 +62,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-md-8">
-                                                <h6 class="text-muted font-semibold">Active Deliveries</h6>
+                                                <h6 class="text-muted font-semibold">Accepted Requests</h6>
 
                                                 <!-- Insert Active Deliveries Count -->
 
@@ -97,8 +97,11 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="card">
-                                    <div class="card-header">
+                                    <div class="card-header  d-flex justify-content-between">
                                         <h4 class="text-black">Pending Deliveries</h4>
+                                        <button class="btn me-3 me-md-5">
+                                            <img src="<?= base_url('/public/assets/img/edit.svg') ?>" alt="">
+                                        </button>
                                     </div>
                                     <div class="px-5 mx-md-3 mb-5">
                                         <table class="table table-hover table-container">

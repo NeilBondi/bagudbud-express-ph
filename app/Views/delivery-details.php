@@ -13,7 +13,7 @@
             </div>
             <div class="page-content">
                 <section class="row">
-                    <div class="col-12 col-lg-9">
+                    <div class="col-12 col-lg-8 col-xxl-9">
                         <div class="row d-flex justify-content-center">
                             <div class="col-12 col-md-4">
                                 <div class="card card-button add-delivery">
@@ -62,7 +62,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-md-8">
-                                                <h6 class="text-muted font-semibold">Active Deliveries</h6>
+                                                <h6 class="text-muted font-semibold">Accepted</h6>
 
                                                 <!-- Insert Active Deliveries Count -->
 
@@ -173,7 +173,8 @@
                                                 <div class="ms-3 mt-3">
                                                     <p class="font-extrabold text-black mb-1">John Doe</p>
                                                     <p class="m-0">09123456789</p>
-                                                    <a href="" class="a-link2 position-relative text-decoration-none text-black fw-bold">View Profile</a>
+                                                    <p class="m-0">Motorcycle</p>
+                                                    
                                                 </div>
                                             </div>
                                         </div>
@@ -197,24 +198,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-12 col-lg-3">
-                        <div class="card">
-                            <div class="card-body py-4 px-5">
-                                <div class="d-flex align-items-center">
-                                    <div class="avatar avatar-xl">
-                                        <img src="<?=base_url('/public/assets/dashboard/images/faces/1.jpg')?>">
-                                    </div>
-                                    <div class="ms-3 name">
-
-                                        <!-- change seller -->
-
-                                        <h5 class="font-bold text-black">John Doe</h5>
-                                        <h6 class="text-muted mb-0">example@example.com</h6>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card">
+                    <div class="col-12 col-lg-4 col-xxl-3">
+                        <div class="card card-details">
                             <div class="card-header">
                                 <h4 class="text-black">Details</h4>
                             </div>
@@ -246,9 +231,12 @@
                                         <span class="font-extrabold text-black text-end">Php 50.00</span>
                                     </div>
                                 </div>
-                                <div class="px-4 mt-4">
-                                    <button class='btn btn-block btn-xl btn-danger font-bold mt-3'>
-                                        Cancel Delivery
+                                <div class="d-grid gap-2 d-md-block d-lg-flex flex-column px-4 mt-4">
+                                    <button class='cancel-request-btn btn btn-xl btn-danger font-bold mt-3'>
+                                        Cancel Request
+                                    </button>
+                                    <button class='edit-request-btn btn btn-xl btn-outline-secondary border-2 font-bold mt-3'>
+                                        Edit Request
                                     </button>
                                 </div>
                             </div>
@@ -270,18 +258,26 @@
                     $('.back-btn').click(() => {
                         location.href = `${baseUrl}/client-dashboard/${currentUrl}`;
                     })
-                    
-
 
                     /* change the value of delivery status based on the status in db */
 
                     let deliveryStatus = 'Accepted Request';
+
+                    if (currentUrl === 'deliveries') {
+                        $('.cancel-request-btn').attr('disabled', true);
+                        $('.edit-request-btn').attr('disabled', true);
+                    } else {
+                        deliveryStatus = 'delivery request'
+                        $('.delivery-man, .tracking-updates').addClass('d-none')
+                    }
+
                     let status = {
                         0: 'delivery request',
                         1: 'accepted request',
                         2: 'shipped out',
                         3: 'package delivered'
                     };
+                    
                     for (const key in status) {
                         if (status[key].toLowerCase() === deliveryStatus.toLowerCase()) {
                             $('.track-container').children().eq(key).prevAll().each(function() {
@@ -292,6 +288,8 @@
                             $('.track-container').children().eq(key).find('svg').attr('stroke', '#fff');
                         }
                     }
+
+                    
                 })
             </script>
 
