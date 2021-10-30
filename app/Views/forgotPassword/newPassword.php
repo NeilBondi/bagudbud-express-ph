@@ -16,17 +16,17 @@
                 </div>
                 <div class="card-body d-flex flex-column p-0">
                     <form action="" method="post" class="d-flex flex-column">
-                        <div class="alert alert-danger text-center d-none fw-lighter" role="alert">
+                        <div class="alert alert-danger error text-center d-none fw-lighter" role="alert">
                             You've entered incorrect code!
                         </div>
-                        <div class="alert alert-success text-center fw-lighter" role="alert">
+                        <div class="alert alert-success success text-center fw-lighter" role="alert">
                             Please create a new password that you don't use on any other site.
                         </div>
                         <input type="password" name="password" class="form-control form-control py-2 fw-lighter" id="password" placeholder="Create new password">
                         <input type="password" name="confirm password" class="form-control form-control py-2 fw-lighter mt-3" id="confirm-password" placeholder="Confirm your new password">
                         <button type="submit" class="btn btn-primary text-white fw-bolder display-6 mt-3">Change</button>
                     </form>
-                    <button class="btn btn-transparent back-btn display-7 fw-lighter">Back</button>
+                    <!-- <button class="btn btn-transparent back-btn display-7 fw-lighter">Back</button> -->
                     
                 </div>
             </div>
@@ -38,6 +38,11 @@
             $('.back-btn').click(() => {
                 window.history.go(-3);
             })
+
+            // $('.error').removeClass('d-none');
+            // $('.error').addClass('d-none');
+            // $('.success').addClass('d-none');
+            // $('.success').removeClass('d-none');
         });
     </script>
 
