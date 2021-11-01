@@ -25,7 +25,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-md-8 d-flex align-items-center">
-                                                <h6 class="font-bold text-black">Add Delivery</h6>
+                                                <h6 class="font-bold text-black">Add Request</h6>
                                                 <!-- <h6 class="font-extrabold mb-0">112.000</h6> -->
                                             </div>
                                         </div>
@@ -99,9 +99,6 @@
                                 <div class="card">
                                     <div class="card-header d-flex justify-content-between">
                                         <h4 class="text-black">Accepted Requests</h4>
-                                        <button class="btn btn-light-secondary me-3 me-md-5 d-flex align-items-center">
-                                            <span class="me-2">Edit</span> <img src="<?= base_url('/public/assets/img/edit.svg') ?>" class="" alt="">
-                                        </button>
                                     </div>
                                     <div class="px-5 mx-md-3 mb-5">
                                         <table class="table table-hover table-container">

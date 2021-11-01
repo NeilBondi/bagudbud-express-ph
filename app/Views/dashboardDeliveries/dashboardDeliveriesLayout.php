@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="<?= base_url('/public/assets/dashboard/css/app.css')?>">
     <link rel="stylesheet" href="<?= base_url('/public/assets/css/customs.min.css')?>">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 <body class="position-relative">
     <div id="app" class="d-nones d-sm-block">
@@ -40,7 +41,7 @@
                                 <span>Profile</span>
                             </a>
                         </li>
-                        <li class="sidebar-item active">
+                        <li class="sidebar-item <?= strpos(current_url(),'pending') != 0 ?>">
                             <a href="index.html" class='sidebar-link'>
                                 <i class="bi bi-grid-fill"></i>
                                 <span>Dashboard</span>
@@ -66,6 +67,12 @@
                                 <span>Notifications</span>
                             </a>
                         </li>
+                        <li class="sidebar-item">
+                            <a href="<?= base_url('/client-dashboard/tracking') ?>" class='sidebar-link'>
+                                <i class="bi bi-grid-fill"></i>
+                                <span>Tracking</span>
+                            </a>
+                        </li>
                     </ul>
                 </div>
                 <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
@@ -84,13 +91,12 @@
                     <img src="<?= base_url('/public/assets/img/arrow-down.svg')?>" alt="">
                 </a>
             </header>
-            <?= $this->renderSection('content') ?>
             <div class="popup-container container-fluid position-fixed top-50 start-50 translate-middle justify-content-center row">
                 <div class="col-11 col-md-9 col-lg-8 col-xl-6 col-xxl-5 p-4 card">
                     <div class="card-body">
                         <form action="" method="post" class="">
                             <div class="d-inline-flex">
-                                <h5 class="card-title position-relative title text-black">Add Delivery</h5>
+                                <h5 class="card-title position-relative title text-black">Add Request</h5>
                             </div>
                             <div class="row row-cols-1 row-cols-lg-2">
 
@@ -157,7 +163,7 @@
                                     <label for="product-name" class="fw-bold display-7 form-label col-form-label col-form-label-sm mt-1 mt-lg-0">Mode of Payment</label>
                                     <select class="form-select form-select-sm py-2 fw-lighter" aria-label=".form-select-sm example" name="product-name">
                                         <option selected value="COD">Cash On Delivery (COD)</option>
-                                        <option value="COP">Cash on Pickup</option>
+                                        <option value="COP">Cash on Pickup (COP)</option>
                                     </select>
                                     <span class="method-description display-8 mt-3 text-muted">Cash on Delivery provides lorem ipsum dolor sit amet consectetur adipisicing elit. Officia eveniet esse fugiat ex.</span>
                                     <span class="method-description display-8 mt-3 text-muted d-none">Cash on Pickup implements lorem ipsum dolor sit amet consectetur adipisicing elit. Officia eveniet esse fugiat ex.</span>
@@ -174,10 +180,11 @@
                     </div>
                 </div>
             </div>
+            <?= $this->renderSection('content') ?>
+            
 
         </div>
     </div>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="<?= base_url('/public/assets/dashboard/js/pages/dashboard.js')?>"></script>
 
     <script src="<?= base_url('/public/assets/dashboard/js/main.js')?>"></script>
@@ -225,6 +232,51 @@
                             $('.method-description').last().removeClass('d-none');
                             $('.method-description').first().addClass('d-none');
                         }
+                    })
+
+                    // Edit request
+
+                    $('.edit-request-btn').click(function() {
+                        $('.popup-container').addClass('popup-active');
+                        $('body').addClass('popup-blur-active');
+                        let requestID = {
+                            requestID : getUrl.pathname.split('/')[4]
+                        };
+
+                        // console.log($('.popup-container').find('input'));
+
+                        // let inputs = {};
+                        // $('.popup-container').find('input').each(function() {
+                        //     // inputs[this.name] = 'sample input'
+                        //     $(this).val('l');
+                        // });
+
+                        const $parent = $('.popup-container');
+                        
+                        $.ajax({
+                            url: "<?= base_url('ClientDashboard/temp'); ?>",
+                            method: "GET",
+                            dataType: "json",
+                            data: requestID,
+                            success: function (res) {
+                                $parent.find('input[name=name]').val(res['name'])
+                                $parent.find('input[name=phone-number]').val(res['p-num'])
+                                $parent.find('input[name=address]').val(res['address'])
+                                $parent.find('input[name=Municipality]').val(res['municipality'])
+                                $parent.find('input[name=product-name]').val(res['product-name'])
+                                $parent.find('input[name=product-price]').val(res['product-price'])
+                                $parent.find('option[selected]').val()
+                                if (res['mode-of-payment'] === "COD" && $parent.find('option[selected]').val() === "COD") {
+                                    $parent.find('option:last-child').attr('selected', 'true');
+                                    $parent.find('option:first-child').removeAttr('selected');
+                                    // console.log($parent.find('option:last-child'));
+                                } else {
+                                    $parent.find('option:first-child').attr('selected', 'true');
+                                    $parent.find('option:last-child').removeAttr('selected');
+                                }
+                            }
+                        });
+                        
                     })
                 });
             </script>
