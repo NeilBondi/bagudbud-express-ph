@@ -25,7 +25,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-md-8 d-flex align-items-center">
-                                                <h6 class="font-bold text-black">Add Delivery</h6>
+                                                <h6 class="font-bold text-black">Add Request</h6>
                                                 <!-- <h6 class="font-extrabold mb-0">112.000</h6> -->
                                             </div>
                                         </div>
@@ -89,14 +89,14 @@
                                             </div>
                                             <div class="col d-flex flex-column">
                                                 <span>
-                                                    Track ID: 
+                                                    Tracking ID: 
                                                     <!-- Insert track ID here -->
-                                                    <span class="track-id">123456789</span>
+                                                    <span class="tracking-id">123456789</span>
                                                 </span>
                                                 <span class="mt-2">
                                                     Status:
                                                     <!-- Insert Status here -->
-                                                    <span class="status">Active</span>
+                                                    <span class="status">Delivery Request</span>
                                                 </span>
                                             </div>
                                         </div>
@@ -126,19 +126,6 @@
                                                         </span>
                                                     </span>
                                                     <span class="text-center">Accepted Request</span>
-                                                </li>
-                                                <li class="">
-                                                    <span>
-                                                        <span>
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#dbdada" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-truck">
-                                                                <rect x="1" y="3" width="15" height="13"></rect>
-                                                                <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
-                                                                <circle cx="5.5" cy="18.5" r="2.5"></circle>
-                                                                <circle cx="18.5" cy="18.5" r="2.5"></circle>
-                                                            </svg>
-                                                        </span>
-                                                    </span>
-                                                    <span class="text-center">Shipped Out</span>
                                                 </li>
                                                 <li>
                                                     <span class="last">
@@ -232,19 +219,25 @@
                                     </div>
                                 </div>
                                 <div class="d-grid gap-2 d-md-block d-lg-flex flex-column px-4 mt-4">
-                                    <button class='cancel-request-btn btn btn-xl btn-danger font-bold mt-3'>
-                                        Cancel Request
-                                    </button>
-                                    <button class='edit-request-btn btn btn-xl btn-outline-secondary border-2 font-bold mt-3'>
-                                        Edit Request
-                                    </button>
+
+                                    <!-- cancel request -->
+
+                                    <form action="post" class="d-inline-flex m-0">
+                                        <button type="submit" name="submit" class='cancel-request-btn btn btn-xl btn-danger w-100 font-bold mt-3'>
+                                            Cancel Request
+                                        </button>
+                                    </form>
+                                    <form action="" class="d-inline-flex m-0" onsubmit="event.preventDefault()">
+                                        <button type="submit" class='edit-request-btn btn btn-xl btn-outline-secondary border-2 w-100 font-bold mt-3'>
+                                            Edit Request
+                                        </button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </section>
             </div>
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
             <script>
                 $(() => {
                     // $('.track-container').find('.active').find('svg').attr('stroke', '#fff')
@@ -268,13 +261,13 @@
                         $('.edit-request-btn').attr('disabled', true);
                     } else {
                         deliveryStatus = 'delivery request'
-                        $('.delivery-man, .tracking-updates').addClass('d-none')
+                        $('.delivery-man').addClass('d-none')
+                        $('.tracking-updates li').not(':first-child').addClass('d-none')
                     }
 
                     let status = {
                         0: 'delivery request',
                         1: 'accepted request',
-                        2: 'shipped out',
                         3: 'package delivered'
                     };
                     
@@ -288,8 +281,6 @@
                             $('.track-container').children().eq(key).find('svg').attr('stroke', '#fff');
                         }
                     }
-
-                    
                 })
             </script>
 
