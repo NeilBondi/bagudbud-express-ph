@@ -107,6 +107,7 @@
                         } else {
                             $('.no-request').removeClass('d-none')
                             $('.result').addClass('d-none')
+                            $('.no-request').prev().addClass('d-none');
                         }
                     })
                 })
