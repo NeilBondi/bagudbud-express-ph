@@ -238,12 +238,12 @@ ul.tracking-updates {
 }
 
 .popup-blur-active {
-	height: 100vh;
-	overflow-y: hidden;
+	min-height: 100vh;
+	height: auto;
 }
 
 .popup-blur-active::after {
-	position: fixed;
+	position: absolute;
 	top: 0;
 	left: 0;
 	content: "";
@@ -261,6 +261,13 @@ ul.tracking-updates {
 @media screen and (max-width: 992px) {
 	.card-details {
 		margin-top: 0;
+	}
+}
+@media screen and (max-width: 576px) {
+	.popup-container {
+		top: 2rem !important;
+		transform: translateY(0) !important;
+		transform: translatex(-50%) !important;
 	}
 }
 

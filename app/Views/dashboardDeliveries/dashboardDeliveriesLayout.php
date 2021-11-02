@@ -91,7 +91,7 @@
                     <img src="<?= base_url('/public/assets/img/arrow-down.svg')?>" alt="">
                 </a>
             </header>
-            <div class="popup-container container-fluid position-fixed top-50 start-50 translate-middle justify-content-center row">
+            <div class="popup-container container-fluid position-absolute top-50 start-50 translate-middle justify-content-center row">
                 <div class="col-11 col-md-9 col-lg-8 col-xl-6 col-xxl-5 p-4 card">
                     <div class="card-body">
                         <form method="post" class="" id="form">
