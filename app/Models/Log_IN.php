@@ -40,17 +40,13 @@ class Log_IN extends Model{
         foreach ($query->getResultArray() as $row) {
             $result = [
                 'id'             => $row['Client_id'],
-                'name'           => $row['Name'],
-                'address'        => $row['Address'],
-                'municipality'   => $row['Municipality'],
-                'email'          => $row['Email'],
-                'Contact_Num'    => $row['Contact_num'],
                 'logged_in'      => TRUE
             ];
         }
 
         return $result;
     }
+
 
     //verify the email from gmail 
     public function validation($verifyKey){//verification key validation and account validation

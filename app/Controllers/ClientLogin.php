@@ -32,22 +32,22 @@ class ClientLogin extends BaseController
             $session->set($session_Data); 
 
             //route to dashboard
-            return redirect()->to('/dashboard');
+            return redirect()->to(base_url('/client-dashboard/deliveries'));
         }else if($code == 400){
 
             $session->setFlashdata('msg', 'Email not Found');
-            return redirect()->to('/client-login');
+            return redirect()->to(base_url('/client-login'));
 
         }else if($code == 300){
 
             $session->setFlashdata('msg', 'Wrong Password');
-            return redirect()->to('/client-login');
+            return redirect()->to(base_url('/client-login'));
 
         }else{
 
             //error message for not verified
             $session->setFlashdata('msg', $code );
-            return redirect()->to('/client-login');
+            return redirect()->to(base_url('/client-login'));
 
         }
 
@@ -58,7 +58,7 @@ class ClientLogin extends BaseController
     {
         $session = session();
         $session->destroy();
-        return redirect()->to('/client-login');
+        return redirect()->to(base_url('/client-login'));
     }
 
     //verification process

@@ -83,11 +83,11 @@
 
                                                 <!-- Insert Client Name -->
 
-                                                <h5 class="font-bold text-black">John Duck</h5>
+                                                <h5 class="font-bold text-black"><?= $logData['Name']; ?></h5>
 
                                                 <!-- Insert Client Email -->
 
-                                                <h6 class="text-muted mb-0">@johnducky</h6>
+                                                <h6 class="text-muted mb-0"><?= $logData['B_name'];?></h6>
                                             </div>
                                         </div>
                                     </div>

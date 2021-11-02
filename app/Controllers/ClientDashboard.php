@@ -2,22 +2,107 @@
 
 namespace App\Controllers;
 use CodeIgniter\Controller;
+use  App\Models\Dashboard\Client_Dashboard;
 
 class ClientDashboard extends BaseController
 {
 	public function index()
 	{
+		$dash = new Client_Dashboard();
 		$session = session();
+		$id = $session->get('id');
+
+		$userDBdata = $dash->getCompleteData($id);
+		foreach ($userDBdata as $row) {
+			$clientData = array(
+				'id'           => $row['Client_id'],
+				'Name'         => $row['Name'],
+				'Address'      => $row['Address'],
+				'Municipality' => $row['Municipality'],
+				'Email'        => $row['Email'],
+				'Contact_num'  => $row['Contact_num'],
+				'B_name'  => $row['B_name'],
+			);
+		}
+
 		$data = array(
             "page_title" => "Bagudbud | Dashboard",
-			'logData' => $session->get('email')//fetch session data
+			'logData' => $clientData//fetch session data
         );
 		return view('client-dashboard', $data);
 	}
 
+	public function addRecepient(){
+		$session = session();
+		$id = $session->get('id');
+		$name = $this->request->getPost('name');
+		$phoneNumber = $this->request->getPost('phone-number');
+		$address = $this->request->getPost('address');
+		$Municipality = $this->request->getPost('Municipality');
+		$productName = $this->request->getPost('product-name');
+		$productPrice = $this->request->getPost('product-price');
+		$payment = $this->request->getPost('payment');
+		
+		return json_encode([
+			'id' => $id,
+			'name' => $name,
+			'phone-number' => $phoneNumber,
+			'address' => $address,
+			'Municipality' => $Municipality,
+			'product-name' => $productName,
+			'product-price' => $productPrice,
+			'payment' => $payment,
+			'addRecipient' => true
+			
+		]);
+	}
+
+	public function editRecepient(){
+		$session = session();
+		$id = $session->get('id');
+		$name = $this->request->getPost('name');
+		$phoneNumber = $this->request->getPost('phone-number');
+		$address = $this->request->getPost('address');
+		$Municipality = $this->request->getPost('Municipality');
+		$productName = $this->request->getPost('product-name');
+		$productPrice = $this->request->getPost('product-price');
+		$payment = $this->request->getPost('payment');
+
+		return json_encode([
+			'id' => $id,
+			'name' => $name,
+			'phone-number' => $phoneNumber,
+			'address' => $address,
+			'Municipality' => $Municipality,
+			'product-name' => $productName,
+			'product-price' => $productPrice,
+			'payment' => $payment,
+			'editRecipient' => true
+			
+		]);
+	}
+
 	public function pending() {
+
+		$dash = new Client_Dashboard();
+		$session = session();
+		$id = $session->get('id');
+
+		$userDBdata = $dash->getCompleteData($id);
+		foreach ($userDBdata as $row) {
+			$clientData = array(
+				'id'           => $row['Client_id'],
+				'Name'         => $row['Name'],
+				'Address'      => $row['Address'],
+				'Municipality' => $row['Municipality'],
+				'Email'        => $row['Email'],
+				'Contact_num'  => $row['Contact_num'],
+				'B_name'  => $row['B_name'],
+			);
+		}
 		$data = array(
             "page_title" => "Bagudbud | Pending",
+			'logData' => $clientData,
         );
 		return view('client-request-pending', $data);
 	}
