@@ -132,4 +132,11 @@ class ClientDashboard extends BaseController
 			'mode-of-payment' => 'COD',
 		]);
 	}
+
+	public function profile() {
+		$data = array(
+            "page_title" => "Bagudbud | Profile",
+        );
+		return view('client/client-profile', $data);
+	}
 }
