@@ -45,7 +45,7 @@
                                     <a href="<?= base_url('/client-dashboard/profile') ?>">My Profile</a>
                                 </li>
                                 <li class="submenu-item password-and-security">
-                                    <a href="component-badge.html">Password and Security</a>
+                                    <a href="<?= base_url('/client-dashboard/password-and-security') ?>">Password and Security</a>
                                 </li>
                                 <li class="submenu-item delete-account">
                                     <a href="component-badge.html">Delete Account</a>
@@ -236,6 +236,12 @@
                             $(this).removeClass('active')
                         })
                         $('.profile, .edit-profile').addClass('active')
+                        $('.profile').find('ul').addClass('active')
+                    }else if (currentUrl === 'password-and-security') {
+                        $('.menu').children().not($('.password-and-security')).each(function() {
+                            $(this).removeClass('active')
+                        })
+                        $('.profile, .password-and-security').addClass('active')
                         $('.profile').find('ul').addClass('active')
                     }
 

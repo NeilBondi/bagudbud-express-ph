@@ -9,9 +9,17 @@ class ClientProfile extends BaseController
 	{
         // helper('form');
         $data = array(
-            "page_title" => "Bagudbud | Login"
+            "page_title" => "Bagudbud | Profile"
         );
 		return view('client/client-profile', $data);
+	}
+	public function passwordAndSecurity()
+	{
+        // helper('form');
+        $data = array(
+            "page_title" => "Bagudbud | Password and Security"
+        );
+		return view('client/client-password-and-security', $data);
 	}
 
     

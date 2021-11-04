@@ -51,6 +51,7 @@ $myRoutes = array(
 	"client-dashboard/pending/(:num)" => "ClientDashboard::details/$1",
 	"client-dashboard/tracking" => "ClientDashboard::tracking",
 	"client-dashboard/profile" => "ClientProfile::index",
+	"client-dashboard/password-and-security" => "ClientProfile::passwordAndSecurity",
 	"c_resetPassword" => "PassReset/C_ResetPass::index",
 	"r_resetPassword" => "PassReset/R_ResetPass::index"
 );
