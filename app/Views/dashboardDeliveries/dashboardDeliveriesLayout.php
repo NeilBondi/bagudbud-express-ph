@@ -42,7 +42,7 @@
                             </a>
                             <ul class="submenu">
                                 <li class="submenu-item edit-profile">
-                                    <a href="<?= base_url('/client-dashboard/profile') ?>">Edit Profile</a>
+                                    <a href="<?= base_url('/client-dashboard/profile') ?>">My Profile</a>
                                 </li>
                                 <li class="submenu-item password-and-security">
                                     <a href="component-badge.html">Password and Security</a>

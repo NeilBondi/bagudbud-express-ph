@@ -21,7 +21,7 @@
                             <div class="card-body">
                                 <form action="" method="post">
                                     <div class="inner-container px-3 px-lg-5 d-flex flex-column align-items-center"  style="max-width: 50rem; width: 100%">
-                                        <div class="profile-con avatar avatar-xl border border-2 border-primary position-relative">
+                                        <div class="profile-con avatar avatar-xxl border border-2 border-primary position-relative">
                                             <img src="<?= base_url('/public/assets/dashboard/images/faces/1.jpg')?>" alt="Face 1">
                                             <div class="c position-absolute w-100 h-100 rounded-circle overflow-hidden" style="z-index: 10; width: 100%; height: 100%;">
                                                 

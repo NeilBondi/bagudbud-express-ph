@@ -437,6 +437,12 @@ ul.tracking-updates {
 }
 .avatar.avatar-xl .avatar-content,
 .avatar.avatar-xl img {
+	width: 60px;
+	height: 60px;
+	font-size: 1.4rem;
+}
+.avatar.avatar-xxl .avatar-content,
+.avatar.avatar-xxl img {
 	width: 8rem;
 	height: 8rem;
 	font-size: 1.4rem;
