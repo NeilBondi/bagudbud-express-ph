@@ -35,11 +35,25 @@
                 <div class="sidebar-menu">
                     <ul class="menu">
                         <li class="sidebar-title">Menu</li>
-                        <li class="profile sidebar-item">
-                            <a href="index.html" class='sidebar-link'>
+                        <li class="profile sidebar-item has-sub">
+                            <a href="<?= base_url('/client-dashboard/profile') ?>" class='sidebar-link'>
                                 <i class="bi bi-person-fill"></i>
                                 <span>Profile</span>
                             </a>
+                            <ul class="submenu">
+                                <li class="submenu-item edit-profile">
+                                    <a href="<?= base_url('/client-dashboard/profile') ?>">Edit Profile</a>
+                                </li>
+                                <li class="submenu-item password-and-security">
+                                    <a href="component-badge.html">Password and Security</a>
+                                </li>
+                                <li class="submenu-item delete-account">
+                                    <a href="component-badge.html">Delete Account</a>
+                                </li>
+                                <li class="submenu-item">
+                                    <a href="component-badge.html" class="text-danger">Logout</a>
+                                </li>
+                            </ul>
                         </li>
                         <li class="dashboard sidebar-item">
                             <a href="<?= base_url('/client-dashboard/deliveries') ?>" class='sidebar-link'>
@@ -84,7 +98,7 @@
                     <i class="bi bi-justify fs-3"></i>
                 </a>
                 <a href="" class="btn d-block d-sm-none">
-                    <div class="avatar avatar-md">
+                    <div class="avatar avatar-sm">
                         <img src="<?= base_url('/public/assets/dashboard/images/faces/1.jpg')?>" alt="Face 1">
                     </div>
                     <span class="mx-2">John Doe</span>
@@ -207,7 +221,7 @@
                     });
 
                     // implement active functionality in sidebaar
-                    if (currentUrl === 'deliveries' || currentUrl === 'deliveries') {
+                    if (currentUrl === 'pending' || currentUrl === 'deliveries') {
                         $('.menu').children().not($('.dashboard')).each(function() {
                             $(this).removeClass('active')
                         })
@@ -217,7 +231,15 @@
                             $(this).removeClass('active')
                         })
                         $('.tracking').addClass('active')
+                    } else if (currentUrl === 'profile') {
+                        $('.menu').children().not($('.profile')).each(function() {
+                            $(this).removeClass('active')
+                        })
+                        $('.profile, .edit-profile').addClass('active')
+                        $('.profile').find('ul').addClass('active')
                     }
+
+                    // end
 
                     $('.add-delivery').click(() => {
                         // redirect to add deliveries
