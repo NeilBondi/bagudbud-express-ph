@@ -48,7 +48,7 @@
                                     <a href="<?= base_url('/client-dashboard/password-and-security') ?>">Password and Security</a>
                                 </li>
                                 <li class="submenu-item delete-account">
-                                    <a href="component-badge.html">Delete Account</a>
+                                    <a href="component-badge.html" id="delete-acc">Delete Account</a>
                                 </li>
                                 <li class="submenu-item">
                                     <a href="<?= base_url('ClientLogin/logout');?>" class="text-danger">Logout</a>
