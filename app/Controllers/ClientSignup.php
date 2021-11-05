@@ -36,7 +36,7 @@ class ClientSignup extends BaseController
 		$fname = $this->request->getPost('first-name');
 		$lname = $this->request->getPost('last-name');
 	 
-		$name = $fname.' '.$lname;
+		// $name = $fname.' '.$lname;
 
 		$street = $this->request->getPost('zone-street');
 		$barangay = $this->request->getPost('barangay');
@@ -57,11 +57,12 @@ class ClientSignup extends BaseController
 		$password = password_hash($password, PASSWORD_DEFAULT); 
 		// $vkey = md5(time() . $name);
 		//generate verifivation key
-		$vkey = substr(md5(time() . $name), 0, 12);
+		$vkey = substr(md5(time() . $fname), 0, 12);
 
 		$data = [
 			'Password' => $password,
-			'Name' => $name,
+			'Name' => $fname,
+			'L_name' => $lname,
 			'Address' => $address,
 			'Municipality' => $municipality,
 			'Email' => $C_email,

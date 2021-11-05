@@ -48,10 +48,10 @@
                                     <a href="<?= base_url('/client-dashboard/password-and-security') ?>">Password and Security</a>
                                 </li>
                                 <li class="submenu-item delete-account">
-                                    <a href="<?= base_url('/client-dashboard/delete-account') ?>">Delete Account</a>
+                                    <a href="<?= base_url('/client-dashboard/delete-account') ?>" id="delete-account">Delete Account</a>
                                 </li>
                                 <li class="submenu-item">
-                                    <a href="component-badge.html" class="text-danger">Logout</a>
+                                    <a href="<?= base_url('ClientLogin/logout');?>" class="text-danger">Logout</a>
                                 </li>
                             </ul>
                         </li>

@@ -12,6 +12,7 @@ class Client_Signup extends Model
     protected $allowedFields = [
         'Password',
         'Name',
+        'L_name',
         'Address',
         'Municipality',
         'Email',
