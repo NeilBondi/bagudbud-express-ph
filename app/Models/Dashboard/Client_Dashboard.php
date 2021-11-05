@@ -114,5 +114,25 @@ class Client_Dashboard extends Model{
         return true;
         
     }
+
+    public function editProfile($id, $data){
+        $db = \Config\Database::connect();
+        $builder = $db->table('clients');
+
+        $builder->where('Client_id', $id);
+        $builder->update($data);
+
+        return true;        
+    }
+
+    public function deleteAccount($id){
+        $db = \Config\Database::connect();
+        $builder = $db->table('clients');
+
+        $builder->where('Client_id', $id);
+        $builder->delete();
+
+        return true;        
+    }
     
 }

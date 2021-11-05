@@ -27,7 +27,7 @@
                                                 
                                                 <!-- Profile Picture -->
                                             
-                                                <input type="file" name="profile-image" id="profile-image" style="width: 100%; height: 100%; cursor: pointer; opacity: 0;">
+                                                <!-- <input type="file" name="profile-image" id="profile-image" style="width: 100%; height: 100%; cursor: pointer; opacity: 0;"> -->
                                             </div>
                                             <div class="overlay position-absolute w-100 h-100 rounded-circle overflow-hidden d-flex justify-content-center align-items-center">
                                                 <span class="fw-bold" style="opacity: 0.7;">Change Profile Image</span>
@@ -139,7 +139,6 @@
                                                 <div class="mt-xxl-3 mb-lg-2 d-flex flex-column">
                                                     <label for="municipality" class="fw-bold display-7 form-label col-form-label col-form-label-sm mt-1 mt-lg-0">Municipality</label>
                                                     <select class="form-select form-select-sm py-2 fw-lighter border-primary bg-light-primary" aria-label=".form-select-sm example" name="Municipality" id="Municipality">
-                                                        <option selected value="--Select--">--Select--</option>
                                                         <option value="Baao">Baao</option>
                                                         <option value="Bato">Bato</option>
                                                         <option value="Balatan">Balatan</option>
@@ -155,7 +154,7 @@
 
                                             <div class="col">
                                                 <div class="mt-xxl-3 mb-lg-2 d-flex flex-column">
-                                                    <label for="barangay" class="fw-bold display-7 form-label col-form-label col-form-label-sm mt-1 mt-lg-0">Barangay</label>
+                                                    <label for="barangay" class="fw-bold display-7 form-label col-form-label col-form-label-sm mt-1 mt-lg-0">Zone/street, Barangay</label>
                                                     <input type="text" name="barangay" class="form-control form-control-sm py-2 fw-lighter border-primary bg-light-primary" id="barangay" placeholder="Barangay">
                                                 </div>
                                             </div>
@@ -164,12 +163,12 @@
 
                                             <!-- Zone / Street -->
 
-                                            <div class="col">
+                                            <!-- <div class="col">
                                                 <div class="mt-xxl-3 mb-lg-2 d-flex flex-column">
                                                     <label for="zone-street" class="fw-bold display-7 form-label col-form-label col-form-label-sm mt-1 mt-lg-0">Zone / Street</label>
                                                     <input type="text" name="zone-street" class="form-control form-control-sm py-2 fw-lighter border-primary bg-light-primary" id="zone-street" placeholder="Zone / Street">
                                                 </div>
-                                            </div>
+                                            </div> -->
                                         </div>
                                         <div class="mt-5 w-100">
 
@@ -183,7 +182,9 @@
                     </div>
                 </section>
             </div>
-            <script>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+            <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+            <script type="text/javascript">
                 $(() => {
 
                     $('.profile-con').click(() => {
@@ -246,7 +247,113 @@
                 })
 
                 $(document).ready(function () {
-                    
+                    var bool_number = true;
+
+                    $('input[type=number]').keyup(function (e) {
+                        var num = $(this).val(); 
+                        var filter = /^(09|\+63)\d{9}$/;
+                        if(filter.test(num)){
+                            // alert('ok');
+                            $(this).next().text('').addClass('d-none');
+                            bool_number = true;
+                        }else{
+                            // alert('no');
+                            $(this).next().text('Invalid Number').removeClass('d-none');
+                            bool_number = false;
+                        }
+                    });
+                        
+                    $('#profile-form').submit(function (e) { 
+                        e.preventDefault();
+                        
+                        if(bool_number){
+                            var data = new FormData(this);
+                            $.ajax({
+                                type: "post",
+                                url: "<?= base_url('ClientProfile/editProfile');?>",
+                                data: data,
+                                dataType: "json",
+                                contentType: false,
+                                cache: false,
+                                processData: false,
+                                success: function (res) {
+                                    console.log(res);
+                                    if(res.code == 505){
+                                        Swal.fire({
+                                            icon: 'error',
+                                            title: 'Oops...',
+                                            text: res.msg
+                                        });
+                                    }else{
+                                        const Toast = Swal.mixin({
+                                        toast: true,
+                                        position: 'top-end',
+                                        showConfirmButton: false,
+                                        timer: 2000,
+                                        timerProgressBar: false,
+                                        didOpen: (toast) => {
+                                            toast.addEventListener('mouseenter', Swal.stopTimer)
+                                            toast.addEventListener('mouseleave', Swal.resumeTimer)
+                                        }
+                                        })
+
+                                        Toast.fire({
+                                        icon: 'success',
+                                        title: res.msg
+                                        }).then(function(){
+                                            $('#form')[0].reset();
+                                            // $('body').removeClass('popup-blur-active');
+                                            // $('.popup-container').removeClass('popup-active');
+                                            // window.location.reload();
+                                        });
+                                    }
+                                }
+                            });
+                        }else{
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: 'Something went wrong!'
+                            });
+                        }
+                    });
+
+                    $('#delete-acc').click(function (e) { 
+                        e.preventDefault();
+
+                        Swal.fire({
+                            title: 'Are you sure?',
+                            text: "You won't be able to revert this!",
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#3CD87A',
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: 'Continue!'
+                            }).then((result) => {
+                            if (result.isConfirmed) {
+                               
+                                $.ajax({
+                                    type: "post",
+                                    url: "<?= base_url('ClientProfile/deleteAccount');?>",
+                                    data: '',
+                                    dataType: "json",
+                                    success: function (res) {
+                                        if(res.code == 202){
+                                            Swal.fire(
+                                            'Deleted!',
+                                            'Your account has been deleted.',
+                                            'success'
+                                            ).then(function(){
+                                                location.href= "<?= base_url('/client-login')?>";
+                                            })
+                                        }
+                                    }
+                                });
+                            }
+                        })
+                    });
+
+                    // alert('ok');
                 });
             </script>
 
