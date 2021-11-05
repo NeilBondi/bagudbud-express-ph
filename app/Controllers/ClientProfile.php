@@ -46,4 +46,13 @@ class ClientProfile extends BaseController
 			'zone-street' => 'Zone 1',
 		]);
 	}
+
+	public function notifications()
+	{
+        // helper('form');
+        $data = array(
+            "page_title" => "Bagudbud | Notifications"
+        );
+		return view('client/notifications', $data);
+	}
 }

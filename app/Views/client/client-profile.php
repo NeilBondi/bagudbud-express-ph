@@ -18,17 +18,11 @@
                             <div class="card-header d-flex justify-content-between">
                                 <h4 class="text-black">My Profile</h4>
                             </div>
-                            <div class="card-body">
+                            <div class="card-body position-relative"  style="max-width: 50rem; width: 100%">
                                 <form action="" method="post" id="profile-form">
-                                    <div class="inner-container px-3 px-lg-5 d-flex flex-column align-items-center"  style="max-width: 50rem; width: 100%">
+                                    <div class="inner-container px-3 px-lg-5 d-flex flex-column align-items-center">
                                         <div class="profile-con avatar avatar-xxl border border-2 border-primary position-relative">
                                             <img src="<?= base_url('/public/assets/dashboard/images/faces/1.jpg')?>" alt="Face 1">
-                                            <div class="c position-absolute w-100 h-100 rounded-circle overflow-hidden" style="z-index: 10; width: 100%; height: 100%;">
-                                                
-                                                <!-- Profile Picture -->
-                                            
-                                                <input type="file" name="profile-image" id="profile-image" style="width: 100%; height: 100%; cursor: pointer; opacity: 0;">
-                                            </div>
                                             <div class="overlay position-absolute w-100 h-100 rounded-circle overflow-hidden d-flex justify-content-center align-items-center">
                                                 <span class="fw-bold" style="opacity: 0.7;">Change Profile Image</span>
                                             </div>
@@ -178,6 +172,72 @@
                                         </div>
                                     </div>
                                 </form>
+                                <div class="avatar-container d-none bg card" style="max-width: 35rem; width: 100%">
+                                    <div class="p-4">
+                                        <h5 class="text-black pb-4">Choose Avatar</h5>
+                                        <form action="" method="post" id="avatar-form" class="d-flex flex-column">
+                                            <div class="row">
+                                                <div class="col-3 p-3 d-flex align-items-center justify-content-center">
+                                                    <div class="avatar-con avatar avatar avatar-xl2 position-relative">
+                                                        <img src="<?= base_url('/public/assets/dashboard/images/faces/1.jpg')?>" alt="Face 1">
+                                                        <input type="radio" name="avatar" id="avatar-icons" value="<?= base_url('/public/assets/dashboard/images/faces/1.jpg')?>">
+                                                        <span class="border-overlay"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-3 p-3 d-flex align-items-center justify-content-center">
+                                                    <div class="avatar-con avatar avatar-xl2 position-relative">
+                                                        <img src="<?= base_url('/public/assets/dashboard/images/faces/2.jpg')?>" alt="Face 1">
+                                                        <input type="radio" name="avatar" id="avatar-icons" value="<?= base_url('/public/assets/dashboard/images/faces/2.jpg')?>">
+                                                        <span class="border-overlay"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-3 p-3 d-flex align-items-center justify-content-center">
+                                                    <div class="avatar-con avatar avatar-xl2 position-relative">
+                                                        <img src="<?= base_url('/public/assets/dashboard/images/faces/3.jpg')?>" alt="Face 1">
+                                                        <input type="radio" name="avatar" id="avatar-icons" value="<?= base_url('/public/assets/dashboard/images/faces/3.jpg')?>">
+                                                        <span class="border-overlay"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-3 p-3 d-flex align-items-center justify-content-center">
+                                                    <div class="avatar-con avatar avatar-xl2 position-relative">
+                                                        <img src="<?= base_url('/public/assets/dashboard/images/faces/4.jpg')?>" alt="Face 1">
+                                                        <input type="radio" name="avatar" id="avatar-icons" value="<?= base_url('/public/assets/dashboard/images/faces/4.jpg')?>">
+                                                        <span class="border-overlay"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-3 p-3 d-flex align-items-center justify-content-center">
+                                                    <div class="avatar-con avatar avatar-xl2 position-relative">
+                                                        <img src="<?= base_url('/public/assets/dashboard/images/faces/5.jpg')?>" alt="Face 1">
+                                                        <input type="radio" name="avatar" id="avatar-icons" value="<?= base_url('/public/assets/dashboard/images/faces/5.jpg')?>">
+                                                        <span class="border-overlay"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-3 p-3 d-flex align-items-center justify-content-center">
+                                                    <div class="avatar-con avatar avatar-xl2 position-relative">
+                                                        <img src="<?= base_url('/public/assets/dashboard/images/faces/6.jpg')?>" alt="Face 1">
+                                                        <input type="radio" name="avatar" id="avatar-icons" value="<?= base_url('/public/assets/dashboard/images/faces/6.jpg')?>">
+                                                        <span class="border-overlay"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-3 p-3 d-flex align-items-center justify-content-center">
+                                                    <div class="avatar-con avatar avatar-xl2 position-relative">
+                                                        <img src="<?= base_url('/public/assets/dashboard/images/faces/7.jpg')?>" alt="Face 1">
+                                                        <input type="radio" name="avatar" id="avatar-icons" value="<?= base_url('/public/assets/dashboard/images/faces/7.jpg')?>">
+                                                        <span class="border-overlay"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-3 p-3 d-flex align-items-center justify-content-center">
+                                                    <div class="avatar-con avatar avatar-xl2 position-relative">
+                                                        <img src="<?= base_url('/public/assets/dashboard/images/faces/8.jpg')?>" alt="Face 1">
+                                                        <input type="radio" name="avatar" id="avatar-icons" value="<?= base_url('/public/assets/dashboard/images/faces/8.jpg')?>">
+                                                        <span class="border-overlay"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <button type="submit" name="submit" class="btn btn-primary mt-5 py-2">Done</button>
+                                        </form>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -186,8 +246,48 @@
             <script>
                 $(() => {
 
+                    $(document).click((event) => {
+                        if(event.target.tagName === 'BODY') {
+                            $('.avatar-container').addClass('d-none');
+                            $('body').removeClass('popup-blur-active');
+                        }
+                        
+                    })  
+
+                    let $currentProfile = $('.profile-con').children().first()
                     $('.profile-con').click(() => {
-                        // $('input[type=file]').click()
+                        $('.avatar-container').removeClass('d-none');
+                        $('body').addClass('popup-blur-active');
+
+                        let $inputs = $('input[name=avatar')
+                        
+                        $inputs.each(function() {
+                            
+                            $(this).change(function() {
+                                $inputs.each(function() {
+                                    $(this).next().removeClass('active')
+                                })
+                                $(this).attr('selected', 'true')
+                                $(this).next().addClass('active')
+                            })
+                            if ($(this).val() === $currentProfile.attr('src')) {
+                                $(this).attr('selected', 'true')
+                                $(this).next().addClass('active')
+                                
+                            }
+                        })
+                    })
+
+                    $('#avatar-form').submit(function(e) {
+                        e.preventDefault();
+                        let $data = $('#avatar-form').serializeArray()
+
+                        // insert on success
+                        $currentProfile.attr('src', $data[0].value)
+                        setTimeout(() => {
+                            $('.avatar-container').addClass('d-none');
+                            $('body').removeClass('popup-blur-active');
+                        }, 750)
                     })
                     
                     $('#search').keyup(function() {
