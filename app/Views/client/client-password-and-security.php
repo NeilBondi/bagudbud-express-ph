@@ -20,7 +20,7 @@
                             </div>
                             <div class="card-body">
                                 <form action="" method="post">
-                                    <div class="inner-container px-3 px-lg-5 d-flex flex-column align-items-center"  style="max-width: 50rem; width: 100%">
+                                    <div class="inner-container px-3 px-lg-5 d-flex flex-column align-items-center"  style="max-width: 30rem; width: 100%">
                                         
                                         <div class="row w-100">
 
