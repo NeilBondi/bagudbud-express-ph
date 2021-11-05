@@ -175,11 +175,7 @@
                             </div>
                             <div class="col">
                                 <div class="mt-xxl-3 mb-lg-2 d-flex flex-column">
-<<<<<<< HEAD
                                     <label for="product-name" class="fw-bold display-7 form-label col-form-label col-form-label-sm mt-1 mt-lg-0">Delivery Mode of Payment</label>
-=======
-                                    <label for="product-name" class="fw-bold display-7 form-label col-form-label col-form-label-sm mt-1 mt-lg-0">Mode of Payment</label>
->>>>>>> ed86f797c5eb1809f2e8533ace0c905b7d10faf6
                                     <select class="form-select form-select-sm py-2 fw-lighter" aria-label=".form-select-sm example" name="payment">
                                         <option selected value="COD">Cash On Delivery (COD)</option>
                                         <option value="COP">Cash on Pickup (COP)</option>
@@ -194,11 +190,7 @@
                                 <!-- Submit btn -->
 
                                 <!-- <button type="submit" class="btn btn-primary">Add</button> -->
-<<<<<<< HEAD
                                 <input type="submit" class="btn btn-primary" value="Done">
-=======
-                                <input type="submit" class="btn btn-primary" value="ADD">
->>>>>>> ed86f797c5eb1809f2e8533ace0c905b7d10faf6
                             </div>
                         </form>
                     </div>
@@ -214,18 +206,13 @@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="<?= base_url('/public/assets/dashboard/js/bootstrap.min.js')?>"></script>
     
-<<<<<<< HEAD
     <script type="text/javascript">
 
-=======
-            <script type="text/javascript">
->>>>>>> ed86f797c5eb1809f2e8533ace0c905b7d10faf6
                 $(() => {
                     let getUrl = window.location;
                     let baseUrl = `${getUrl.origin}/${getUrl.pathname.split('/')[1]}`;
                     let currentUrl = getUrl.pathname.split('/')[3];
                     $('.items').each(function() {
-                        console.log(1);
                         $(this).click(function() {
                             // delivery details path
                             let id = $(this).attr('data-label').split('-')[1];
@@ -320,15 +307,9 @@
                                 $parent.find('input[name=product-name]').val(res['product-name'])
                                 $parent.find('input[name=product-price]').val(res['product-price'])
                                 $parent.find('option[selected]').val()
-<<<<<<< HEAD
                                 if (res['payment'] == "COD") {
                                    $parent.find('option:first-child').attr('selected', 'true');
                                     $parent.find('option:last-child').removeAttr('selected');
-=======
-                                if (res['mode-of-payment'] === "COD") {
-                                    $parent.find('option:last-child').attr('selected', 'true');
-                                    $parent.find('option:first-child').removeAttr('selected');
->>>>>>> ed86f797c5eb1809f2e8533ace0c905b7d10faf6
                                     // console.log($parent.find('option:last-child'));
                                 } else {
                                     $parent.find('option:last-child').attr('selected', 'true');
@@ -343,11 +324,7 @@
                 
                     $('#phone-number').keyup(function (e) {
                         var num = $(this).val(); 
-<<<<<<< HEAD
                         var filter = /^(09)\d{9}$/;
-=======
-                        var filter = /^(09|\+63)\d{9}$/;
->>>>>>> ed86f797c5eb1809f2e8533ace0c905b7d10faf6
                         
                         if(filter.test(num)){
                             // alert('ok');
@@ -359,11 +336,7 @@
                             bool_number = false;
                         }
                     });
-<<<<<<< HEAD
                     $("input").attr("required", true);
-=======
-
->>>>>>> ed86f797c5eb1809f2e8533ace0c905b7d10faf6
                     $('#form').submit(function (e) { 
                         e.preventDefault();
                         if(bool_number && requestID === null){ // create new request
@@ -376,7 +349,6 @@
                                 processData: false,
                                 dataType: "json",
                                 success: function (resData) {
-<<<<<<< HEAD
                                     if(resData.code == 202){
                                         const Toast = Swal.mixin({
                                         toast: true,
@@ -426,25 +398,11 @@
                                 type: "post",
                                 url: "<?= base_url('ClientDashboard/editRecepient')?>",
                                 data: data,
-=======
-                                    console.log(resData);
-                                    if(resData.code == 404){
-                                        alert(resData.msg);
-                                    }
-                                }
-                            });
-                        } else if (bool_number && requestID !== null) { // edit request
-                            $.ajax({
-                                type: "post",
-                                url: "<?= base_url('ClientDashboard/editRecepient')?>",
-                                data: new FormData(this),
->>>>>>> ed86f797c5eb1809f2e8533ace0c905b7d10faf6
                                 contentType: false,
                                 cache: false,
                                 processData: false,
                                 dataType: "json",
                                 success: function (resData) {
-<<<<<<< HEAD
                                     if(resData.code == 202){
                                         const Toast = Swal.mixin({
                                         toast: true,
@@ -481,24 +439,15 @@
                                             $('body').removeClass('popup-blur-active');
                                             $('.popup-container').removeClass('popup-active');
                                         })
-=======
-                                    console.log(resData);
-                                    if(resData.code == 404){
-                                        alert(resData.msg);
->>>>>>> ed86f797c5eb1809f2e8533ace0c905b7d10faf6
                                     }
                                 }
                             });
                         } else{
-<<<<<<< HEAD
                             Swal.fire(
                             'Something Wrong',
                             'Check your inputs!',
                             'warning'
                             )
-=======
-                            alert('something wrong check your inputs');
->>>>>>> ed86f797c5eb1809f2e8533ace0c905b7d10faf6
                         }
                     });
 
