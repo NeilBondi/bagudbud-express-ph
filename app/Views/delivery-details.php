@@ -7,7 +7,12 @@
 	Inserts the whole section to the base_no_nav.php
  -->
 <?= $this->section('content'); ?>
+<?php foreach ($request as $key) { 
 
+     $date = date_create($key['req_date']);
+     $xdate = date_format($date, "F j, Y, g:i a");
+     
+?>
             <div class="page-heading">
                 <h3 class="text-black">Dashboard</h3>
             </div>
@@ -46,7 +51,7 @@
 
                                                 <!-- Insert Pending Count -->
 
-                                                <h5 class="font-extrabold mb-0 text-black">1</h5>
+                                                <h5 class="font-extrabold mb-0 text-black"><span id="numPending"></span></h5>
                                             </div>
                                         </div>
                                     </div>
@@ -77,7 +82,7 @@
                             <div class="col-12">
                                 <div class="card p-4">
                                     <div class="card-header">
-                                        <h4 class="text-black">Profile Visit</h4>
+                                        <h4 class="text-black">Request Details</h4>
                                     </div>
                                     <div class="card-body">
                                         <div class="section-headers row">
@@ -91,12 +96,12 @@
                                                 <span>
                                                     Tracking ID: 
                                                     <!-- Insert track ID here -->
-                                                    <span class="tracking-id">123456789</span>
+                                                    <span class="tracking-id text-black" style="letter-spacing: 2px;"><?php echo $key['tracking_id'];?></span>
                                                 </span>
                                                 <span class="mt-2">
                                                     Status:
                                                     <!-- Insert Status here -->
-                                                    <span class="status">Delivery Request</span>
+                                                    <span class="status">Pending</span>
                                                 </span>
                                             </div>
                                         </div>
@@ -149,19 +154,10 @@
                                                 <!-- change delivery contact details here -->
 
                                                 <div class="ms-3 mt-3">
-                                                    <p class="font-extrabold text-black mb-1">John Doe</p>
-                                                    <p class="m-0">09123456789</p>
-                                                    <p class="m-0">001, Zone 4, San Miguel</p>
-                                                    <p class="m-0">Nabua</p>
-                                                </div>
-                                            </div>
-                                            <div class="delivery-man mt-5">
-                                                <h5 class="text-black">Delivery Man:</h5>
-                                                <div class="ms-3 mt-3">
-                                                    <p class="font-extrabold text-black mb-1">John Doe</p>
-                                                    <p class="m-0">09123456789</p>
-                                                    <p class="m-0">Motorcycle</p>
-                                                    
+                                                    <p class="font-extrabold text-black mb-1"><?php echo $key['recepient_name'];?></p>
+                                                    <p class="m-0"><?php echo $key['recepient_contactNum'];?></p>
+                                                    <p class="m-0"><?php echo $key['recepient_address'];?></p>
+                                                    <p class="m-0"><?php echo $key['recepient_municipality'];?></p>
                                                 </div>
                                             </div>
                                         </div>
@@ -171,7 +167,7 @@
                                                 <!-- change delivery updates here -->
 
                                                 <li class="d-flex py-2">
-                                                    <span>11/10/2021 7:02pm</span>
+                                                    <span><?php echo $xdate;?></span>
                                                     <span>Posted Delivery Request</span>
                                                 </li>
                                                 <li class="d-flex py-2">
@@ -197,7 +193,7 @@
 
                                         <!-- change package type -->
 
-                                        <span class="font-extrabold text-black text-end">Garments</span>
+                                        <span class="font-extrabold text-black text-end"><?php echo $key['product_name'];?></span>
                                     </div>
                                 </div>
                                 <div class="border-bottom mx-4">
@@ -206,7 +202,7 @@
 
                                         <!-- change package price -->
 
-                                        <span class="font-extrabold text-black text-end">Php 500.00</span>
+                                        <span class="font-extrabold text-black text-end">Php <?php echo $key['product_price'];?></span>
                                     </div>
                                 </div>
                                 <div class="border-bottom mx-4">
@@ -215,14 +211,23 @@
 
                                         <!-- change delivery fee -->
 
-                                        <span class="font-extrabold text-black text-end">Php 50.00</span>
+                                        <span class="font-extrabold text-black text-end">Php <?php echo $key['delivery_fee'];?></span>
+                                    </div>
+                                </div>
+                                <div class="border-bottom mx-4">
+                                    <div class="d-flex py-3 px-3 package-details-items">
+                                        <span>Mode of Payment</span>
+
+                                        <!-- change delivery fee -->
+
+                                        <span class="font-extrabold text-black text-end"><?php echo $key['mode_of_payment'];?></span>
                                     </div>
                                 </div>
                                 <div class="d-grid gap-2 d-md-block d-lg-flex flex-column px-4 mt-4">
 
                                     <!-- cancel request -->
 
-                                    <form action="post" class="d-inline-flex m-0">
+                                    <form id="delete" method="post" class="d-inline-flex m-0">
                                         <button type="submit" name="submit" class='cancel-request-btn btn btn-xl btn-danger w-100 font-bold mt-3'>
                                             Cancel Request
                                         </button>
@@ -238,8 +243,13 @@
                     </div>
                 </section>
             </div>
-            <script>
+
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+            <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+            <script type="text/javascript">
                 $(() => {
+
+                    displayCountPending()
                     // $('.track-container').find('.active').find('svg').attr('stroke', '#fff')
                     // $('.track-container').find('.active').prevAll().each(function() {
                     //     $(this).find('svg').attr('stroke', '#1ec360');
@@ -281,7 +291,62 @@
                             $('.track-container').children().eq(key).find('svg').attr('stroke', '#fff');
                         }
                     }
-                })
-            </script>
 
+                    function displayCountPending() {
+                        $.ajax({
+                            type: 'ajax',
+                            url: "<?= base_url('ClientDashboard/countPending'); ?>",
+                            async: true,
+                            dataType: 'json',
+                            success: function (data) {
+                                $('#numPending').html(data.result);
+                            }
+                        })
+                    }
+                })
+
+                $(document).ready(function () {
+                    $('#delete').submit(function (e) { 
+                        e.preventDefault();
+                        var reqid = <?php echo $key['req_id']; ?>;
+
+                        Swal.fire({
+                            title: 'Are you sure?',
+                            text: "You won't be able to revert this!",
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#3CD87A',
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: 'Continue!'
+                            }).then((result) => {
+                            if (result.isConfirmed) {
+                               
+                                $.ajax({
+                                    type: "post",
+                                    url: "<?= base_url('ClientDashboard/deleteRequest')?>",
+                                    data: {
+                                        reqid: reqid
+                                    },
+                                    dataType: "json",
+                                    success: function (res) {
+                                        if(res.code == 202){
+                                            Swal.fire(
+                                            'Deleted!',
+                                            'Your file has been deleted.',
+                                            'success'
+                                            ).then(function(){
+                                                location.href= "<?= base_url('/client-dashboard/pending')?>";
+                                            })
+                                        }
+                                    }
+                                });
+                            }
+                        })
+                    });
+                    
+                });
+
+                
+            </script>
+<?php }?>
 <?= $this->endSection(); ?>

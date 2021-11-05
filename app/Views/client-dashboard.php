@@ -46,7 +46,7 @@
 
                                                 <!-- Insert Pending Count -->
 
-                                                <h5 class="font-extrabold mb-0 text-black">1</h5>
+                                                <h5 class="font-extrabold mb-0 text-black"><span id="numPending"></span></h5>
                                             </div>
                                         </div>
                                     </div>
@@ -83,11 +83,11 @@
 
                                                 <!-- Insert Client Name -->
 
-                                                <h5 class="font-bold text-black">John Duck</h5>
+                                                <h5 class="font-bold text-black"><?= $logData['Name']; ?></h5>
 
                                                 <!-- Insert Client Email -->
 
-                                                <h6 class="text-muted mb-0">@johnducky</h6>
+                                                <h6 class="text-muted mb-0"><?= $logData['B_name'];?></h6>
                                             </div>
                                         </div>
                                     </div>
@@ -164,5 +164,23 @@
                     </div>
                 </section>
             </div>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    displayCountPending()
+
+                    function displayCountPending() {
+                    $.ajax({
+                        type: 'ajax',
+                        url: "<?= base_url('ClientDashboard/countPending'); ?>",
+                        async: true,
+                        dataType: 'json',
+                        success: function (data) {
+                            $('#numPending').html(data.result);
+                        }
+                    })
+                    }
+                });
+            </script>
 
 <?= $this->endSection(); ?>

@@ -46,7 +46,7 @@
 
                                                 <!-- Insert Pending Count -->
 
-                                                <h5 class="font-extrabold mb-0 text-black">1</h5>
+                                                <h5 class="font-extrabold mb-0 text-black"><span id="numPending"></span></h5>
                                             </div>
                                         </div>
                                     </div>
@@ -83,11 +83,11 @@
 
                                                 <!-- Insert Client Name -->
 
-                                                <h5 class="font-bold text-black">John Duck</h5>
+                                                <h5 class="font-bold text-black"><?= $logData['Name']; ?></h5>
 
                                                 <!-- Insert Client Email -->
 
-                                                <h6 class="text-muted mb-0">@johnducky</h6>
+                                                <h6 class="text-muted mb-0"><?= $logData['B_name'];?></h6>
                                             </div>
                                         </div>
                                     </div>
@@ -109,51 +109,11 @@
                                                     <th scope="col" class="text-end">Date Added</th>
                                                 </tr>
                                             </thead>
-                                            <tbody>
+                                            <tbody id="userTable">
 
                                                 <!-- item start -->
                                                 <!-- change the aria-label. change the number only based on the id in db ex. for the next item data-label="item-2" -->
-                                                <tr class="items" data-label="item-1" style="cursor: pointer;">
-                                                    <td>
-                                                        <div class="py-2">
-                                                            <!-- Recipient name -->
-                                                            <h6 class="my-0 text-black"><b>John Doe</b></h6>
-                                                            <!-- addres -->
-                                                            <p class="my-0">San Miguel, Nabua</p>
-                                                            <!-- Package Price -->
-                                                            <h5 class="my-0 text-primary">Php 500.00</h5>
-                                                        </div>
-                                                    </td>
-                                                    <!-- Delivery Fee -->
-                                                    <td class="text-center">PHP 50.00</td> 
-                                                    <!-- Date added -->
-                                                    <td class="text-end pe-3 pe-md-4">7:02 pm</td>
-                                                </tr>
-
-                                                <!-- item end -->
-
-                                                <tr class="items" style="cursor: pointer;">
-                                                    <td>
-                                                        <div class="py-2">
-                                                            <h6 class="my-0 text-black"><b>John Doe</b></h6>
-                                                            <p class="my-0">San Miguel, Nabua</p>
-                                                            <h5 class="my-0 text-primary">Php 500.00</h5>
-                                                        </div>
-                                                    </td>
-                                                    <td class="text-center">PHP 50.00</td>
-                                                    <td class="text-end pe-3 pe-md-4">7:02 pm</td>
-                                                </tr>
-                                                <tr class="items" style="cursor: pointer;">
-                                                    <td>
-                                                        <div class="py-2">
-                                                            <h6 class="my-0 text-black"><b>John Doe</b></h6>
-                                                            <p class="my-0">San Miguel, Nabua</p>
-                                                            <h5 class="my-0 text-primary">Php 500.00</h5>
-                                                        </div>
-                                                    </td>
-                                                    <td class="text-center">PHP 50.00</td>
-                                                    <td class="text-end pe-3 pe-md-4">7:02 pm</td>
-                                                </tr>
+                                               
                                                 
                                             </tbody>
                                         </table>
@@ -164,5 +124,47 @@
                     </div>
                 </section>
             </div>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    reloadTable()
+                    displayCountPending()
+
+                    function reloadTable() {
+                    $.ajax({
+                        type: 'ajax',
+                        url: "<?= base_url('ClientDashboard/displayRequest'); ?>",
+                        async: true,
+                        success: function (data) {
+                        $('#userTable').html(data);
+
+                        let getUrl = window.location;
+                            let baseUrl = `${getUrl.origin}/${getUrl.pathname.split('/')[1]}`;
+                            let currentUrl = getUrl.pathname.split('/')[3];
+                            $('.items').each(function() {
+                                $(this).click(function() {
+                                    // delivery details path
+                                    let id = $(this).attr('data-label').split('-')[1];
+                                    location.href = `${baseUrl}/client-dashboard/${currentUrl}/${id}`;
+                                });
+                            });
+                        }
+                    })
+                    }
+
+                    function displayCountPending() {
+                    $.ajax({
+                        type: 'ajax',
+                        url: "<?= base_url('ClientDashboard/countPending'); ?>",
+                        async: true,
+                        dataType: 'json',
+                        success: function (data) {
+                            $('#numPending').html(data.result);
+                        }
+                    })
+                    }
+
+                 });
+            </script>
 
 <?= $this->endSection(); ?>
