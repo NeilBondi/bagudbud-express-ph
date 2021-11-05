@@ -19,7 +19,7 @@
                                 <h4 class="text-black">My Profile</h4>
                             </div>
                             <div class="card-body">
-                                <form action="" method="post">
+                                <form action="" method="post" id="profile-form">
                                     <div class="inner-container px-3 px-lg-5 d-flex flex-column align-items-center"  style="max-width: 50rem; width: 100%">
                                         <div class="profile-con avatar avatar-xxl border border-2 border-primary position-relative">
                                             <img src="<?= base_url('/public/assets/dashboard/images/faces/1.jpg')?>" alt="Face 1">
@@ -30,7 +30,7 @@
                                                 <input type="file" name="profile-image" id="profile-image" style="width: 100%; height: 100%; cursor: pointer; opacity: 0;">
                                             </div>
                                             <div class="overlay position-absolute w-100 h-100 rounded-circle overflow-hidden d-flex justify-content-center align-items-center">
-                                                <span class="fw-bold">Change Profile Image</span>
+                                                <span class="fw-bold" style="opacity: 0.7;">Change Profile Image</span>
                                             </div>
                                             <div class="con position-absolute translate-middle" style="top: 90%; right: -5%;">
                                                 <div class="c bg-primary rounded-circle d-flex justify-content-center align-items-center" style="width: 2rem; height: 2rem">
@@ -120,7 +120,7 @@
                                             <div class="col">
                                                 <div class="mt-xxl-3 mb-lg-2 d-flex flex-column">
                                                 <label for="product-name" class="fw-bold display-7 form-label col-form-label col-form-label-sm mt-1 mt-lg-0">Product Type</label>
-                                                <select class="form-control form-control-sm py-2 fw-lighter border-primary bg-light-primary" aria-label=".form-select-sm example" name="product-name">
+                                                <select class="form-select form-select-sm py-2 fw-lighter border-primary bg-light-primary" aria-label=".form-select-sm example" name="product-name">
                                                     <option selected>All</option>
                                                     <option value="Beauty Products">Beauty Products</option>
                                                     <option value="Fashion">Fashion</option>
@@ -138,7 +138,16 @@
                                             <div class="col">
                                                 <div class="mt-xxl-3 mb-lg-2 d-flex flex-column">
                                                     <label for="municipality" class="fw-bold display-7 form-label col-form-label col-form-label-sm mt-1 mt-lg-0">Municipality</label>
-                                                    <input type="text" name="municipality" class="form-control form-control-sm py-2 fw-lighter border-primary bg-light-primary" id="municipality" placeholder="Municipality">
+                                                    <select class="form-select form-select-sm py-2 fw-lighter border-primary bg-light-primary" aria-label=".form-select-sm example" name="Municipality" id="Municipality">
+                                                        <option selected value="--Select--">--Select--</option>
+                                                        <option value="Baao">Baao</option>
+                                                        <option value="Bato">Bato</option>
+                                                        <option value="Balatan">Balatan</option>
+                                                        <option value="Bula">Bula</option>
+                                                        <option value="Buhi">Buhi</option>
+                                                        <option value="Nabua">Nabua</option>
+                                                        <option value="Iriga City">Iriga City</option>
+                                                    </select>
                                                 </div>
                                             </div>
 
@@ -161,6 +170,7 @@
                                                     <input type="text" name="zone-street" class="form-control form-control-sm py-2 fw-lighter border-primary bg-light-primary" id="zone-street" placeholder="Zone / Street">
                                                 </div>
                                             </div>
+                                        </div>
                                         <div class="mt-5 w-100">
 
                                             <!-- Submit btn -->
@@ -205,6 +215,34 @@
                             $('.no-request').prev().addClass('d-none');
                         }
                     })
+
+                    
+                        const $parent = $('.inner-container');
+                        let inputs = $('#profile-form').serializeArray();
+                        $.ajax({
+                            url: "<?= base_url('ClientProfile/getUserData'); ?>",
+                            method: "GET",
+                            dataType: "json",
+                            data: '',
+                            success: function (res) {
+                                for (const key in res) {
+                                    inputs.map((el) => {
+                                        if (key === el.name) {
+                                            if (key === 'gender' || key === 'product-name' || key === 'Municipality') {
+                                                $parent.find(`select[name=${key}`).children().each(function() {
+                                                    $(this).removeAttr('selected')
+                                                    if (res[key].toLowerCase() === $(this).val().toLowerCase()) {
+                                                        $(this).attr('selected', 'true')
+                                                    }
+                                                });
+                                            } else {
+                                                $parent.find(`input[name=${key}`).val(res[key]);
+                                            }
+                                        }
+                                    })
+                                }
+                            }
+                        });
                 })
 
                 $(document).ready(function () {
