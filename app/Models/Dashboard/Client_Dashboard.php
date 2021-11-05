@@ -6,9 +6,11 @@ use CodeIgniter\Model;
 
 class Client_Dashboard extends Model{
 
+
     //fetch the user data from db base on ID
     public function getCompleteData($id){
         
+
         $db = \Config\Database::connect();
         $builder = $db->table('clients');
 
