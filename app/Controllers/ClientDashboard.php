@@ -3,10 +3,7 @@
 namespace App\Controllers;
 use CodeIgniter\Controller;
 use  App\Models\Dashboard\Client_Dashboard;
-<<<<<<< HEAD
 use App\Libraries\Pricing;
-=======
->>>>>>> ed86f797c5eb1809f2e8533ace0c905b7d10faf6
 
 class ClientDashboard extends BaseController
 {
@@ -36,7 +33,6 @@ class ClientDashboard extends BaseController
 		return view('client-dashboard', $data);
 	}
 
-<<<<<<< HEAD
 	//add recepient or add request..
 	public function addRecepient(){
 
@@ -118,36 +114,6 @@ class ClientDashboard extends BaseController
 
 		//get data from ajax
 		$reqid = $this->request->getPost('reqid');
-=======
-	public function addRecepient(){
-		$session = session();
-		$id = $session->get('id');
-		$name = $this->request->getPost('name');
-		$phoneNumber = $this->request->getPost('phone-number');
-		$address = $this->request->getPost('address');
-		$Municipality = $this->request->getPost('Municipality');
-		$productName = $this->request->getPost('product-name');
-		$productPrice = $this->request->getPost('product-price');
-		$payment = $this->request->getPost('payment');
-		
-		return json_encode([
-			'id' => $id,
-			'name' => $name,
-			'phone-number' => $phoneNumber,
-			'address' => $address,
-			'Municipality' => $Municipality,
-			'product-name' => $productName,
-			'product-price' => $productPrice,
-			'payment' => $payment,
-			'addRecipient' => true
-			
-		]);
-	}
-
-	public function editRecepient(){
-		$session = session();
-		$id = $session->get('id');
->>>>>>> ed86f797c5eb1809f2e8533ace0c905b7d10faf6
 		$name = $this->request->getPost('name');
 		$phoneNumber = $this->request->getPost('phone-number');
 		$address = $this->request->getPost('address');
@@ -156,7 +122,6 @@ class ClientDashboard extends BaseController
 		$productPrice = $this->request->getPost('product-price');
 		$payment = $this->request->getPost('payment');
 
-<<<<<<< HEAD
 		$userDBdata = $model->getCompleteData($id);
 		foreach ($userDBdata as $row) {
 			$client_municipality = $row['Municipality'];
@@ -196,22 +161,6 @@ class ClientDashboard extends BaseController
 	}
 
 	//display handle the data of user pass to pedning page
-=======
-		return json_encode([
-			'id' => $id,
-			'name' => $name,
-			'phone-number' => $phoneNumber,
-			'address' => $address,
-			'Municipality' => $Municipality,
-			'product-name' => $productName,
-			'product-price' => $productPrice,
-			'payment' => $payment,
-			'editRecipient' => true
-			
-		]);
-	}
-
->>>>>>> ed86f797c5eb1809f2e8533ace0c905b7d10faf6
 	public function pending() {
 
 		$dash = new Client_Dashboard();
@@ -229,11 +178,7 @@ class ClientDashboard extends BaseController
 				'Contact_num'  => $row['Contact_num'],
 				'B_name'  => $row['B_name'],
 			);
-<<<<<<< HEAD
 		}	
-=======
-		}
->>>>>>> ed86f797c5eb1809f2e8533ace0c905b7d10faf6
 		$data = array(
             "page_title" => "Bagudbud | Pending",
 			'logData' => $clientData,
@@ -335,9 +280,6 @@ class ClientDashboard extends BaseController
 			'result' => $model->countPendingRequest($id),
 		]);
 	}
-<<<<<<< HEAD
-}
-=======
 
 	public function profile() {
 		$data = array(
@@ -346,4 +288,3 @@ class ClientDashboard extends BaseController
 		return view('client/client-profile', $data);
 	}
 }
->>>>>>> ed86f797c5eb1809f2e8533ace0c905b7d10faf6
