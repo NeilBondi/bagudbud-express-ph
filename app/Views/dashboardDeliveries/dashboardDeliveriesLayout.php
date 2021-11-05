@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="<?= base_url('/public/assets/dashboard/css/bootstrap.css')?>">
-
+    <link rel="shortcut icon" href="<?= base_url() ?>/public/assets/img/iconBagudbud.png" type="image/x-icon">
     <link rel="stylesheet" href="<?= base_url('/public/assets/dashboard/vendors/iconly/bold.css')?>">
 
     <link rel="stylesheet" href="<?= base_url('/public/assets/dashboard/vendors/bootstrap-icons/bootstrap-icons.css')?>">
@@ -184,7 +184,7 @@
                             </div>
                             <div class="col">
                                 <div class="mt-xxl-3 mb-lg-2 d-flex flex-column">
-                                    <label for="product-name" class="fw-bold display-7 form-label col-form-label col-form-label-sm mt-1 mt-lg-0">Mode of Payment</label>
+                                    <label for="product-name" class="fw-bold display-7 form-label col-form-label col-form-label-sm mt-1 mt-lg-0">Delivery Mode of Payment</label>
                                     <select class="form-select form-select-sm py-2 fw-lighter" aria-label=".form-select-sm example" name="payment">
                                         <option selected value="COD">Cash On Delivery (COD)</option>
                                         <option value="COP">Cash on Pickup (COP)</option>
@@ -199,7 +199,7 @@
                                 <!-- Submit btn -->
 
                                 <!-- <button type="submit" class="btn btn-primary">Add</button> -->
-                                <input type="submit" class="btn btn-primary" value="ADD">
+                                <input type="submit" class="btn btn-primary" value="Done">
                             </div>
                         </form>
                     </div>
@@ -211,12 +211,12 @@
         </div>
     </div>
     <script src="<?= base_url('/public/assets/dashboard/js/pages/dashboard.js')?>"></script>
-
     <script src="<?= base_url('/public/assets/dashboard/js/main.js')?>"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="<?= base_url('/public/assets/dashboard/js/bootstrap.min.js')?>"></script>
     
-            <script type="text/javascript">
+    <script type="text/javascript">
+
                 $(() => {
                     let getUrl = window.location;
                     let baseUrl = `${getUrl.origin}/${getUrl.pathname.split('/')[1]}`;
@@ -225,7 +225,7 @@
                         $(this).click(function() {
                             // delivery details path
                             let id = $(this).attr('data-label').split('-')[1];
-                            location.href = `${baseUrl}/client-dashboard/${currentUrl}/${id}`
+                            location.href = `${baseUrl}/client-dashboard/${currentUrl}/${id}`;
                         });
                     });
 
@@ -258,17 +258,17 @@
 
                     $('.add-delivery').click(() => {
                         // redirect to add deliveries
-                        // location.href = `${baseUrl}/client-dashboard/add-deliveries`
+                        // location.href = ${baseUrl}/client-dashboard/add-deliveries
                         $('.popup-container').addClass('popup-active');
                         $('body').addClass('popup-blur-active');
                     })
                     $('.pending-btn').click(() => {
                         // redirect to pending page
-                        location.href = `${baseUrl}/client-dashboard/pending`
+                        location.href = `${baseUrl}/client-dashboard/pending`;
                     })
                     $('.active-deliveries-btn').click(() => {
                         // redirect to deliveries page
-                        location.href = `${baseUrl}/client-dashboard/deliveries`
+                        location.href = `${baseUrl}/client-dashboard/deliveries`;
                     })
 
                     let requestID = null;
@@ -322,13 +322,13 @@
                                 $parent.find('input[name=product-name]').val(res['product-name'])
                                 $parent.find('input[name=product-price]').val(res['product-price'])
                                 $parent.find('option[selected]').val()
-                                if (res['mode-of-payment'] === "COD") {
-                                    $parent.find('option:last-child').attr('selected', 'true');
-                                    $parent.find('option:first-child').removeAttr('selected');
+                                if (res['payment'] == "COD") {
+                                   $parent.find('option:first-child').attr('selected', 'true');
+                                    $parent.find('option:last-child').removeAttr('selected');
                                     // console.log($parent.find('option:last-child'));
                                 } else {
-                                    $parent.find('option:first-child').attr('selected', 'true');
-                                    $parent.find('option:last-child').removeAttr('selected');
+                                    $parent.find('option:last-child').attr('selected', 'true');
+                                    $parent.find('option:first-child').removeAttr('selected');
                                 }
                             }
                         });
@@ -339,7 +339,7 @@
                 
                     $('#phone-number').keyup(function (e) {
                         var num = $(this).val(); 
-                        var filter = /^(09|\+63)\d{9}$/;
+                        var filter = /^(09)\d{9}$/;
                         
                         if(filter.test(num)){
                             // alert('ok');
@@ -351,7 +351,7 @@
                             bool_number = false;
                         }
                     });
-
+                    $("input").attr("required", true);
                     $('#form').submit(function (e) { 
                         e.preventDefault();
                         if(bool_number && requestID === null){ // create new request
@@ -364,30 +364,105 @@
                                 processData: false,
                                 dataType: "json",
                                 success: function (resData) {
-                                    console.log(resData);
-                                    if(resData.code == 404){
-                                        alert(resData.msg);
+                                    if(resData.code == 202){
+                                        const Toast = Swal.mixin({
+                                        toast: true,
+                                        position: 'top-end',
+                                        showConfirmButton: false,
+                                        timer: 2000,
+                                        timerProgressBar: false,
+                                        didOpen: (toast) => {
+                                            toast.addEventListener('mouseenter', Swal.stopTimer)
+                                            toast.addEventListener('mouseleave', Swal.resumeTimer)
+                                        }
+                                        })
+
+                                        Toast.fire({
+                                        icon: 'success',
+                                        title: resData.msg
+                                        }).then(function(){
+                                            $('#form')[0].reset();
+                                            $('body').removeClass('popup-blur-active');
+                                            $('.popup-container').removeClass('popup-active');
+                                            $('#userTable').load('#userTable');
+                                        });
+
+                                        
+                                    }
+                                    else if(resData.code == 404){
+
+                                        Swal.fire(
+                                        'Opps',
+                                        resData.msg,
+                                        'warning'
+                                        ).then(function(){
+                                            $('#form')[0].reset();
+                                            $('body').removeClass('popup-blur-active');
+                                            $('.popup-container').removeClass('popup-active');
+                                        })
                                     }
                                 }
                             });
-                        } else if (bool_number && requestID !== null) { // edit request
+                        } else if (bool_number && requestID !== null) { 
+                            // edit request
+                            var reqid = requestID.requestID;
+                            var data = new FormData(this);
+                            data.append('reqid', reqid);
+                            
                             $.ajax({
                                 type: "post",
                                 url: "<?= base_url('ClientDashboard/editRecepient')?>",
-                                data: new FormData(this),
+                                data: data,
                                 contentType: false,
                                 cache: false,
                                 processData: false,
                                 dataType: "json",
                                 success: function (resData) {
-                                    console.log(resData);
-                                    if(resData.code == 404){
-                                        alert(resData.msg);
+                                    if(resData.code == 202){
+                                        const Toast = Swal.mixin({
+                                        toast: true,
+                                        position: 'top-end',
+                                        showConfirmButton: false,
+                                        timer: 2000,
+                                        timerProgressBar: false,
+                                        didOpen: (toast) => {
+                                            toast.addEventListener('mouseenter', Swal.stopTimer)
+                                            toast.addEventListener('mouseleave', Swal.resumeTimer)
+                                        }
+                                        })
+
+                                        Toast.fire({
+                                        icon: 'success',
+                                        title: resData.msg
+                                        }).then(function(){
+                                            $('#form')[0].reset();
+                                            $('body').removeClass('popup-blur-active');
+                                            $('.popup-container').removeClass('popup-active');
+                                            window.location.reload();
+                                        });
+
+                                        
+                                    }
+                                    else if(resData.code == 404){
+
+                                        Swal.fire(
+                                        'Opps',
+                                        resData.msg,
+                                        'warning'
+                                        ).then(function(){
+                                            $('#form')[0].reset();
+                                            $('body').removeClass('popup-blur-active');
+                                            $('.popup-container').removeClass('popup-active');
+                                        })
                                     }
                                 }
                             });
                         } else{
-                            alert('something wrong check your inputs');
+                            Swal.fire(
+                            'Something Wrong',
+                            'Check your inputs!',
+                            'warning'
+                            )
                         }
                     });
 

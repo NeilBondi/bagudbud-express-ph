@@ -3,6 +3,7 @@
 namespace App\Controllers;
 use CodeIgniter\Controller;
 use  App\Models\Dashboard\Client_Dashboard;
+use App\Libraries\Pricing;
 
 class ClientDashboard extends BaseController
 {
@@ -32,34 +33,87 @@ class ClientDashboard extends BaseController
 		return view('client-dashboard', $data);
 	}
 
+	//add recepient or add request..
 	public function addRecepient(){
+
+		$dash = new Client_Dashboard();
 		$session = session();
 		$id = $session->get('id');
+
+		//get data from ajax..
 		$name = $this->request->getPost('name');
 		$phoneNumber = $this->request->getPost('phone-number');
 		$address = $this->request->getPost('address');
-		$Municipality = $this->request->getPost('Municipality');
+		$r_Municipality = $this->request->getPost('Municipality');
 		$productName = $this->request->getPost('product-name');
-		$productPrice = $this->request->getPost('product-price');
+		$productPrice = $this->request->getPost('product-price').'.00';
 		$payment = $this->request->getPost('payment');
+		//end
 		
-		return json_encode([
-			'id' => $id,
-			'name' => $name,
-			'phone-number' => $phoneNumber,
-			'address' => $address,
-			'Municipality' => $Municipality,
-			'product-name' => $productName,
-			'product-price' => $productPrice,
-			'payment' => $payment,
-			'addRecipient' => true
+		//fetch data from model
+		$userDBdata = $dash->getCompleteData($id);
+		foreach ($userDBdata as $row) {
+			$client_municipality = $row['Municipality'];
+		}
+
+		$name_str = str_replace(' ', '', $name);//remove space from name
+		$ran4number = mt_rand(1000, 9999);//generate random 4 digit num
+		$tracking_number = $id.$name_str.$ran4number;//concat data serve as tracking num
+
+		$status = 1;
+		//array data for iserting 
+		// 'coloumn_name'  =>  $value
+		$insertdata = [
+			'Client_id'          => $id,
+			'tracking_id'        => $tracking_number,
+			'product_name'       => $productName,
+			'product_price'      => $productPrice,
+			'recepient_name'     => ucwords($name),//name format
+			'recepient_address'  => $address,
+			'recepient_municipality'  => $r_Municipality,
+			'recepient_contactNum'    => $phoneNumber,
+			'status'             => $status
+		];
+
+		$r_id = $dash->addRequest($insertdata);//insert data and get returned last inserted array
+		if(!$r_id){
+			echo json_encode(['code' => 404, 'msg' => 'Something Went Wrong, Try again in a few minutes']);
+		}else{
+			//embed pricing function from library
+			$price = new Pricing();
 			
-		]);
+			$deliveryFee = $price->priceCalculator($client_municipality, $r_Municipality);
+			$deliveryFee = number_format($deliveryFee, 2);
+
+			$pstatus = 'unpaid';//default value for inserting data
+
+			//array data for iserting 
+			// 'coloumn_name'  =>  $value
+			$paymentData = [
+				'req_id'           => $r_id,
+				'mode_of_payment'  => $payment,
+				'delivery_fee'     => $deliveryFee,
+				'status'           => $pstatus
+			];
+
+			if($dash->addPayment($paymentData)){
+				echo json_encode(['code' => 202, 'msg' => 'Request Added Successfully']);
+			}else{
+				echo json_encode(['code' => 404, 'msg' => 'Something Went Wrong!, Try again in a few minutes']);
+			}		
+		}	
 	}
 
+	//edit request 
 	public function editRecepient(){
+
+		$model = new Client_Dashboard();
+
 		$session = session();
 		$id = $session->get('id');
+
+		//get data from ajax
+		$reqid = $this->request->getPost('reqid');
 		$name = $this->request->getPost('name');
 		$phoneNumber = $this->request->getPost('phone-number');
 		$address = $this->request->getPost('address');
@@ -68,20 +122,45 @@ class ClientDashboard extends BaseController
 		$productPrice = $this->request->getPost('product-price');
 		$payment = $this->request->getPost('payment');
 
-		return json_encode([
-			'id' => $id,
-			'name' => $name,
-			'phone-number' => $phoneNumber,
-			'address' => $address,
-			'Municipality' => $Municipality,
-			'product-name' => $productName,
-			'product-price' => $productPrice,
-			'payment' => $payment,
-			'editRecipient' => true
+		$userDBdata = $model->getCompleteData($id);
+		foreach ($userDBdata as $row) {
+			$client_municipality = $row['Municipality'];
+		}
+
+		$insertdata = [
+			'product_name'       => $productName,
+			'product_price'      => $productPrice,
+			'recepient_name'     => ucwords($name),//name format
+			'recepient_address'  => $address,
+			'recepient_municipality'  => $Municipality,
+			'recepient_contactNum'    => $phoneNumber
+		];
+
+		$price = new Pricing();
 			
-		]);
+			$deliveryFee = $price->priceCalculator($client_municipality, $Municipality);
+			$deliveryFee = number_format($deliveryFee, 2);
+
+		$paymentData = [
+			'mode_of_payment'  => $payment,
+			'delivery_fee'     => $deliveryFee,
+		];
+
+		
+		if($model->editRequest($insertdata, $paymentData, $reqid)){
+			return json_encode([
+				'code' => 202,
+				'msg'  => 'Edit Success'
+			]);
+		}else{
+			return json_encode([
+				'code' => 404,
+				'msg' => 'Something Wrong, try Again later'
+			]);
+		}
 	}
 
+	//display handle the data of user pass to pedning page
 	public function pending() {
 
 		$dash = new Client_Dashboard();
@@ -99,7 +178,7 @@ class ClientDashboard extends BaseController
 				'Contact_num'  => $row['Contact_num'],
 				'B_name'  => $row['B_name'],
 			);
-		}
+		}	
 		$data = array(
             "page_title" => "Bagudbud | Pending",
 			'logData' => $clientData,
@@ -107,13 +186,60 @@ class ClientDashboard extends BaseController
 		return view('client-request-pending', $data);
 	}
 
-	public function details($id) {
+	//display request....
+	public function displayRequest(){
+		$session = session();
+		$id = $session->get('id');
+		
+		$model = new Client_Dashboard();
+		$data['request'] = $model->getRequest($id);
+    	return view('dashboardDeliveries/requestDisplay', $data);
+	}
+
+	//display request details....
+	public function details($reqid) {//pending details
+
+		$session = session();
+		$id = $session->get('id');
+
+		$model = new Client_Dashboard();
 		$data = array(
             "page_title" => "Bagudbud | Delivery Details",
+			"request"    => $model->getRequestDetails($reqid),
         );
 		return view('delivery-details', $data);
 	}
 
+	//index for accepted request page....
+	public function acceptedDetails($reqid) {//accepted details
+
+		// $model = new Client_Dashboard();
+		// $data['request'] = $model->getRequestDetails($id);
+		$data = array(
+            "page_title" => "Bagudbud | Delivery Details",
+			// "request"    => $model->getRequestDetails($reqid)
+        );
+		return view('accepted-request-details', $data);
+	}
+
+	//delete or cancel request
+	public function deleteRequest(){
+		$model = new Client_Dashboard();
+		$reqid = $this->request->getPost('reqid');
+		
+		if($model->deleteRequest($reqid)){
+			return json_encode([
+				'code' => 202,
+			]);
+		}else{
+			return json_encode([
+				'code' => 404,
+			]);
+		}
+
+	}
+
+	//for tracking
 	public function tracking() {
 		$data = array(
             "page_title" => "Bagudbud | Tracking",
@@ -121,22 +247,37 @@ class ClientDashboard extends BaseController
 		return view('client/tracking', $data);
 	}
 
+	//return data to form for edit request ... as value to inputs
 	public function temp() {
-		return json_encode([
-			'name' => 'John Doe',
-			'p-num' => '09123456789',
-			'address' => '001, Zone 1, San Miguel',
-			'municipality' => 'Nabua',
-			'product-name' => 'sample name',
-			'product-price' => '100',
-			'mode-of-payment' => 'COD',
-		]);
+		$model = new Client_Dashboard();
+
+		$reqid = $this->request->getGet('requestID');
+		$data = $model->getRequestDetails($reqid);		
+
+		foreach($data as $row){
+			$newdata = [
+				'name' => $row['recepient_name'],
+				'p-num' => $row['recepient_contactNum'],
+				'address' => $row['recepient_address'],
+				'municipality' => $row['recepient_municipality'],
+				'product-name' => $row['product_name'],
+				'product-price' =>  $row['product_price'],
+				'payment' =>  $row['mode_of_payment']
+			];
+		}
+
+		return json_encode($newdata);
 	}
 
-	public function profile() {
-		$data = array(
-            "page_title" => "Bagudbud | Profile",
-        );
-		return view('client/client-profile', $data);
+	//countPending Request based from user ID
+	public function countPending(){
+		$model = new Client_Dashboard();
+
+		$session = session();
+		$id = $session->get('id');
+
+		return json_encode([
+			'result' => $model->countPendingRequest($id),
+		]);
 	}
 }

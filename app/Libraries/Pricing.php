@@ -55,6 +55,7 @@ class Pricing
                         return 15;
                 }
                 break;
+            case 'iriga city':
             case 'iriga'://pickup point pricing to recepients
                 switch(strtolower($recepientPlace)){
                     case 'baao':
