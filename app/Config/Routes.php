@@ -52,6 +52,7 @@ $myRoutes = array(
 	"client-dashboard/tracking" => "ClientDashboard::tracking",
 	"client-dashboard/profile" => "ClientProfile::index",
 	"client-dashboard/password-and-security" => "ClientProfile::passwordAndSecurity",
+	"client-dashboard/delete-account" => "ClientProfile::deleteAccount",
 	"c_resetPassword" => "PassReset/C_ResetPass::index",
 	"r_resetPassword" => "PassReset/R_ResetPass::index"
 );

@@ -48,7 +48,7 @@
                                     <a href="<?= base_url('/client-dashboard/password-and-security') ?>">Password and Security</a>
                                 </li>
                                 <li class="submenu-item delete-account">
-                                    <a href="component-badge.html">Delete Account</a>
+                                    <a href="<?= base_url('/client-dashboard/delete-account') ?>">Delete Account</a>
                                 </li>
                                 <li class="submenu-item">
                                     <a href="component-badge.html" class="text-danger">Logout</a>
@@ -252,6 +252,12 @@
                         })
                         $('.profile, .password-and-security').addClass('active')
                         $('.profile').find('ul').addClass('active')
+                    } else if (currentUrl === 'delete-account') {
+                        $('.menu').children().not($('.delete-account')).each(function() {
+                            $(this).removeClass('active')
+                        })
+                        $('.profile, .delete-account').addClass('active')
+                        $('.profile').find('ul').addClass('active')
                     }
 
                     // end
@@ -275,6 +281,7 @@
                     $('.cancel-btn').click(() =>  {
                         $('body').removeClass('popup-blur-active');
                         $('.popup-container').removeClass('popup-active');
+                        $('body').removeClass('freeze');
                         requestID = null;
                     })
                     // console.log($('.add-delivery'))
@@ -295,6 +302,12 @@
                     $('.edit-request-btn').click(function() {
                         $('.popup-container').addClass('popup-active');
                         $('body').addClass('popup-blur-active');
+                        if($(document).innerWidth() <= 576) {
+                            $('.popup-container').children().first().removeClass('p-4')
+                            $('body').addClass('freeze');
+                        } else {
+                            $('.popup-container').children().first().addClass('p-4')
+                        }
                         requestID = {
                             requestID : getUrl.pathname.split('/')[4]
                         };

@@ -227,7 +227,9 @@ ul.tracking-updates {
 	}
 }
 
-.popup-container {
+.popup-container,
+.confirm-container,
+.mid {
 	z-index: 100;
 	display: none;
 	/* background: #00391c; */
@@ -253,6 +255,10 @@ ul.tracking-updates {
 	height: 100%;
 }
 
+.freeze {
+	position: fixed !important;
+}
+
 .card-details {
 	margin-top: 8.75rem;
 	min-width: 273px;
@@ -267,6 +273,11 @@ ul.tracking-updates {
 	.popup-container {
 		top: 2rem !important;
 		transform: translateY(0) !important;
+		transform: translatex(-50%) !important;
+	}
+	.mid {
+		bottom: 0rem !important;
+		transform: translateY(0%) !important;
 		transform: translatex(-50%) !important;
 	}
 }

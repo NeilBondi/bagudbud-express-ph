@@ -22,6 +22,15 @@ class ClientProfile extends BaseController
 		return view('client/client-password-and-security', $data);
 	}
 
+	public function deleteAccount()
+	{
+        // helper('form');
+        $data = array(
+            "page_title" => "Bagudbud | Delete account"
+        );
+		return view('client/delete-account', $data);
+	}
+
 	public function getUserData() {
 		return json_encode([
 			'first-name' => 'John',
