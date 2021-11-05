@@ -107,7 +107,7 @@
                                         </div>
 
                                         <div class="track">
-                                            <ul class="track-container">
+                                            <ul class="track-container ps-0">
                                                 <li class="">
                                                     <span>
                                                         <span>

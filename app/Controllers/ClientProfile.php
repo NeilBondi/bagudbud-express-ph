@@ -23,6 +23,15 @@ class ClientProfile extends BaseController
 		return view('client/client-password-and-security', $data);
 	}
 
+	public function removeAccount()
+	{
+        // helper('form');
+        $data = array(
+            "page_title" => "Bagudbud | Delete account"
+        );
+		return view('client/delete-account', $data);
+	}
+
 	public function getUserData() {
 
 		$session = session();
@@ -126,5 +135,14 @@ class ClientProfile extends BaseController
 			]);
 			// return redirect()->to(base_url('/client-login'));
 		}
+	}
+
+	public function notifications()
+	{
+        // helper('form');
+        $data = array(
+            "page_title" => "Bagudbud | Notifications"
+        );
+		return view('client/notifications', $data);
 	}
 }
