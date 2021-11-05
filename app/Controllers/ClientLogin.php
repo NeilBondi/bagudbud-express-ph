@@ -32,7 +32,7 @@ class ClientLogin extends BaseController
             $session->set($session_Data); 
 
             //route to dashboard
-            return redirect()->to('/dashboard');
+            return redirect()->to(base_url('/client-dashboard/deliveries'));
         }else if($code == 400){
 
             $session->setFlashdata('msg', 'Email not Found');
