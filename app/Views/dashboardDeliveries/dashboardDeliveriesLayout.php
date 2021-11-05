@@ -51,7 +51,7 @@
                                     <a href="component-badge.html">Delete Account</a>
                                 </li>
                                 <li class="submenu-item">
-                                    <a href="component-badge.html" class="text-danger">Logout</a>
+                                    <a href="<?= base_url('ClientLogin/logout');?>" class="text-danger">Logout</a>
                                 </li>
                             </ul>
                         </li>

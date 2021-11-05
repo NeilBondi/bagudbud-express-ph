@@ -26,11 +26,19 @@ class ClientDashboard extends BaseController
 			);
 		}
 
-		$data = array(
-            "page_title" => "Bagudbud | Dashboard",
-			'logData' => $clientData//fetch session data
-        );
-		return view('client-dashboard', $data);
+		if($id != null){
+			$data = array(
+				"page_title" => "Bagudbud | Dashboard",
+				'logData' => $clientData//fetch session data
+			);
+			return view('client-dashboard', $data);
+		}else{
+			$data = array(
+				"page_title" => "Bagudbud | Dashboard",
+				// 'logData' => $clientData//fetch session data
+			);
+			return view('client-login', $data);
+		}
 	}
 
 	//add recepient or add request..
@@ -178,12 +186,22 @@ class ClientDashboard extends BaseController
 				'Contact_num'  => $row['Contact_num'],
 				'B_name'  => $row['B_name'],
 			);
-		}	
-		$data = array(
-            "page_title" => "Bagudbud | Pending",
-			'logData' => $clientData,
-        );
-		return view('client-request-pending', $data);
+		}
+		
+		if($id != null){
+			$data = array(
+				"page_title" => "Bagudbud | Pending",
+				'logData' => $clientData,
+			);
+			return view('client-request-pending', $data);
+		}else{
+			$data = array(
+				"page_title" => "Bagudbud | Dashboard",
+				// 'logData' => $clientData//fetch session data
+			);
+			return view('client-login', $data);
+		}
+		
 	}
 
 	//display request....
@@ -282,9 +300,28 @@ class ClientDashboard extends BaseController
 	}
 
 	public function profile() {
+		$model = new Client_Dashboard();
+
+		$session = session();
+		$id = $session->get('id');
+
 		$data = array(
             "page_title" => "Bagudbud | Profile",
         );
 		return view('client/client-profile', $data);
+
+		// if($id != null){
+		// 	$data = array(
+		// 		"page_title" => "Bagudbud | Pending",
+		// 		'logData' => $clientData,
+		// 	);
+		// 	return view('client-request-pending', $data);
+		// }else{
+		// 	$data = array(
+		// 		"page_title" => "Bagudbud | Dashboard",
+		// 		// 'logData' => $clientData//fetch session data
+		// 	);
+		// 	return view('client-login', $data);
+		// }
 	}
 }
