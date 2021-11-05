@@ -280,11 +280,4 @@ class ClientDashboard extends BaseController
 			'result' => $model->countPendingRequest($id),
 		]);
 	}
-
-	public function profile() {
-		$data = array(
-            "page_title" => "Bagudbud | Profile",
-        );
-		return view('client/client-profile', $data);
-	}
 }

@@ -213,7 +213,6 @@
                     let baseUrl = `${getUrl.origin}/${getUrl.pathname.split('/')[1]}`;
                     let currentUrl = getUrl.pathname.split('/')[3];
                     $('.items').each(function() {
-                        console.log(1);
                         $(this).click(function() {
                             // delivery details path
                             let id = $(this).attr('data-label').split('-')[1];
