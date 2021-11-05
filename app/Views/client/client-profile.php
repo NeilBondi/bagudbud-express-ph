@@ -30,7 +30,7 @@
                                                 <input type="file" name="profile-image" id="profile-image" style="width: 100%; height: 100%; cursor: pointer; opacity: 0;">
                                             </div>
                                             <div class="overlay position-absolute w-100 h-100 rounded-circle overflow-hidden d-flex justify-content-center align-items-center">
-                                                <span class="fw-bold">Change Profile Image</span>
+                                                <span class="fw-bold" style="opacity: 0.7;">Change Profile Image</span>
                                             </div>
                                             <div class="con position-absolute translate-middle" style="top: 90%; right: -5%;">
                                                 <div class="c bg-primary rounded-circle d-flex justify-content-center align-items-center" style="width: 2rem; height: 2rem">
@@ -161,6 +161,7 @@
                                                     <input type="text" name="zone-street" class="form-control form-control-sm py-2 fw-lighter border-primary bg-light-primary" id="zone-street" placeholder="Zone / Street">
                                                 </div>
                                             </div>
+                                        </div>
                                         <div class="mt-5 w-100">
 
                                             <!-- Submit btn -->

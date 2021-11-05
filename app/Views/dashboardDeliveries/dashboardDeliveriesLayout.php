@@ -45,7 +45,7 @@
                                     <a href="<?= base_url('/client-dashboard/profile') ?>">My Profile</a>
                                 </li>
                                 <li class="submenu-item password-and-security">
-                                    <a href="component-badge.html">Password and Security</a>
+                                    <a href="<?= base_url('/client-dashboard/password-and-security') ?>">Password and Security</a>
                                 </li>
                                 <li class="submenu-item delete-account">
                                     <a href="component-badge.html">Delete Account</a>
@@ -149,7 +149,16 @@
                                 <div class="col">
                                     <div class="mt-xxl-3 mb-lg-2 d-flex flex-column">
                                         <label for="Municipality" class="fw-bold display-7 form-label col-form-label col-form-label-sm mt-1 mt-lg-0">Municipality</label>
-                                        <input type="text" name="Municipality" class="form-control form-control-sm py-2 fw-lighter" id="Municipality" placeholder="Municipality">
+                                        <select class="form-select form-select-sm py-2 fw-lighter" aria-label=".form-select-sm example" name="Municipality" id="Municipality">
+                                            <option selected value="--Select--">--Select--</option>
+                                            <option value="Baao">Baao</option>
+                                            <option value="Bato">Bato</option>
+                                            <option value="Balatan">Balatan</option>
+                                            <option value="Bula">Bula</option>
+                                            <option value="Buhi">Buhi</option>
+                                            <option value="Nabua">Nabua</option>
+                                            <option value="Iriga City">Iriga City</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
@@ -236,6 +245,12 @@
                             $(this).removeClass('active')
                         })
                         $('.profile, .edit-profile').addClass('active')
+                        $('.profile').find('ul').addClass('active')
+                    }else if (currentUrl === 'password-and-security') {
+                        $('.menu').children().not($('.password-and-security')).each(function() {
+                            $(this).removeClass('active')
+                        })
+                        $('.profile, .password-and-security').addClass('active')
                         $('.profile').find('ul').addClass('active')
                     }
 
