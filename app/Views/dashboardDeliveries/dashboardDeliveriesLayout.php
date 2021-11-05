@@ -21,7 +21,7 @@
 <body class="position-relative">
     <div id="app" class="d-nones d-sm-block">
         <div id="sidebar" class="active">
-            <div class="sidebar-wrapper active">
+            <div class="sidebar-wrapper active position-fixed">
                 <div class="sidebar-header">
                     <div class="">
                         <div class="logo d-flex">
@@ -318,17 +318,24 @@
                                 $parent.find('input[name=name]').val(res['name'])
                                 $parent.find('input[name=phone-number]').val(res['p-num'])
                                 $parent.find('input[name=address]').val(res['address'])
-                                $parent.find('input[name=Municipality]').val(res['municipality'])
+                                const $municipality = $parent.find('select[name=Municipality');
+                                $municipality.children().each(function() {
+                                    $(this).removeAttr('selected')
+                                    if (res['municipality'].toLowerCase() === $(this).val().toLowerCase()) {
+                                        $(this).attr('selected', 'true')
+                                    }
+                                });
+                                
+                                // $parent.find('input[name=Municipality]').val(res['municipality'])
                                 $parent.find('input[name=product-name]').val(res['product-name'])
                                 $parent.find('input[name=product-price]').val(res['product-price'])
-                                $parent.find('option[selected]').val()
+                                $parent.find('select[name=payment]').val()
                                 if (res['payment'] == "COD") {
-                                   $parent.find('option:first-child').attr('selected', 'true');
-                                    $parent.find('option:last-child').removeAttr('selected');
-                                    // console.log($parent.find('option:last-child'));
+                                    $parent.find('select[name=payment]').children().first().attr('selected', 'true');
+                                    $parent.find('select[name=payment]').children().last().removeAttr('selected');
                                 } else {
-                                    $parent.find('option:last-child').attr('selected', 'true');
-                                    $parent.find('option:first-child').removeAttr('selected');
+                                    $parent.find('select[name=payment]').children().last().attr('selected', 'true');
+                                    $parent.find('select[name=payment]').children().first().removeAttr('selected');
                                 }
                             }
                         });
