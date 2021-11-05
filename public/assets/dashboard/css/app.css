@@ -238,12 +238,12 @@ ul.tracking-updates {
 }
 
 .popup-blur-active {
-	height: 100vh;
-	overflow-y: hidden;
+	min-height: 100vh;
+	height: auto;
 }
 
 .popup-blur-active::after {
-	position: fixed;
+	position: absolute;
 	top: 0;
 	left: 0;
 	content: "";
@@ -262,6 +262,25 @@ ul.tracking-updates {
 	.card-details {
 		margin-top: 0;
 	}
+}
+@media screen and (max-width: 576px) {
+	.popup-container {
+		top: 2rem !important;
+		transform: translateY(0) !important;
+		transform: translatex(-50%) !important;
+	}
+}
+
+.overlay {
+	opacity: 0;
+	color: white;
+	background: rgba(0, 0, 0, 0);
+	transition: all 0.3s ease;
+}
+
+.profile-con:hover .overlay {
+	opacity: 1;
+	background: rgba(0, 0, 0, 0.5);
 }
 
 /* end */
@@ -422,6 +441,12 @@ ul.tracking-updates {
 	height: 60px;
 	font-size: 1.4rem;
 }
+.avatar.avatar-xxl .avatar-content,
+.avatar.avatar-xxl img {
+	width: 8rem;
+	height: 8rem;
+	font-size: 1.4rem;
+}
 .btn .badge {
 	border-radius: 50%;
 	margin-left: 5px;
@@ -458,7 +483,7 @@ ul.tracking-updates {
 }
 .btn.btn-light-primary {
 	background-color: #ebf3ff;
-	color: #002152;
+	color: #fbfffc;
 }
 .btn.btn-light-secondary {
 	background-color: #e6eaee;
@@ -1494,7 +1519,7 @@ a {
 	background: linear-gradient(90deg, #095cde, #53c3f3);
 }
 .bg-light-primary {
-	background-color: #ebf3ff;
+	background-color: #fbfffc;
 	color: #002152;
 }
 .bg-light-secondary {

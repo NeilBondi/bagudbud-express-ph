@@ -6,9 +6,14 @@ use CodeIgniter\Model;
 
 class Client_Dashboard extends Model{
 
+<<<<<<< HEAD
     //fetch the user data from db base on ID
     public function getCompleteData($id){
         
+=======
+    public function getCompleteData($id){
+        //fetch the user data from db base on ID
+>>>>>>> ed86f797c5eb1809f2e8533ace0c905b7d10faf6
         $db = \Config\Database::connect();
         $builder = $db->table('clients');
 
@@ -19,6 +24,7 @@ class Client_Dashboard extends Model{
         return $data;
        
     }
+<<<<<<< HEAD
 
     //return the number of pending request based from user id
     public function countPendingRequest($id){
@@ -112,5 +118,7 @@ class Client_Dashboard extends Model{
         return true;
         
     }
+=======
+>>>>>>> ed86f797c5eb1809f2e8533ace0c905b7d10faf6
     
 }
