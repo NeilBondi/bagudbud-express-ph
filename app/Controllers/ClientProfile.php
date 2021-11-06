@@ -23,6 +23,7 @@ class ClientProfile extends BaseController
 		return view('client/client-password-and-security', $data);
 	}
 
+	//profile section..........................
 	public function getUserData() {
 
 		$session = session();
@@ -52,19 +53,6 @@ class ClientProfile extends BaseController
 		}
 
 		return json_encode($newdata);
-		// return json_encode([
-		// 	'first-name' => 'John',
-		// 	'last-name' => 'Doe',
-		// 	'date-of-birth' => '2021-01-01',
-		// 	'gender' => 'Male',
-		// 	'email' => 'example@example.com',
-		// 	'phone-number' => '09123456789',
-		// 	'shop-name' => 'Shop name',
-		// 	'product-name' => 'Food',
-		// 	'Municipality' => 'Baao',
-		// 	'barangay' => 'San Miguel',
-		// 	'zone-street' => $id,
-		// ]);
 	}
 
 	public function editProfile(){
@@ -127,4 +115,6 @@ class ClientProfile extends BaseController
 			// return redirect()->to(base_url('/client-login'));
 		}
 	}
+
+	//END - profile section..........................
 }

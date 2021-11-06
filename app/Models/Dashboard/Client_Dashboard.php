@@ -115,6 +115,9 @@ class Client_Dashboard extends Model{
         
     }
 
+    //profile section..........................
+
+    //edit profile
     public function editProfile($id, $data){
         $db = \Config\Database::connect();
         $builder = $db->table('clients');
@@ -125,6 +128,7 @@ class Client_Dashboard extends Model{
         return true;        
     }
 
+    //delete account
     public function deleteAccount($id){
         $db = \Config\Database::connect();
         $builder = $db->table('clients');
@@ -134,5 +138,6 @@ class Client_Dashboard extends Model{
 
         return true;        
     }
+    //END - profile section..........................
     
 }
