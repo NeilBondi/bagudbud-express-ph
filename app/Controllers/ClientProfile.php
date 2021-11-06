@@ -75,9 +75,9 @@ class ClientProfile extends BaseController
 		$xdate = date_format($date, 'Y-m-d');
 
 		$data = [
-			'Name' => $fname,
-			'L_name' => $lname,
-			'Address' => $barangay,
+			'Name' => ucwords($fname),
+			'L_name' => ucwords($lname),
+			'Address' => ucwords($barangay),
 			'Municipality' => $municipality,
 			'Email' => $C_email,
 			'Contact_num' => $c_num,

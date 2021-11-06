@@ -216,7 +216,7 @@
     <script src="<?= base_url('/public/assets/dashboard/js/bootstrap.min.js')?>"></script>
     
     <script type="text/javascript">
-
+                
                 $(() => {
                     let getUrl = window.location;
                     let baseUrl = `${getUrl.origin}/${getUrl.pathname.split('/')[1]}`;
@@ -410,6 +410,7 @@
                                             $('body').removeClass('popup-blur-active');
                                             $('.popup-container').removeClass('popup-active');
                                             $('#userTable').load('#userTable');
+                                            $('#numPending').load('#numPending');
                                         });
 
                                         
