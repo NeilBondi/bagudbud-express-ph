@@ -61,9 +61,9 @@ class ClientSignup extends BaseController
 
 		$data = [
 			'Password' => $password,
-			'Name' => $fname,
-			'L_name' => $lname,
-			'Address' => $address,
+			'Name' => ucwords($fname),
+			'L_name' => ucwords($lname),
+			'Address' => ucwords($address),
 			'Municipality' => $municipality,
 			'Email' => $C_email,
 			'Contact_num' => $c_num,
