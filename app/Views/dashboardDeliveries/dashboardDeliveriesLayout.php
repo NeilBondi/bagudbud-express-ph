@@ -492,6 +492,41 @@
                         }
                     });
 
+                    $('#delete-acc').click(function(event) {
+                        event.preventDefault()
+
+                        Swal.fire({
+                            title: 'Are you sure?',
+                            text: "You won't be able to revert this!",
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#3CD87A',
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: 'Continue!'
+                            }).then((result) => {
+                            if (result.isConfirmed) {
+                               
+                                $.ajax({
+                                    type: "post",
+                                    url: "<?= base_url('ClientProfile/deleteAccount');?>",
+                                    data: '',
+                                    dataType: "json",
+                                    success: function (res) {
+                                        if(res.code == 202){
+                                            Swal.fire(
+                                            'Deleted!',
+                                            'Your account has been deleted.',
+                                            'success'
+                                            ).then(function(){
+                                                location.href= "<?= base_url('/client-login')?>";
+                                            })
+                                        }
+                                    }
+                                });
+                            }
+                        })
+                    })
+
                 });
 
                 
