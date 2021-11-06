@@ -45,6 +45,8 @@ $myRoutes = array(
 	"rider-signup" => "RiderSignup::index",
 	"client-signup" => "ClientSignup::index",
 	"email-verification" => "EmailVerification::index",
+
+	// clients
 	"client-dashboard/deliveries" => "ClientDashboard::index",
 	"client-dashboard/pending" => "ClientDashboard::pending",
 	"client-dashboard/deliveries/(:num)" => "ClientDashboard::acceptedDetails/$1",
@@ -54,6 +56,16 @@ $myRoutes = array(
 	"client-dashboard/password-and-security" => "ClientProfile::passwordAndSecurity",
 	"client-dashboard/delete-account" => "ClientProfile::removeAccount",
 	"client-dashboard/notifications" => "ClientProfile::notifications",
+
+	// rider
+	"rider-dashboard/requests" => "RiderDashboard::index",
+	"rider-dashboard/deliveries" => "RiderDashboard::deliveries",
+	"rider-dashboard/requests/(:num)" => "RiderDashboard::details/$1",
+	"rider-dashboard/deliveries/(:num)" => "RiderDashboard::acceptedDetails/$1",
+	"rider-dashboard/profile" => "RiderProfile::index",
+	"rider-dashboard/password-and-security" => "RiderProfile::passwordAndSecurity",
+	"rider-dashboard/delete-account" => "RiderProfile::removeAccount",
+
 	"c_resetPassword" => "PassReset/C_ResetPass::index",
 	"r_resetPassword" => "PassReset/R_ResetPass::index"
 );

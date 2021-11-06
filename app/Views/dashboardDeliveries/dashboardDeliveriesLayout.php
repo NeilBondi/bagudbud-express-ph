@@ -391,20 +391,20 @@
                                 success: function (resData) {
                                     if(resData.code == 202){
                                         const Toast = Swal.mixin({
-                                        toast: true,
-                                        position: 'top-end',
-                                        showConfirmButton: false,
-                                        timer: 2000,
-                                        timerProgressBar: false,
-                                        didOpen: (toast) => {
-                                            toast.addEventListener('mouseenter', Swal.stopTimer)
-                                            toast.addEventListener('mouseleave', Swal.resumeTimer)
-                                        }
+                                            toast: true,
+                                            position: 'top-end',
+                                            showConfirmButton: false,
+                                            timer: 2000,
+                                            timerProgressBar: false,
+                                            didOpen: (toast) => {
+                                                toast.addEventListener('mouseenter', Swal.stopTimer)
+                                                toast.addEventListener('mouseleave', Swal.resumeTimer)
+                                            }
                                         })
 
                                         Toast.fire({
-                                        icon: 'success',
-                                        title: resData.msg
+                                            icon: 'success',
+                                            title: resData.msg
                                         }).then(function(){
                                             $('#form')[0].reset();
                                             $('body').removeClass('popup-blur-active');

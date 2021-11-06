@@ -1,7 +1,7 @@
 <!-- 
 	Extends the base_no_nav.php that has the header and footer 
 -->
-<?= $this->extend('dashboardDeliveries/dashboardDeliveriesLayout.php') ?> 
+<?= $this->extend('rider/dashboardDeliveriesLayout.php') ?> 
 
 <!-- 
 	Inserts the whole section to the base_no_nav.php
