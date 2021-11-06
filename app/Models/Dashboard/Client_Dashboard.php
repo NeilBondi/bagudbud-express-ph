@@ -132,12 +132,38 @@ class Client_Dashboard extends Model{
     public function deleteAccount($id){
         $db = \Config\Database::connect();
         $builder = $db->table('clients');
-
+        
         $builder->where('Client_id', $id);
         $builder->delete();
 
         return true;        
     }
-    //END - profile section..........................
+
+    public function checkCPassword($id, $password){
+        $db = \Config\Database::connect();
+        $builder = $db->table('clients');
+        // $builder->select('Password');
+        $builder->where('Client_id', $id);
+        $query = $builder->get();
+
+        foreach($query->getResultArray() as $row){
+            if(password_verify($password, $row['Password'])){
+                return true;
+            }else{
+                return false;
+            }
+        }
     
+    }
+
+    public function updatePassword($id, $password){
+        $db = \Config\Database::connect();
+        $builder = $db->table('clients');
+        // $builder->select('Password');
+        $builder->where('Client_id', $id);
+        $builder->update($password);
+
+        return true;
+    }
+    //END - profile section..........................
 }

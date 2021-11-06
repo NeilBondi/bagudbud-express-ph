@@ -116,6 +116,48 @@ class ClientProfile extends BaseController
 		}
 	}
 
+	public function checkPassword(){
+		$session = session();
+		$id = $session->get('id');
+
+		$cpass = $this->request->getPost('cPass');
+
+		$model = new Client_Dashboard();
+		if($model->checkCPassword($id, $cpass)){
+			return json_encode([
+				'id' => 202,
+			]);
+		}else{
+			return json_encode([
+				'id' => 404,
+			]);
+		}
+		
+	}
+
+	public function updatePassword(){
+		$session = session();
+		$id = $session->get('id');
+
+		$npass = $this->request->getPost('npass');
+		$npass = password_hash($npass, PASSWORD_DEFAULT);
+		$data = [
+			'Password' => $npass,
+		];
+
+		$model = new Client_Dashboard();
+		if($model->updatePassword($id, $data)){
+			return json_encode([
+				'id' => 202,
+			]);
+		}else{
+			return json_encode([
+				'id' => 404,
+			]);
+		}
+		
+	}
+
 	public function notifications()
 	{
         // helper('form');

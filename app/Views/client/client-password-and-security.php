@@ -73,7 +73,7 @@
                                         <div class="my-5 w-100">
 
                                             <!-- Submit btn -->
-                                            <input type="submit" class="btn btn-primary px-5 py-2" value="Save">
+                                            <input type="submit" class="btn btn-primary px-5 py-2" value="Save" id="submit">
                                         </div>
                                     </div>
                                 </form>
@@ -97,6 +97,102 @@
                             $(this).addClass('bi-eye')
                             $(this).parent().prev().attr('type', 'text');
                         }
+                    });
+
+                    $('#submit').click(function (e) { 
+                        e.preventDefault();
+                        
+                        var currentPass = $('#current-password').val();
+                        var npass = $('#new-password').val();
+                        if($('#new-password').val() == $('#confirm-password').val()){
+                            $.ajax({
+                            type: "post",
+                            url: "<?= base_url('ClientProfile/checkPassword')?>",
+                            data: {
+                                cPass: currentPass
+                            },
+                            dataType: "json",
+                            success: function (res) {
+                                if(res.id == 202 ){
+                                    $.ajax({
+                                        type: "post",
+                                        url: "<?= base_url('ClientProfile/updatePassword')?>",
+                                        data: {
+                                            npass: npass
+                                        },
+                                        dataType: "json",
+                                        success: function (resData) {
+                                            const Toast = Swal.mixin({
+                                                toast: true,
+                                                position: 'top-end',
+                                                showConfirmButton: false,
+                                                timer: 3000,
+                                                timerProgressBar: false,
+                                                didOpen: (toast) => {
+                                                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                                                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                                                }
+                                                })
+                                            if(resData.id == 202){
+                                                Toast.fire({
+                                                icon: 'success',
+                                                title: 'Password Changed Successfully'
+                                                }).then(function(){
+                                                    window.location.reload();
+                                                });
+                                            }else{
+                                                Toast.fire({
+                                                icon: 'error',
+                                                title: 'Password Can\'t be Update for now'
+                                                }).then(function(){
+                                                    window.location.reload();
+                                                });
+                                            }
+                                        }
+                                    });
+                                    // alert('ok');
+                                }
+                                else{
+                                    const Toast = Swal.mixin({
+                                    toast: true,
+                                    position: 'top-end',
+                                    showConfirmButton: false,
+                                    timer: 3000,
+                                    timerProgressBar: false,
+                                    didOpen: (toast) => {
+                                        toast.addEventListener('mouseenter', Swal.stopTimer)
+                                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+                                    }
+                                    })
+                                    Toast.fire({
+                                    icon: 'error',
+                                    title: 'Invalid Current Password!'
+                                    }).then(function(){
+                                        // window.location.reload();
+                                    });
+                                }
+                            }
+                        });
+                        }else{
+                            const Toast = Swal.mixin({
+                            toast: true,
+                            position: 'top-end',
+                            showConfirmButton: false,
+                            timer: 3000,
+                            timerProgressBar: false,
+                            didOpen: (toast) => {
+                                toast.addEventListener('mouseenter', Swal.stopTimer)
+                                toast.addEventListener('mouseleave', Swal.resumeTimer)
+                            }
+                            })
+                            Toast.fire({
+                            icon: 'error',
+                            title: 'Confirm Password Not Match'
+                            }).then(function(){
+                                // window.location.reload();
+                            });
+                        }
+                        
                     });
                 })
             </script>
