@@ -45,6 +45,7 @@ $myRoutes = array(
 	"rider-signup" => "RiderSignup::index",
 	"client-signup" => "ClientSignup::index",
 	"email-verification" => "EmailVerification::index",
+	"riderNotif" => "EmailVerification::indexRider",
 
 	// clients
 	"client-dashboard/deliveries" => "ClientDashboard::index",

@@ -362,7 +362,8 @@
                             bool_number = false;
                         }
                     });
-                        
+                    
+                    //update profile
                     $('#profile-form').submit(function (e) { 
                         e.preventDefault();
                         
@@ -418,6 +419,7 @@
                         }
                     });
 
+                    //delete account.. direct from server
                     $('#delete-acc').click(function (e) { 
                         e.preventDefault();
 
@@ -452,8 +454,6 @@
                             }
                         })
                     });
-
-                    // alert('ok');
                 });
             </script>
 

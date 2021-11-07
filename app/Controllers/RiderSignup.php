@@ -58,13 +58,14 @@ class RiderSignup extends BaseController
 		$password = password_hash($password, PASSWORD_DEFAULT); 
 		// $vkey = md5(time() . $name);
 		//generate verifivation key
-		$vkey = substr(md5(time() . $name), 0, 12);
+		$vkey = substr(md5(time() . $fname), 0, 12);
 
 		$data = [
-            'delP_Name'           => $name,
+            'delP_fName'           => ucwords($fname) ,
+            'delP_lName'           => ucwords($lname),
             'delP_Gender'         => $gender,
             'delP_Bday'           => $xdate,
-            'delP_Address'        => $address,
+            'delP_Address'        => ucwords($address),
             'delP_Municipality'   => $municipality,
             'delP_Email'          => $C_email,
             'delP_Cnumber'        => $c_num,
@@ -83,7 +84,7 @@ class RiderSignup extends BaseController
 			// 		$applyId = $apply->getInsertID();
 			// 			$applyData = array(
 			// 				'applyId'   => $applyId,
-			// 				'applyName' => $name
+			// 				'applyName' => ucwords($name)
 			// 			);
 
 			// $parser = \Config\Services::parser();

@@ -11,7 +11,8 @@ class Rider_Signup extends Model{
     protected $primaryKey = 'delP_ID';
     protected $DBGroup = 'default';
     protected $allowedFields = [
-        'delP_Name',
+        'delP_fName',
+        'delP_lName',
         'delP_Gender',
         'delP_Bday',
         'delP_Address',

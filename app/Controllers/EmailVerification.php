@@ -13,4 +13,14 @@ class EmailVerification extends BaseController
         );
 		return view('email-verification', $data);
 	}
+
+	public function indexRider($data = null)
+	{
+		$email = $data;
+		$data = array(
+            "page_title" => "Bagudbud",
+			"email" => $email
+        );
+		return view('riderNotif', $data);
+	}
 }

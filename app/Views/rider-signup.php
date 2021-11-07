@@ -202,7 +202,7 @@
                             <div class="mt-xxl-3 mb-lg-2 d-flex flex-column">
                                 <label for="vehicle-type" class="fw-bold display-7 form-label col-form-label col-form-label-sm mt-1 mt-lg-0">Vehicle Type</label>
                                 <select name="vehicle-type" class="form-select form-select-md py-xl-2 py-xxl-3 fw-lighter" id="vehicle-type" aria-label="Default select example">
-                                    <option selected>Vehicle Type</option>
+                                    <option disable selected>Vehicle Type</option>
                                     <option value="Motorcycle">Motorcycle</option>
                                     <option value="Bicycle">Bicycle</option>
                                 </select>
@@ -315,6 +315,7 @@
         $(document).ready(function () {
 
             $("input").attr("required", true);
+            $("select").attr("required", true);
             $("input[type=checkbox]").removeAttr("required");
             var bool_email = true;
             var bool_cpass = true;
