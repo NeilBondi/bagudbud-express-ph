@@ -102,8 +102,8 @@
                     $('#delete-form').submit(function(event) {
                         event.preventDefault()
 
-                        $('.confirm-container').addClass('popup-active');
-                        $('body').addClass('popup-blur-active');
+                        // $('.confirm-container').addClass('popup-active');
+                        // $('body').addClass('popup-blur-active');
                     })
 
                     
