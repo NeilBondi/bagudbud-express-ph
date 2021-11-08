@@ -71,7 +71,7 @@
 
                                                 <!-- Insert Active Deliveries Count -->
 
-                                                <h5 class="font-extrabold mb-0 text-black">2</h5>
+                                                <h5 class="font-extrabold mb-0 text-black"><span id="numAccepted"></h5>
                                             </div>
                                         </div>
                                     </div>
@@ -250,6 +250,7 @@
                 $(() => {
 
                     displayCountPending()
+                    displayCountAccepted()
                     // $('.track-container').find('.active').find('svg').attr('stroke', '#fff')
                     // $('.track-container').find('.active').prevAll().each(function() {
                     //     $(this).find('svg').attr('stroke', '#1ec360');
@@ -303,6 +304,18 @@
                             }
                         })
                     }
+
+                    function displayCountAccepted() {
+                    $.ajax({
+                        type: 'ajax',
+                        url: "<?= base_url('ClientDashboard/countAccepted'); ?>",
+                        async: true,
+                        dataType: 'json',
+                        success: function (data) {
+                            $('#numAccepted').html(data.result);
+                        }
+                    });
+                    }
                 })
 
                 $(document).ready(function () {
@@ -332,7 +345,7 @@
                                         if(res.code == 202){
                                             Swal.fire(
                                             'Deleted!',
-                                            'Your file has been deleted.',
+                                            'Your Request has been canceled.',
                                             'success'
                                             ).then(function(){
                                                 location.href= "<?= base_url('/client-dashboard/pending')?>";

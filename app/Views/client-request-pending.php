@@ -66,7 +66,7 @@
 
                                                 <!-- Insert Active Deliveries Count -->
 
-                                                <h5 class="font-extrabold mb-0 text-black">2</h5>
+                                                <h5 class="font-extrabold mb-0 text-black"><span id="numAccepted"></h5>
                                             </div>
                                         </div>
                                     </div>
@@ -129,6 +129,7 @@
                 $(document).ready(function () {
                     reloadTable()
                     displayCountPending()
+                    displayCountAccepted()
 
                     function reloadTable() {
                     $.ajax({
@@ -161,7 +162,19 @@
                         success: function (data) {
                             $('#numPending').html(data.result);
                         }
-                    })
+                    });
+                    }
+
+                    function displayCountAccepted() {
+                    $.ajax({
+                        type: 'ajax',
+                        url: "<?= base_url('ClientDashboard/countAccepted'); ?>",
+                        async: true,
+                        dataType: 'json',
+                        success: function (data) {
+                            $('#numAccepted').html(data.result);
+                        }
+                    });
                     }
 
                  });

@@ -214,9 +214,17 @@ class ClientDashboard extends BaseController
     	return view('dashboardDeliveries/requestDisplay', $data);
 	}
 
+	public function displayAcceptedRequest(){
+		$session = session();
+		$id = $session->get('id');
+		
+		$model = new Client_Dashboard();
+		$data['request'] = $model->getAccepted($id);
+    	return view('dashboardDeliveries/requestAcceptedDisplay', $data);
+	}
+
 	//display request details....
 	public function details($reqid) {//pending details
-
 		$session = session();
 		$id = $session->get('id');
 
@@ -231,11 +239,11 @@ class ClientDashboard extends BaseController
 	//index for accepted request page....
 	public function acceptedDetails($reqid) {//accepted details
 
-		// $model = new Client_Dashboard();
+		$model = new Client_Dashboard();
 		// $data['request'] = $model->getRequestDetails($id);
 		$data = array(
             "page_title" => "Bagudbud | Delivery Details",
-			// "request"    => $model->getRequestDetails($reqid)
+			"request"    => $model->getAcceptedDetails($reqid)
         );
 		return view('accepted-request-details', $data);
 	}
@@ -296,6 +304,17 @@ class ClientDashboard extends BaseController
 
 		return json_encode([
 			'result' => $model->countPendingRequest($id),
+		]);
+	}
+
+	public function countAccepted(){
+		$model = new Client_Dashboard();
+
+		$session = session();
+		$id = $session->get('id');
+
+		return json_encode([
+			'result' => $model->countAcceptedRequest($id),
 		]);
 	}
 

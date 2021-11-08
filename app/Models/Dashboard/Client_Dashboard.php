@@ -27,6 +27,16 @@ class Client_Dashboard extends Model{
         $db = \Config\Database::connect();
         $builder = $db->table('client_request');
         $builder->where('Client_id', $id);
+        $builder->where('status', 1);
+        return $builder->countAllResults();
+        
+    }
+
+    public function countAcceptedRequest($id){
+        $db = \Config\Database::connect();
+        $builder = $db->table('client_request');
+        $builder->where('Client_id', $id);
+        $builder->where('status', 2);
         return $builder->countAllResults();
         
     }
@@ -65,7 +75,41 @@ class Client_Dashboard extends Model{
         $builder->select('*');
         $builder->join('payment', ' payment.req_id = client_request.req_id');
         $builder->where('Client_id', $id);
+        $builder->where('client_request.status', 1);
         $builder->orderBy('client_request.req_id', 'DESC');
+        $query = $builder->get();
+
+        $data = $query->getResultArray();
+        return $data;
+    }
+
+    //display accepted request list...
+    public function getAccepted($id){
+
+        $db = \Config\Database::connect();
+        $builder = $db->table('client_request');
+        $builder->select('*');
+        $builder->join('payment', ' payment.req_id = client_request.req_id', 'left');
+        $builder->join('delivery_personnel', 'delivery_personnel.delP_ID = client_request.delP_ID', 'left');
+        $builder->where('Client_id', $id);
+        $builder->where('client_request.status', 2);
+        $builder->orderBy('accepted_date', 'DESC');
+        $query = $builder->get();
+
+        $data = $query->getResultArray();
+        return $data;
+    }
+
+    //display acceted details....
+    public function getAcceptedDetails($reqid){
+        $db = \Config\Database::connect();
+        $builder = $db->table('client_request');
+        $builder->select('*');
+        $builder->join('payment', ' payment.req_id = client_request.req_id', 'left');
+        $builder->join('delivery_personnel', 'delivery_personnel.delP_ID = client_request.delP_ID', 'left');
+        // $builder->where('Client_id', $id);
+        $builder->where('client_request.req_id', $reqid);
+        // $builder->orderBy('accepted_date', 'DESC');
         $query = $builder->get();
 
         $data = $query->getResultArray();
