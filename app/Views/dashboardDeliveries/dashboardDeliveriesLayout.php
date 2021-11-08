@@ -159,6 +159,7 @@
                                             <option value="Nabua">Nabua</option>
                                             <option value="Iriga City">Iriga City</option>
                                         </select>
+                                        <span class="text-danger text-center display-8 fw-bold mt-2 d-none alerts">Error message!</span>
                                     </div>
                                 </div>
                             </div>
@@ -361,6 +362,7 @@
                     });
 
                     var bool_number = true;
+                    var bool_muni = true;
                 
                     $('#phone-number').keyup(function (e) {
                         var num = $(this).val(); 
@@ -376,9 +378,12 @@
                             bool_number = false;
                         }
                     });
+
                     $("input").attr("required", true);
+                    $("select").attr("required", true);
                     $('#form').submit(function (e) { 
                         e.preventDefault();
+
                         if(bool_number && requestID === null){ // create new request
                             $.ajax({
                                 type: "post",
