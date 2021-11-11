@@ -57,6 +57,11 @@ $myRoutes = array(
 	"client-dashboard/password-and-security" => "ClientProfile::passwordAndSecurity",
 	"client-dashboard/delete-account" => "ClientProfile::removeAccount",
 	"client-dashboard/notifications" => "ClientProfile::notifications",
+	"client-dashboard/notifications/(:num)" => "ClientProfile::notificationDetail",
+	"client-dashboard/success" => "ClientDashboard::successDeliveries",
+	"client-dashboard/success/(:num)" => "ClientDashboard::successDeliveryDetail",
+	"client-dashboard/cancelled" => "ClientDashboard::cancelledDeliveries",
+	"client-dashboard/cancelled/(:num)" => "ClientDashboard::cancelledDeliveryDetail",
 
 	// rider
 	"rider-dashboard/requests" => "RiderDashboard::index",
@@ -67,8 +72,13 @@ $myRoutes = array(
 	"rider-dashboard/password-and-security" => "RiderProfile::passwordAndSecurity",
 	"rider-dashboard/delete-account" => "RiderProfile::removeAccount",
 
+	// customer
+	"tracking" => "Tracking::index",
+
 	"c_resetPassword" => "PassReset/C_ResetPass::index",
-	"r_resetPassword" => "PassReset/R_ResetPass::index"
+	"r_resetPassword" => "PassReset/R_ResetPass::index",
+
+	'test' => 'Test::index'
 );
 
 $routes->map($myRoutes);

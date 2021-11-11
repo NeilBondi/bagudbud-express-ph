@@ -28,7 +28,7 @@
                                 </div>
                                 <div class="details-content row px-md-4 px-md-5 mx-md-3 mb-md-5 mt-4" style="max-width: 60rem; width: 100%">
                                     <div class="col">
-                                        <div class="row row-cols-1 row-cols-sm-2" style="min-height: 8rem;">
+                                        <div class="row row-cols-1 row-cols-md-2" style="min-height: 8rem;">
                                             <div class="col">
                                                 <div class="pickup-point d-flex">
                                                     <div class="con  me-5">
@@ -44,7 +44,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col mt-5 mt-sm-0">
+                                            <div class="col mt-5 mt-md-0">
                                                 <div class="delivery-point d-flex">
                                                     <div class="con  me-5">
                                                         <p class="fw-semibold mb-2">Delivery point</p>
@@ -60,8 +60,8 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row row-cols-1 row-cols-sm-2" style="min-height: 8rem;">
-                                            <div class="col mt-5 mt-sm-0">
+                                        <div class="row row-cols-1 row-cols-md-2" style="min-height: 8rem;">
+                                            <div class="col mt-5 mt-md-0">
                                                 <div class="pickup-point d-flex">
                                                     <div class="con  me-5">
                                                         <p class="fw-semibold mb-2">Client</p>
@@ -69,14 +69,15 @@
                                                         <!-- client NAME AND MOBILE NUMBER -->
 
                                                         <p class="display-6 m-0 fw-bold text-black">John Doe</p>
-                                                        <p class="display-6 m-0 fw-bold text-black">09123456789</p>
+                                                        <p class="display-6 m-0 fw-bold text-black">+639123456789</p>
                                                     </div>
                                                     <div class="d-flex align-items-center">
-                                                        <button class="clipboard btn btn-light-secondary" title="Copy to clipboard" value="09123456789"><i class="bi bi-clipboard"></i></button>
+                                                        <a href="tel:+639123456789" class="media-btns btn btn-light-secondary m-1" value="+639123456789"><i class="bi bi-telephone"></i></a>
+                                                        <a href="sms:+639123456789" class="media-btns btn btn-light-secondary m-1" value="+639123456789"><i class="bi bi-chat"></i></a>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col mt-5 mt-sm-0">
+                                            <div class="col mt-5 mt-md-0">
                                                 <div class="delivery-point d-flex">
                                                     <div class="con  me-5">
                                                         <p class="fw-semibold mb-2">Recipient</p>
@@ -84,16 +85,17 @@
                                                         <!-- recipient NAME AND MOBILE NUMBER -->
 
                                                         <p class="display-6 m-0 fw-bold text-black">John Doe</p>
-                                                        <p class="display-6 m-0 fw-bold text-black">09123456789</p>
+                                                        <p class="display-6 m-0 fw-bold text-black">+639123456789</p>
                                                     </div>
                                                     <div class="d-flex align-items-center">
-                                                        <button class="clipboard btn btn-light-secondary" title="Copy to clipboard" value="09123456789"><i class="bi bi-clipboard"></i></button>
+                                                        <a href="tel:+639123456789" class="media-btns btn btn-light-secondary m-1" value="+639123456789"><i class="bi bi-telephone"></i></a>
+                                                        <a href="sms:+639123456789" class="media-btns btn btn-light-secondary m-1" value="+639123456789"><i class="bi bi-chat"></i></a>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row row-cols-1 row-cols-sm-2" style="min-height: 8rem;">
-                                            <div class="col mt-5 mt-sm-0">
+                                        <div class="row row-cols-1 row-cols-md-2" style="min-height: 8rem;">
+                                            <div class="col mt-5 mt-md-0">
                                                 <div class="">
                                                     <p class="fw-semibold mb-2">Mode of Payment</p>
 
@@ -102,7 +104,7 @@
                                                     <p class="display-6 m-0 fw-bold text-black">Cash on Delivery (COD)</p>
                                                 </div>
                                             </div>
-                                            <div class="col mt-5 mt-sm-0">
+                                            <div class="col mt-5 mt-md-0">
                                                 <div class="">
                                                     <p class="fw-semibold mb-2">Product Type</p>
 
@@ -113,7 +115,7 @@
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col mt-5 mt-sm-0 p-0">
+                                            <div class="col mt-5 mt-md-0 p-0">
                                                 <div class="btns d-flex flex-column flex-sm-row">
                                                     <button class="cancel-delivery btn border-2 border-danger fw-bold py-2 mb-3 mb-sm-0 me-0 me-sm-2">Cancel Delivery</button>
                                                     <button class="message btn btn-primary border-2 py-2 border-primary fw-bold">Message</button>
@@ -226,6 +228,26 @@
                     $(window).resize(btnSize)
                     btnSize()
 
+                    $('.media-btns').each(function() {
+                        $(this).click(function() {
+                            $('.media-btns').each(function() {
+                                $(this).children().first().css('color', '#000')
+                                $(this).addClass('btn-light-secondary')
+                                $(this).removeClass('btn-primary')
+                            })
+
+                            $(this).children().first().css('color', '#fff')
+                            $(this).removeClass('btn-light-secondary')
+                            $(this).addClass('btn-primary')
+
+                            setTimeout(() => {
+                                $(this).children().first().css('color', '#000')
+                                $(this).addClass('btn-light-secondary')
+                                $(this).removeClass('btn-primary')
+                            }, 3000)
+                        })
+                    })
+
                     $('.clipboard').each(function() {
                         $(this).click(function() {
                             $('.clipboard').each(function() {
@@ -286,8 +308,6 @@
                             $('.message-container').removeClass('popup-active');
                             $('body').removeClass('popup-blur-active');
                         }
-
-                        console.log(e.target.classList.contains('message-container'))
                     })
                     
                     $('#img-input').change(function() {

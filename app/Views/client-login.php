@@ -64,7 +64,7 @@
                                         Don't have an account?
                                     </p>
                                     <p class="overflow-hidden">
-                                        <a href="<?= base_url('/rider-signup') ?>" class="display-7 fw-bold link-dark text-decoration-none position-relative overflow-hidden a-link ms-1 pb-0">Join now</a>
+                                        <a href="<?= base_url('/client-signup') ?>" class="display-7 fw-bold link-dark text-decoration-none position-relative overflow-hidden a-link ms-1 pb-0">Join now</a>
                                     </p>
                                 </div>
                             </div>

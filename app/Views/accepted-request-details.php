@@ -102,7 +102,7 @@
                                         </div>
 
                                         <div class="track">
-                                            <ul class="track-container">
+                                            <ul class="track-container p-0">
                                                 <li class="">
                                                     <span>
                                                         <span>
@@ -141,7 +141,7 @@
                                             </ul>
                                         </div>
                                     </div>
-                                    <div class="bottom border-top mx-2 mx-md-5 row">
+                                    <div class="bottom border-top mx-2 mx-lg-3 mx-xxl-5 row">
                                         <div class="people-details col-12 col-sm-5 border-end order-2 order-sm-1 my-5">
                                             <div class="recipient">
                                                 <h5 class="text-black">Recipient</h5>
