@@ -37,40 +37,40 @@
                                             <table class="table table-bordered stable-striped" style="border-radius: 50%;">
                                                 <tbody>
                                                     <tr>
-                                                        <th class="ps-5">Tracking No.</th>
-                                                        <td class="ps-5">12134567890</td>
+                                                        <th class="ps-sm-5">Tracking No.</th>
+                                                        <td class="ps-sm-5">12134567890</td>
                                                     </tr>
                                                     <tr>
-                                                        <th class="ps-5" >Booking Date</th>
-                                                        <td class="ps-5">01/01/2021</td>
+                                                        <th class="ps-sm-5" >Booking Date</th>
+                                                        <td class="ps-sm-5">01/01/2021</td>
                                                     </tr>
                                                     <tr>
-                                                        <th class="ps-5">Delivery Mans's Name</th>
-                                                        <td class="ps-5">John Doe</td>
+                                                        <th class="ps-sm-5">Delivery Mans's Name</th>
+                                                        <td class="ps-sm-5">John Doe</td>
                                                     </tr>
                                                     <tr>
-                                                        <th class="ps-5" >Client's Name</th>
-                                                        <td class="ps-5">John Doe</td>
+                                                        <th class="ps-sm-5" >Client's Name</th>
+                                                        <td class="ps-sm-5">John Doe</td>
                                                     </tr>
                                                     <tr>
-                                                        <th class="ps-5">City of Client</th>
-                                                        <td class="ps-5">Nabua</td>
+                                                        <th class="ps-sm-5">City of Client</th>
+                                                        <td class="ps-sm-5">Nabua</td>
                                                     </tr>
                                                     <tr>
-                                                        <th class="ps-5" >Status</th>
-                                                        <td class="ps-5">Delivery Request</td>
+                                                        <th class="ps-sm-5" >Status</th>
+                                                        <td class="ps-sm-5">Delivery Request</td>
                                                     </tr>
                                                     <tr>
-                                                        <th class="ps-5">Delivery Date and Time</th>
-                                                        <td class="ps-5">01/01/2021 7:00am</td>
+                                                        <th class="ps-sm-5">Delivery Date and Time</th>
+                                                        <td class="ps-sm-5">01/01/2021 7:00am</td>
                                                     </tr>
                                                     <tr>
-                                                        <th class="ps-5" >Recipient Name</th>
-                                                        <td class="ps-5">John Doe</td>
+                                                        <th class="ps-sm-5" >Recipient Name</th>
+                                                        <td class="ps-sm-5">John Doe</td>
                                                     </tr>
                                                     <tr>
-                                                        <th class="ps-5">Recipient Address</th>
-                                                        <td class="ps-5">Nabua</td>
+                                                        <th class="ps-sm-5">Recipient Address</th>
+                                                        <td class="ps-sm-5">Nabua</td>
                                                     </tr>
                                                 </tbody>
                                             </table>

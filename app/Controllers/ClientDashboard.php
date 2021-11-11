@@ -343,4 +343,37 @@ class ClientDashboard extends BaseController
 		// 	return view('client-login', $data);
 		// }
 	}
+
+	// success deliveries
+	public function successDeliveries(){
+		$data = array(
+            "page_title" => "Bagudbud | Success Deliveries",
+        );
+
+		return view('client/success-deliveries', $data);
+	}
+
+	public function successDeliveryDetail(){
+		$data = array(
+            "page_title" => "Bagudbud | Success Deliveries",
+        );
+
+		return view('client/success-delivery-details', $data);
+	}
+	// success deliveries
+	public function cancelledDeliveries(){
+		$data = array(
+            "page_title" => "Bagudbud | Success Deliveries",
+        );
+
+		return view('client/cancelled-deliveries', $data);
+	}
+
+	public function cancelledDeliveryDetail(){
+		$data = array(
+            "page_title" => "Bagudbud | Success Deliveries",
+        );
+
+		return view('client/cancelled-delivery-details', $data);
+	}
 }

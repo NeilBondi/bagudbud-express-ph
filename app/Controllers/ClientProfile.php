@@ -166,4 +166,13 @@ class ClientProfile extends BaseController
         );
 		return view('client/notifications', $data);
 	}
+
+	public function notificationDetail()
+	{
+        // helper('form');
+        $data = array(
+            "page_title" => "Bagudbud | Notifications"
+        );
+		return view('client/notification-detail', $data);
+	}
 }

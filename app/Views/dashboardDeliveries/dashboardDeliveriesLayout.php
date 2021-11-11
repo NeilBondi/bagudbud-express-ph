@@ -61,17 +61,17 @@
                                 <span>Dashboard</span>
                             </a>
                         </li>
-                        <li class="sidebar-item  has-sub">
+                        <li class="deliveries sidebar-item  has-sub">
                             <a href="#" class='sidebar-link'>
                                 <i class="bi bi-stack"></i>
                                 <span>Deliveries</span>
                             </a>
                             <ul class="submenu ">
-                                <li class="submenu-item ">
-                                    <a href="component-alert.html">Success Requests</a>
+                                <li class="submenu-item success">
+                                    <a href="<?= base_url('/client-dashboard/success');?>">Success Requests</a>
                                 </li>
-                                <li class="submenu-item ">
-                                    <a href="component-badge.html">Cancelled Requests</a>
+                                <li class="submenu-item cancelled">
+                                    <a href="<?= base_url('/client-dashboard/cancelled');?>">Cancelled Requests</a>
                                 </li>
                             </ul>
                         </li>
@@ -264,6 +264,18 @@
                             $(this).removeClass('active')
                         })
                         $('.notifications').addClass('active')
+                    } else if (currentUrl === 'success') {
+                        $('.menu').children().not($('.success')).each(function() {
+                            $(this).removeClass('active')
+                        })
+                        $('.deliveries, .success').addClass('active')
+                        $('.deliveries').find('ul').addClass('active')
+                    } else if (currentUrl === 'cancelled') {
+                        $('.menu').children().not($('.cancelled')).each(function() {
+                            $(this).removeClass('active')
+                        })
+                        $('.deliveries, .cancelled').addClass('active')
+                        $('.deliveries').find('ul').addClass('active')
                     }
 
                     // end
