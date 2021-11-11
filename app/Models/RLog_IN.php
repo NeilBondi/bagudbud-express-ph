@@ -40,11 +40,11 @@ class RLog_IN extends Model{
         foreach ($query->getResultArray() as $row) {
             $result = [
                 'id'             => $row['delP_ID'],
-                'name'           => $row['delP_Name'],
-                'address'        => $row['delP_Address'],
-                'municipality'   => $row['delP_Municipality'],
-                'email'          => $row['delP_Email'],
-                'Contact_Num'    => $row['delP_Cnumber'],
+                // 'name'           => $row['delP_Name'],
+                // 'address'        => $row['delP_Address'],
+                // 'municipality'   => $row['delP_Municipality'],
+                // 'email'          => $row['delP_Email'],
+                // 'Contact_Num'    => $row['delP_Cnumber'],
                 'logged_in'      => TRUE
             ];
         }
