@@ -22,7 +22,7 @@
                                 <form action="" method="post" id="profile-form">
                                     <div class="inner-container px-3 px-lg-5 d-flex flex-column align-items-center">
                                         <div class="profile-con avatar avatar-xxl border border-2 border-primary position-relative">
-                                            <img src="<?= base_url('/public/assets/dashboard/images/faces/1.jpg')?>" alt="Face 1">
+                                            <img class="profile-avatar-image" src="<?= base_url('/public/assets/dashboard/images/faces/1.jpg')?>" alt="Face 1">
                                             <div class="overlay position-absolute w-100 h-100 rounded-circle overflow-hidden d-flex justify-content-center align-items-center">
                                                 <span class="fw-bold" style="opacity: 0.7;">Change Profile Image</span>
                                             </div>
@@ -165,6 +165,8 @@
                                             </div> -->
                                         </div>
                                         <div class="mt-5 w-100">
+                                            <!-- Profile avatar -->
+                                            <input type="text" hidden name="profile-avatar" id="profile-avatar">
 
                                             <!-- Submit btn -->
                                             <input type="submit" class="btn btn-primary px-5 py-2" value="Save">
@@ -279,12 +281,14 @@
                         })
                     })
 
+                    // change profile avatar 
                     $('#avatar-form').submit(function(e) {
                         e.preventDefault();
                         let $data = $('#avatar-form').serializeArray()
 
                         // insert on success
                         $currentProfile.attr('src', $data[0].value)
+                        $('#profile-avatar').val($data[0].value);
                         setTimeout(() => {
                             $('.avatar-container').addClass('d-none');
                             $('body').removeClass('popup-blur-active');
@@ -336,6 +340,9 @@
                                                         $(this).attr('selected', 'true')
                                                     }
                                                 });
+                                            } else if(key === 'profile-avatar') {
+                                                $('#profile-avatar').val(res[key]);
+                                                $('.profile-avatar-image').attr('src', res[key]);
                                             } else {
                                                 $parent.find(`input[name=${key}`).val(res[key]);
                                             }

@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="<?= base_url('/public/assets/dashboard/vendors/bootstrap-icons/bootstrap-icons.css')?>">
     <link rel="stylesheet" href="<?= base_url('/public/assets/dashboard/css/app.css')?>">
     <link rel="stylesheet" href="<?= base_url('/public/assets/css/customs.min.css')?>">
+    <link rel="stylesheet" href="<?= base_url('/public/assets/css/app.css')?>">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 <body class="position-relative">

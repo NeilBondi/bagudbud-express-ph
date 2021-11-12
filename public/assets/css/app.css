@@ -4,3 +4,30 @@
 	justify-content: center;
 	align-items: center;
 }
+
+.logo img {
+	height: 100%;
+}
+
+.main {
+	margin-top: 10vh;
+}
+
+.input-container {
+	box-shadow: 0px 1px 15px -8px rgba(0, 0, 0, 0.5);
+	-webkit-box-shadow: 0px 1px 15px -8px rgba(0, 0, 0, 0.5);
+	-moz-box-shadow: 0px 1px 15px -8px rgba(0, 0, 0, 0.5);
+	min-height: 7rem;
+	padding: 1.5rem;
+}
+
+.search-tracking-btn {
+}
+
+@media screen and (max-width: 576px) {
+	.search-tracking-btn {
+		margin-left: 0 !important;
+		margin-top: 1rem;
+		padding: 1rem;
+	}
+}
