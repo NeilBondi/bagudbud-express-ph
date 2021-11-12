@@ -95,10 +95,7 @@
                 $(document).ready(function() {
                     $("body").tooltip({ selector: '[data-toggle=tooltip]' });
                 });
-                $(() => {
-
-                    
-                    // });
+                $(() => {                  
                     let getUrl = window.location;
                     let baseUrl = `${getUrl.origin}/${getUrl.pathname.split('/')[1]}`;
                     let currentUrl = getUrl.pathname.split('/')[3];

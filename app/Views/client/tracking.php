@@ -35,43 +35,8 @@
                                         </div>
                                         <div class="result w-100 d-none d-flex">
                                             <table class="table table-bordered stable-striped" style="border-radius: 50%;">
-                                                <tbody>
-                                                    <tr>
-                                                        <th class="ps-5">Tracking No.</th>
-                                                        <td class="ps-5">12134567890</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th class="ps-5" >Booking Date</th>
-                                                        <td class="ps-5">01/01/2021</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th class="ps-5">Delivery Mans's Name</th>
-                                                        <td class="ps-5">John Doe</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th class="ps-5" >Client's Name</th>
-                                                        <td class="ps-5">John Doe</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th class="ps-5">City of Client</th>
-                                                        <td class="ps-5">Nabua</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th class="ps-5" >Status</th>
-                                                        <td class="ps-5">Delivery Request</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th class="ps-5">Delivery Date and Time</th>
-                                                        <td class="ps-5">01/01/2021 7:00am</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th class="ps-5" >Recipient Name</th>
-                                                        <td class="ps-5">John Doe</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th class="ps-5">Recipient Address</th>
-                                                        <td class="ps-5">Nabua</td>
-                                                    </tr>
+                                                <tbody id="tracking-details">
+                                            
                                                 </tbody>
                                             </table>
                                         </div>
@@ -100,15 +65,30 @@
                     $('#search-form').submit(function(event) {
                         event.preventDefault();
 
-                        if ($('#search').val()) {
-                            $('.no-request').addClass('d-none')
-                            $('.result').removeClass('d-none')
+                        var trackingId = $('#search').val();
+                         $.ajax({
+                             type: "post",
+                             url: "<?= base_url('ClientDashboard/trackingDetails')?>",
+                             data: {
+                                 trackingId: trackingId
+                             },
+                             async: true,
+                             success: function (data) {
+                                $('#tracking-details').html(data);
+                                $('.no-request').addClass('d-none')
+                                $('.result').removeClass('d-none')
+                                // alert('ok');
+                             }
+                         });
 
-                        } else {
-                            $('.no-request').removeClass('d-none')
-                            $('.result').addClass('d-none')
-                            $('.no-request').prev().addClass('d-none');
-                        }
+                        // if ($('#search').val()) {
+                           
+                        // } 
+                        //else {
+                        //     $('.no-request').removeClass('d-none')
+                        //     $('.result').addClass('d-none')
+                        //     $('.no-request').prev().addClass('d-none');
+                        // }
                     })
                 })
             </script>

@@ -101,7 +101,7 @@ class ClientDashboard extends BaseController
 				'req_id'           => $r_id,
 				'mode_of_payment'  => $payment,
 				'delivery_fee'     => $deliveryFee,
-				'status'           => $pstatus
+				'pstatus'           => $pstatus
 			];
 
 			if($dash->addPayment($paymentData)){
@@ -273,6 +273,23 @@ class ClientDashboard extends BaseController
 		return view('client/tracking', $data);
 	}
 
+	public function trackingDetails(){
+		$session = session();
+		$id = $session->get('id');
+
+		$model = new Client_Dashboard();
+
+		$trackingId = $this->request->getPost('trackingId');
+
+		if($model->checkTracking($trackingId)){
+			$data['request'] = $model->getTrackingDetails($trackingId);
+    		return view('client/tracking-details', $data);
+		}else{
+			return '<h1>Invalid Tracking Number</h1>';
+		}
+	}
+	//end for tracking
+
 	//return data to form for edit request ... as value to inputs
 	public function temp() {
 		$model = new Client_Dashboard();
@@ -307,6 +324,7 @@ class ClientDashboard extends BaseController
 		]);
 	}
 
+	//countAccepted Request based from user ID
 	public function countAccepted(){
 		$model = new Client_Dashboard();
 

@@ -2,8 +2,7 @@
 
 namespace App\Controllers;
 use CodeIgniter\Controller;
-use  App\Models\Dashboard\Client_Dashboard;
-use App\Libraries\Pricing;
+use  App\Models\Dashboard\Rider_Dashboard;
 
 class RiderDashboard extends BaseController
 {
@@ -13,38 +12,25 @@ class RiderDashboard extends BaseController
 		$session = session();
 		$id = $session->get('id');
 
-		// $userDBdata = $dash->getCompleteData($id);
-		// foreach ($userDBdata as $row) {
-		// 	$clientData = array(
-		// 		'id'           => $row['Client_id'],
-		// 		'Name'         => $row['Name'],
-		// 		'Address'      => $row['Address'],
-		// 		'Municipality' => $row['Municipality'],
-		// 		'Email'        => $row['Email'],
-		// 		'Contact_num'  => $row['Contact_num'],
-		// 		'B_name'  => $row['B_name'],
-		// 	);
-		// }
+		if($id != null){
+			$data = array(
+				"page_title" => "Bagudbud | Dashboard",
+				// 'logData' => $clientData//fetch session data
+			);
+			return view('rider/rider-request', $data);
+		}else{
+			$data = array(
+				"page_title" => "Bagudbud | Dashboard",
+				// 'logData' => $clientData//fetch session data
+			);
+			return view('rider-login', $data);
+		}
 
-		// if($id != null){
-		// 	$data = array(
-		// 		"page_title" => "Bagudbud | Dashboard",
-		// 		// 'logData' => $clientData//fetch session data
-		// 	);
-		// 	return view('rider-dashboard', $data);
-		// }else{
-		// 	$data = array(
-		// 		"page_title" => "Bagudbud | Dashboard",
-		// 		// 'logData' => $clientData//fetch session data
-		// 	);
-		// 	return view('rider-login', $data);
-		// }
-
-		$data = array(
-			"page_title" => "Bagudbud | Dashboard",
-			// 'logData' => $clientData//fetch session data
-		);
-		return view('rider/rider-request', $data);
+		// $data = array(
+		// 	"page_title" => "Bagudbud | Dashboard",
+		// 	// 'logData' => $clientData//fetch session data
+		// );
+		// return view('rider/rider-request', $data);
 	}
 
 	//display handle the data of user pass to requests page
@@ -89,6 +75,23 @@ class RiderDashboard extends BaseController
 		
 	}
 
+	public function displayAllRequest(){
+		$model =  new Rider_Dashboard();
+		$data['result'] = $model->getAllRequest();
+
+		return view('rider/displayRequests', $data);
+	}
+
+	public function displayAllAccepted(){
+
+		$session = session();
+		$id = $session->get('id');
+
+		$model =  new Rider_Dashboard();
+		$data['result'] = $model->getAllAccepted($id);
+
+		return view('rider/displayAccepted', $data);
+	}
 	//display request....
 	// public function displayRequest(){
 	// 	$session = session();
