@@ -6,6 +6,16 @@
 <!-- 
 	Inserts the whole section to the base_no_nav.php
  -->
+ <?php
+    foreach($request as $row){
+
+        if($row['mode_of_payment'] == 'COD'){
+            $MOP = 'Cash on Delivery (COD)';
+        }else{
+            $MOP = 'Cash on Pickup (COP)';
+        }
+ 
+ ?>
 <?= $this->section('content'); ?>
             <div class="page-heading">
                 <h3 class="text-black">Dashboard</h3>
@@ -36,8 +46,8 @@
 
                                                         <!-- pickiup point ZONE STREET AND BARANGAY CITY -->
 
-                                                        <p class="display-6 m-0 fw-bold text-black">001, Zone 4</p>
-                                                        <p class="display-6 m-0 fw-bold text-black">San Miguel, Nabua</p>
+                                                        <p class="display-6 m-0 fw-bold text-black"><?php echo $row['Address'];?></p>
+                                                        <p class="display-6 m-0 fw-bold text-black"><?php echo $row['Municipality'];?></p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -48,8 +58,8 @@
 
                                                         <!-- delivery point ZONE STREET AND BARANGAY CITY -->
 
-                                                        <p class="display-6 m-0 fw-bold text-black">001, Zone 4</p>
-                                                        <p class="display-6 m-0 fw-bold text-black">San Miguel, Nabua</p>
+                                                        <p class="display-6 m-0 fw-bold text-black"><?php echo $row['recepient_address'];?></p>
+                                                        <p class="display-6 m-0 fw-bold text-black"><?php echo $row['recepient_municipality'];?></p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -61,7 +71,7 @@
 
                                                     <!-- Mode of payment -->
 
-                                                    <p class="display-6 m-0 fw-bold text-black">Cash on Delivery (COD)</p>
+                                                    <p class="display-6 m-0 fw-bold text-black"><?php echo $MOP;?></p>
                                                 </div>
                                             </div>
                                             <div class="col mt-5 mt-sm-0">
@@ -70,14 +80,14 @@
 
                                                     <!-- product type -->
 
-                                                    <p class="display-6 m-0 fw-bold text-black">Garments</p>
+                                                    <p class="display-6 m-0 fw-bold text-black"><?php echo $row['product_name'];?></p>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col mt-5 mt-sm-0">
                                                 <div class="btns d-flex flex-column flex-sm-row">
-                                                    <button class="btn btn-primary border-2 py-2 px-5 border-primary fw-bold">Accept</button>
+                                                    <button class="btn btn-primary border-2 py-2 px-5 border-primary fw-bold" id="accept">Accept</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -94,6 +104,39 @@
             <script type="text/javascript">
                 $(document).ready(function() {
                     $("body").tooltip({ selector: '[data-toggle=tooltip]' });
+
+                    $('#accept').click(function (e) { 
+                        e.preventDefault();
+                        var reqid = <?php echo $row['req_id']; ?>;
+                        // alert(reqid)
+
+                        $.ajax({
+                            type: "post",
+                            url: "<?= base_url('RiderDashboard/acceptTheRequest'); ?>",
+                            data: {
+                                reqid: reqid
+                            },
+                            dataType: "json",
+                            success: function (res) {
+                                // console.log(res);
+                                if(res.code == 202){
+                                    Swal.fire(
+                                        'Okay',
+                                        'Request Added to your deleveries',
+                                        'success'
+                                    ).then(function(){
+                                        location.href= "<?= base_url('/rider-dashboard/requests')?>";
+                                    })
+                                }else{
+                                    Swal.fire(
+                                        'Opps',
+                                        'You Can\'t Accept this Request right now',
+                                        'warning'
+                                    )
+                                }
+                            }
+                        });
+                    });
                 });
                 $(() => {                  
                     let getUrl = window.location;
@@ -106,3 +149,4 @@
                 });
             </script>
 <?= $this->endSection(); ?>
+<?php }?>

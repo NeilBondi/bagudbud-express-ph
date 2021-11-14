@@ -45,29 +45,29 @@
             <script type="text/javascript">
                 $(document).ready(function () {
                     reloadTable()
-                });
 
-                function reloadTable() {
-                    $.ajax({
-                        type: 'ajax',
-                        url: "<?= base_url('RiderDashboard/displayAllRequest'); ?>",
-                        async: true,
-                        success: function (data) {
-                        $('.userTable').html(data);
-                        reloadTable()
-                        let getUrl = window.location;
-                            let baseUrl = `${getUrl.origin}/${getUrl.pathname.split('/')[1]}`;
-                            let currentUrl = getUrl.pathname.split('/')[3];
-                            $('.items').each(function() {
-                                $(this).click(function() {
-                                    // delivery details path
-                                    let id = $(this).attr('data-label').split('-')[1];
-                                    location.href = `${baseUrl}/rider-dashboard/${currentUrl}/${id}`;
+                    function reloadTable() {
+                        $.ajax({
+                            type: 'ajax',
+                            url: "<?= base_url('RiderDashboard/displayAllRequest'); ?>",
+                            async: true,
+                            success: function (data) {
+                            $('.userTable').html(data);
+                            
+                            let getUrl = window.location;
+                                let baseUrl = `${getUrl.origin}/${getUrl.pathname.split('/')[1]}`;
+                                let currentUrl = getUrl.pathname.split('/')[3];
+                                $('.items').each(function() {
+                                    $(this).click(function() {
+                                        // delivery details path
+                                        let id = $(this).attr('data-label').split('-')[1];
+                                        location.href = `${baseUrl}/rider-dashboard/${currentUrl}/${id}`;
+                                    });
                                 });
-                            });
-                        }
-                    })
-                }
+                            }
+                        })
+                    }
+                });            
             </script>
 
 <?= $this->endSection(); ?>

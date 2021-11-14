@@ -6,6 +6,15 @@
 <!-- 
 	Inserts the whole section to the base_no_nav.php
  -->
+ <?php
+    foreach($request as $row){
+
+        if($row['mode_of_payment'] == 'COD'){
+            $MOP = 'Cash on Delivery (COD)';
+        }else{
+            $MOP = 'Cash on Pickup (COP)';
+        }
+ ?>
 <?= $this->section('content'); ?>
             <div class="page-heading">
                 <h3 class="text-black">Dashboard</h3>
@@ -36,8 +45,8 @@
 
                                                         <!-- pickiup point ZONE STREET AND BARANGAY CITY -->
 
-                                                        <p class="display-6 m-0 fw-bold text-black">001, Zone 4</p>
-                                                        <p class="display-6 m-0 fw-bold text-black">San Miguel, Nabua</p>
+                                                        <p class="display-6 m-0 fw-bold text-black"><?php echo $row['Address'];?></p>
+                                                        <p class="display-6 m-0 fw-bold text-black"><?php echo $row['Municipality'];?></p>
                                                     </div>
                                                     <div class="d-flex align-items-center">
                                                         <button class="clipboard btn btn-light-secondary" title="Copy to clipboard" value="Zone 4, San Miguel, Nabua"><i class="bi bi-clipboard"></i></button>
@@ -51,8 +60,8 @@
 
                                                         <!-- delivery point ZONE STREET AND BARANGAY CITY -->
 
-                                                        <p class="display-6 m-0 fw-bold text-black">001, Zone 4</p>
-                                                        <p class="display-6 m-0 fw-bold text-black">San Miguel, Nabua</p>
+                                                        <p class="display-6 m-0 fw-bold text-black"><?php echo $row['recepient_address'];?></p>
+                                                        <p class="display-6 m-0 fw-bold text-black"><?php echo $row['recepient_municipality'];?></p>
                                                     </div>
                                                     <div class="d-flex align-items-center">
                                                         <button class="clipboard btn btn-light-secondary" title="Copy to clipboard" value="Zone 4, San Miguel, Nabua"><i class="bi bi-clipboard"></i></button>
@@ -68,12 +77,12 @@
 
                                                         <!-- client NAME AND MOBILE NUMBER -->
 
-                                                        <p class="display-6 m-0 fw-bold text-black">John Doe</p>
-                                                        <p class="display-6 m-0 fw-bold text-black">+639123456789</p>
+                                                        <p class="display-6 m-0 fw-bold text-black"><?php echo $row['Name'].' '.$row['L_name']; ?></p>
+                                                        <p class="display-6 m-0 fw-bold text-black"><?php echo $row['Contact_num']; ?></p>
                                                     </div>
                                                     <div class="d-flex align-items-center">
-                                                        <a href="tel:+639123456789" class="media-btns btn btn-light-secondary m-1" value="+639123456789"><i class="bi bi-telephone"></i></a>
-                                                        <a href="sms:+639123456789" class="media-btns btn btn-light-secondary m-1" value="+639123456789"><i class="bi bi-chat"></i></a>
+                                                        <a href="tel:<?php echo $row['Contact_num']; ?>" class="media-btns btn btn-light-secondary m-1" value="<?php echo $row['Contact_num']; ?>"><i class="bi bi-telephone"></i></a>
+                                                        <a href="sms:<?php echo $row['Contact_num']; ?>" class="media-btns btn btn-light-secondary m-1" value="<?php echo $row['Contact_num']; ?>"><i class="bi bi-chat"></i></a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -84,12 +93,12 @@
 
                                                         <!-- recipient NAME AND MOBILE NUMBER -->
 
-                                                        <p class="display-6 m-0 fw-bold text-black">John Doe</p>
-                                                        <p class="display-6 m-0 fw-bold text-black">+639123456789</p>
+                                                        <p class="display-6 m-0 fw-bold text-black"><?php echo $row['recepient_name']; ?></p>
+                                                        <p class="display-6 m-0 fw-bold text-black"><?php echo $row['recepient_contactNum']; ?></p>
                                                     </div>
                                                     <div class="d-flex align-items-center">
-                                                        <a href="tel:+639123456789" class="media-btns btn btn-light-secondary m-1" value="+639123456789"><i class="bi bi-telephone"></i></a>
-                                                        <a href="sms:+639123456789" class="media-btns btn btn-light-secondary m-1" value="+639123456789"><i class="bi bi-chat"></i></a>
+                                                        <a href="tel:<?php echo $row['recepient_contactNum']; ?>" class="media-btns btn btn-light-secondary m-1" value="<?php echo $row['recepient_contactNum']; ?>"><i class="bi bi-telephone"></i></a>
+                                                        <a href="sms:<?php echo $row['recepient_contactNum']; ?>" class="media-btns btn btn-light-secondary m-1" value="<?php echo $row['recepient_contactNum']; ?>"><i class="bi bi-chat"></i></a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -101,7 +110,7 @@
 
                                                     <!-- Mode of payment -->
 
-                                                    <p class="display-6 m-0 fw-bold text-black">Cash on Delivery (COD)</p>
+                                                    <p class="display-6 m-0 fw-bold text-black"><?php echo $MOP;?></p>
                                                 </div>
                                             </div>
                                             <div class="col mt-5 mt-md-0">
@@ -110,7 +119,7 @@
 
                                                     <!-- product type -->
                                                     
-                                                    <p class="display-6 m-0 fw-bold text-black">Garments</p>
+                                                    <p class="display-6 m-0 fw-bold text-black"><?php echo $row['product_name'];?></p>
                                                 </div>
                                             </div>
                                         </div>
@@ -211,7 +220,7 @@
                 $(() => {
 
                     
-                    // });
+                   
                     let getUrl = window.location;
                     let baseUrl = `${getUrl.origin}/${getUrl.pathname.split('/')[1]}`;
                     let currentUrl = getUrl.pathname.split('/')[3];
@@ -341,3 +350,6 @@
                 });
             </script>
 <?= $this->endSection(); ?>
+<?php }
+
+?>

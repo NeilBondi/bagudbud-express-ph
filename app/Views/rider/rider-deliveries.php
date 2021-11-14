@@ -27,47 +27,12 @@
                                             <thead class="line-overlay">
                                                 
                                             </thead>
-                                            <tbody id="userTable pt-5">
+                                            <tbody id="userTable pt-5" class="AcceptedList">
 
                                                 <!-- item start -->
                                                 <!-- change the aria-label. change the number only based on the id in db ex. for the next item data-label="item-2" -->
                                                
-                                                <tr class="items" data-label="item-1" style="cursor: pointer;">
-                                                    <td>
-                                                        <div class="d-flex align-items-center py-1 py-xxl-3">
-                                                            <div class="location-icon bg-primary">
-                                                                <i class="bi bi-geo-alt-fill display-5"></i>
-                                                            </div>
-                                                            <div class="request-item-content w-100 ms-4">
-                                                                <div class="left-content">
-                                                                    <span class="display-7">Pickup Point</span>
-                                                                    <p class="text-black fw-bold">San Miguel, Nabua</p>
-                                                                </div>
-                                                                <div class="right-content">
-                                                                    <span>7:01 am</span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                </tr> 
-                                                <tr class="items" data-label="item-1" style="cursor: pointer;">
-                                                    <td>
-                                                        <div class="d-flex align-items-center py-1 py-xxl-3">
-                                                            <div class="location-icon bg-primary">
-                                                                <i class="bi bi-geo-alt-fill display-5"></i>
-                                                            </div>
-                                                            <div class="request-item-content w-100 ms-4">
-                                                                <div class="left-content">
-                                                                    <span class="display-7">Pickup Point</span>
-                                                                    <p class="text-black fw-bold">San Miguel, Nabua</p>
-                                                                </div>
-                                                                <div class="right-content">
-                                                                    <span>7:01 am</span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                </tr> 
+                                                
                                             </tbody>
                                         </table>
                                     </div>
@@ -80,7 +45,29 @@
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
             <script type="text/javascript">
                 $(document).ready(function () {
-                    
+                    reloadTable()
+
+                    function reloadTable() {
+                        $.ajax({
+                            type: 'ajax',
+                            url: "<?= base_url('RiderDashboard/displayAllAccepted'); ?>",
+                            async: true,
+                            success: function (data) {
+                            $('.AcceptedList').html(data);
+                            
+                            let getUrl = window.location;
+                                let baseUrl = `${getUrl.origin}/${getUrl.pathname.split('/')[1]}`;
+                                let currentUrl = getUrl.pathname.split('/')[3];
+                                $('.items').each(function() {
+                                    $(this).click(function() {
+                                        // delivery details path
+                                        let id = $(this).attr('data-label').split('-')[1];
+                                        location.href = `${baseUrl}/rider-dashboard/${currentUrl}/${id}`;
+                                    });
+                                });
+                            }
+                        })
+                    }
 
                 });
             </script>

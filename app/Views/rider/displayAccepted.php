@@ -2,7 +2,7 @@
 <?php
     foreach($result as $row){
 
-        $date = date_create($row['req_date']);
+        $date = date_create($row['accepted_date']);
         $xdate = date_format($date, "F j, Y, g:i a");
 
 ?>
