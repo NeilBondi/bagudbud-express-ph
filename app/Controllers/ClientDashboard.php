@@ -16,12 +16,9 @@ class ClientDashboard extends BaseController
 		$userDBdata = $dash->getCompleteData($id);
 		foreach ($userDBdata as $row) {
 			$clientData = array(
-				'id'           => $row['Client_id'],
 				'Name'         => $row['Name'],
 				'Address'      => $row['Address'],
 				'Municipality' => $row['Municipality'],
-				'Email'        => $row['Email'],
-				'Contact_num'  => $row['Contact_num'],
 				'B_name'  => $row['B_name'],
 			);
 		}

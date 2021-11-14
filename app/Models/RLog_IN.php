@@ -39,7 +39,7 @@ class RLog_IN extends Model{
 
         foreach ($query->getResultArray() as $row) {
             $result = [
-                'id'             => $row['delP_ID'],
+                'rid'             => $row['delP_ID'],
                 // 'name'           => $row['delP_Name'],
                 // 'address'        => $row['delP_Address'],
                 // 'municipality'   => $row['delP_Municipality'],

@@ -33,7 +33,7 @@ class RiderLogin extends BaseController
                 $session->set($session_Data); 
 
                 //route to dashboard
-                return redirect()->to('rider-dashboard/requests');
+                return redirect()->to(base_url('/rider-dashboard/requests'));
             }else if($code == 400){
 
                 $session->setFlashdata('msg', 'Email not Found');
