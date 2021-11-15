@@ -48,7 +48,7 @@
                                     <a href="<?= base_url('/rider-dashboard/password-and-security') ?>">Password and Security</a>
                                 </li>
                                 <li class="submenu-item delete-account">
-                                    <a href="<?= base_url('/rider-dashboard/delete-account') ?>" id="delete-account">Delete Account</a>
+                                    <a href="#" id="delete-acc">Delete Account</a>
                                 </li>
                                 <li class="submenu-item">
                                     <a href="<?= base_url('riderLogin/logout');?>" class="text-danger">Logout</a>
@@ -172,6 +172,55 @@
                     } 
 
                     // end
+
+                    $('#delete-acc').click(function (e) { 
+                        e.preventDefault();
+
+                        Swal.fire({
+                            title: 'Are you sure?',
+                            text: "You won't be able to revert this!",
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#3CD87A',
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: 'Continue!'
+                            }).then((result) => {
+                            if (result.isConfirmed) {
+                               
+                                $.ajax({
+                                    type: "post",
+                                    url: "<?= base_url('RiderProfile/deleteAccount');?>",
+                                    data: '',
+                                    dataType: "json",
+                                    success: function (res) {
+                                        if(res.code == 202){
+                                            Swal.fire(
+                                            'Deleted!',
+                                            'Your account has been deleted.',
+                                            'success'
+                                            ).then(function(){
+                                                location.href= "<?= base_url('/rider-login')?>";
+                                            })
+                                        }
+                                        else if(res.code == 404){
+                                            Swal.fire(
+                                            'Oops!',
+                                            res.msg,
+                                            'warning'
+                                            )
+                                        }
+                                        else if(res.code == 204){
+                                            Swal.fire(
+                                            'Oops!',
+                                            res.msg,
+                                            'warning'
+                                            )
+                                        }
+                                    }
+                                });
+                            }
+                        })
+                    });
                 });
 
 

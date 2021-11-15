@@ -228,7 +228,7 @@
                             $('body').removeClass('popup-blur-active');
                         }
                         
-                    })  
+                    })
 
                     let $currentProfile = $('.profile-con').children().first()
                     $('.profile-con').click(() => {
@@ -297,7 +297,7 @@
                         const $parent = $('.inner-container');
                         let inputs = $('#profile-form').serializeArray();
                         $.ajax({
-                            url: "<?= base_url('ClientProfile/getUserData'); ?>",
+                            url: "<?= base_url('RiderProfile/getRiderData');?>",
                             method: "GET",
                             dataType: "json",
                             data: '',
@@ -305,18 +305,18 @@
                                 for (const key in res) {
                                     inputs.map((el) => {
                                         if (key === el.name) {
-                                            if (key === 'gender' || key === 'product-name' || key === 'Municipality') {
-                                                $parent.find(`select[name=${key}`).children().each(function() {
-                                                    $(this).removeAttr('selected')
+                                            if (key === 'gender' || key === 'vehicle-type' || key === 'Municipality') {
+                                                $parent.find(`select[name=${key}]`).children().each(function() {
+                                                    $(this).removeAttr('selected');
                                                     if (res[key].toLowerCase() === $(this).val().toLowerCase()) {
-                                                        $(this).attr('selected', 'true')
+                                                        $(this).attr('selected', 'true');
                                                     }
                                                 });
                                             } else if(key === 'profile-avatar') {
                                                 $('#profile-avatar').val(res[key]);
                                                 $('.profile-avatar-image').attr('src', res[key]);
                                             } else {
-                                                $parent.find(`input[name=${key}`).val(res[key]);
+                                                $parent.find(`input[name=${key}]`).val(res[key]);
                                             }
                                         }
                                     })
@@ -349,7 +349,7 @@
                             var data = new FormData(this);
                             $.ajax({
                                 type: "post",
-                                url: "<?= base_url('ClientProfile/editProfile');?>",
+                                url: "<?= base_url('RiderProfile/editProfile');?>",
                                 data: data,
                                 dataType: "json",
                                 contentType: false,
@@ -380,7 +380,7 @@
                                         icon: 'success',
                                         title: res.msg
                                         }).then(function(){
-                                            $('#form')[0].reset();
+                                            $(this)[0].reset();
                                             // $('body').removeClass('popup-blur-active');
                                             // $('.popup-container').removeClass('popup-active');
                                             // window.location.reload();
@@ -397,40 +397,6 @@
                         }
                     });
 
-                    $('#delete-acc').click(function (e) { 
-                        e.preventDefault();
-
-                        Swal.fire({
-                            title: 'Are you sure?',
-                            text: "You won't be able to revert this!",
-                            icon: 'warning',
-                            showCancelButton: true,
-                            confirmButtonColor: '#3CD87A',
-                            cancelButtonColor: '#d33',
-                            confirmButtonText: 'Continue!'
-                            }).then((result) => {
-                            if (result.isConfirmed) {
-                               
-                                $.ajax({
-                                    type: "post",
-                                    url: "<?= base_url('ClientProfile/deleteAccount');?>",
-                                    data: '',
-                                    dataType: "json",
-                                    success: function (res) {
-                                        if(res.code == 202){
-                                            Swal.fire(
-                                            'Deleted!',
-                                            'Your account has been deleted.',
-                                            'success'
-                                            ).then(function(){
-                                                location.href= "<?= base_url('/client-login')?>";
-                                            })
-                                        }
-                                    }
-                                });
-                            }
-                        })
-                    });
 
                     // alert('ok');
                 });
