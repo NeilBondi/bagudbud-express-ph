@@ -70,6 +70,7 @@ class ClientProfile extends BaseController
 		$Bday = $this->request->getPost('date-of-birth');
 		$b_name = $this->request->getPost('shop-name');
 		$product_type = $this->request->getPost('product-name');
+		$profile = $this->request->getPost('profile-avatar');
 
 		$date = date_create($Bday);
 		$xdate = date_format($date, 'Y-m-d');
