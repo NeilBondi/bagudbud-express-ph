@@ -139,7 +139,7 @@
                                         </div>
                                         <div class="mt-5 w-100">
                                             <!-- Profile avatar -->
-                                            <input type="text" hidden name="profile-avatar" id="profile-avatar">
+                                            <input type="hidden" name="profile-avatar" id="profile-avatar">
 
                                             <!-- Submit btn -->
                                             <input type="submit" class="btn btn-primary px-5 py-2" value="Save">
@@ -154,56 +154,56 @@
                                                 <div class="col-3 p-3 d-flex align-items-center justify-content-center">
                                                     <div class="avatar-con avatar avatar avatar-xl2 position-relative">
                                                         <img src="<?= base_url('/public/assets/dashboard/images/faces/1.jpg')?>" alt="Face 1">
-                                                        <input type="radio" name="avatar" id="avatar-icons" value="<?= base_url('/public/assets/dashboard/images/faces/1.jpg')?>">
+                                                        <input type="radio" name="avatar" id="avatar-icons" value="1.jpg">
                                                         <span class="border-overlay"></span>
                                                     </div>
                                                 </div>
                                                 <div class="col-3 p-3 d-flex align-items-center justify-content-center">
                                                     <div class="avatar-con avatar avatar-xl2 position-relative">
                                                         <img src="<?= base_url('/public/assets/dashboard/images/faces/2.jpg')?>" alt="Face 1">
-                                                        <input type="radio" name="avatar" id="avatar-icons" value="<?= base_url('/public/assets/dashboard/images/faces/2.jpg')?>">
+                                                        <input type="radio" name="avatar" id="avatar-icons" value="2.jpg">
                                                         <span class="border-overlay"></span>
                                                     </div>
                                                 </div>
                                                 <div class="col-3 p-3 d-flex align-items-center justify-content-center">
                                                     <div class="avatar-con avatar avatar-xl2 position-relative">
                                                         <img src="<?= base_url('/public/assets/dashboard/images/faces/3.jpg')?>" alt="Face 1">
-                                                        <input type="radio" name="avatar" id="avatar-icons" value="<?= base_url('/public/assets/dashboard/images/faces/3.jpg')?>">
+                                                        <input type="radio" name="avatar" id="avatar-icons" value="3.jpg">
                                                         <span class="border-overlay"></span>
                                                     </div>
                                                 </div>
                                                 <div class="col-3 p-3 d-flex align-items-center justify-content-center">
                                                     <div class="avatar-con avatar avatar-xl2 position-relative">
                                                         <img src="<?= base_url('/public/assets/dashboard/images/faces/4.jpg')?>" alt="Face 1">
-                                                        <input type="radio" name="avatar" id="avatar-icons" value="<?= base_url('/public/assets/dashboard/images/faces/4.jpg')?>">
+                                                        <input type="radio" name="avatar" id="avatar-icons" value="4.jpg">
                                                         <span class="border-overlay"></span>
                                                     </div>
                                                 </div>
                                                 <div class="col-3 p-3 d-flex align-items-center justify-content-center">
                                                     <div class="avatar-con avatar avatar-xl2 position-relative">
                                                         <img src="<?= base_url('/public/assets/dashboard/images/faces/5.jpg')?>" alt="Face 1">
-                                                        <input type="radio" name="avatar" id="avatar-icons" value="<?= base_url('/public/assets/dashboard/images/faces/5.jpg')?>">
+                                                        <input type="radio" name="avatar" id="avatar-icons" value="5.jpg">
                                                         <span class="border-overlay"></span>
                                                     </div>
                                                 </div>
                                                 <div class="col-3 p-3 d-flex align-items-center justify-content-center">
                                                     <div class="avatar-con avatar avatar-xl2 position-relative">
                                                         <img src="<?= base_url('/public/assets/dashboard/images/faces/6.jpg')?>" alt="Face 1">
-                                                        <input type="radio" name="avatar" id="avatar-icons" value="<?= base_url('/public/assets/dashboard/images/faces/6.jpg')?>">
+                                                        <input type="radio" name="avatar" id="avatar-icons" value="6.jpg">
                                                         <span class="border-overlay"></span>
                                                     </div>
                                                 </div>
                                                 <div class="col-3 p-3 d-flex align-items-center justify-content-center">
                                                     <div class="avatar-con avatar avatar-xl2 position-relative">
                                                         <img src="<?= base_url('/public/assets/dashboard/images/faces/7.jpg')?>" alt="Face 1">
-                                                        <input type="radio" name="avatar" id="avatar-icons" value="<?= base_url('/public/assets/dashboard/images/faces/7.jpg')?>">
+                                                        <input type="radio" name="avatar" id="avatar-icons" value="7.jpg">
                                                         <span class="border-overlay"></span>
                                                     </div>
                                                 </div>
                                                 <div class="col-3 p-3 d-flex align-items-center justify-content-center">
                                                     <div class="avatar-con avatar avatar-xl2 position-relative">
                                                         <img src="<?= base_url('/public/assets/dashboard/images/faces/8.jpg')?>" alt="Face 1">
-                                                        <input type="radio" name="avatar" id="avatar-icons" value="<?= base_url('/public/assets/dashboard/images/faces/8.jpg')?>">
+                                                        <input type="radio" name="avatar" id="avatar-icons" value="8.jpg">
                                                         <span class="border-overlay"></span>
                                                     </div>
                                                 </div>
@@ -259,7 +259,7 @@
                         let $data = $('#avatar-form').serializeArray()
 
                         // insert on success
-                        $currentProfile.attr('src', $data[0].value)
+                        $currentProfile.attr('src', "<?= base_url('/public/assets/dashboard/images/faces') ?>" + "/" + $data[0].value)
                         $('#profile-avatar').val($data[0].value);
                         setTimeout(() => {
                             $('.avatar-container').addClass('d-none');
@@ -313,8 +313,8 @@
                                                     }
                                                 });
                                             } else if(key === 'profile-avatar') {
-                                                $('#profile-avatar').val(res[key]);
-                                                $('.profile-avatar-image').attr('src', res[key]);
+                                                $('#profile-avatar').val(`<?= base_url('/public/assets/dashboard/images/faces/') ?>${res[key]}`);
+                                                $('.profile-avatar-image').attr('src', `<?= base_url('/public/assets/dashboard/images/faces/') ?>${res[key]}`);
                                             } else {
                                                 $parent.find(`input[name=${key}]`).val(res[key]);
                                             }
@@ -380,7 +380,7 @@
                                         icon: 'success',
                                         title: res.msg
                                         }).then(function(){
-                                            $(this)[0].reset();
+                                            // $(this)[0].reset();
                                             // $('body').removeClass('popup-blur-active');
                                             // $('.popup-container').removeClass('popup-active');
                                             // window.location.reload();
