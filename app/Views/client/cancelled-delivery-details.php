@@ -6,7 +6,12 @@
 <!-- 
 	Inserts the whole section to the base_no_nav.php
  -->
-<?= $this->section('content'); ?>
+<?= $this->section('content'); 
+    foreach ($request as $row){
+
+        $date = date_create($row['cancelsuccess_date']);
+        $xdate = date_format($date, "F j, Y, g:i a"); 
+?>
 
             <div class="page-heading">
                 <h3 class="text-black">Deliveries</h3>
@@ -36,26 +41,26 @@
 
                                                         <!-- Delivery man or Recipient -->
 
-                                                        <p class="display-5 text-primary fw-bold m-0">John Doe</p>
+                                                        <p class="display-5 text-primary fw-bold m-0"><?= $row['recepient_name'];?></p>
 
                                                         <!-- Recipient Address -->
 
-                                                        <span class="display-7">San Miguel, Nabua</span>
+                                                        <span class="display-7"><?php echo $row['recepient_address'];?>, <?php echo $row['recepient_municipality'];?></span>
                                                     </div>
 
                                                         <!-- Date cancelled -->
 
                                                     <div class="right-content">
-                                                        <span class="display-7">7:01 am</span>
+                                                        <span class="display-7"><?php echo $xdate; ?></span>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="notif-body mt-5 px-sm-5 pb-5">
-                                                <p style="text-indent:2rem">Your Package has been cancelled by <b>John Doe</b> your Delivery Man. Your package was originally sent to <b>John Doe</b> at <b>San Miguel, Nabua</b> but it was cancelled due to unresponsive recipient.</p>
-                                                <p>Your package will be returned on your address within a few hours.</p>
+                                                <p style="text-indent:2rem">Your Package has been cancelled by <b><?= $row['delP_fName'].' '.$row['delP_lName'];?></b> your Delivery Man. Your package will originally send to <b><?= $row['recepient_name'];?></b> at <b><?php echo $row['recepient_address'];?>, <?php echo $row['recepient_municipality'];?></b> but it was cancelled due to a reason : <i style="letter-spacing: 2px;"><?= $row['reason'];?>.</i></p>
+                                                <p>Your package will be returned on your address within the day.</p>
                                                 <p>Thank you</p>
-                                                <p class="pt-5">Kindly click the button below to contact the customer support to address your concerns.</p>
-                                                <a href="#" class="btn btn-primary">Customer Support</a>
+                                                <!-- <p class="pt-5">Kindly click the button below to contact the customer support to address your concerns.</p>
+                                                <a href="#" class="btn btn-primary">Customer Support</a> -->
                                             </div>
                                         </div>
                                     </div>
@@ -65,7 +70,11 @@
                     </div>
                 </section>
             </div>
-            <script>
+            <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    // alert('ok');
+                });
                 $(() => {
                     let getUrl = window.location;
                     let baseUrl = `${getUrl.origin}/${getUrl.pathname.split('/')[1]}`;
@@ -76,4 +85,4 @@
                 })
             </script>
 
-<?= $this->endSection(); ?>
+<?= $this->endSection(); } ?>

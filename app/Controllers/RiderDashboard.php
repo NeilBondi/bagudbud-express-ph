@@ -26,11 +26,6 @@ class RiderDashboard extends BaseController
 			return view('rider-login', $data);
 		}
 
-		// $data = array(
-		// 	"page_title" => "Bagudbud | Dashboard",
-		// 	// 'logData' => $clientData//fetch session data
-		// );
-		// return view('rider/rider-request', $data);
 	}
 
 	//display handle the data of user pass to requests page
@@ -92,15 +87,6 @@ class RiderDashboard extends BaseController
 
 		return view('rider/displayAccepted', $data);
 	}
-	//display request....
-	// public function displayRequest(){
-	// 	$session = session();
-	// 	$id = $session->get('rid');
-		
-	// 	$model = new Client_Dashboard();
-	// 	$data['request'] = $model->getRequest($id);
-    // 	return view('dashboardDeliveries/requestDisplay', $data);
-	// }
 
 	//display request details....
 	public function details($reqid) {//pending details
@@ -155,19 +141,52 @@ class RiderDashboard extends BaseController
 	}
 
 	//delete or cancel request
-	public function deleteRequest(){
-		// $model = new Client_Dashboard();
-		// $reqid = $this->request->getPost('reqid');
-		
-		// if($model->deleteRequest($reqid)){
-		// 	return json_encode([
-		// 		'code' => 202,
-		// 	]);
-		// }else{
-		// 	return json_encode([
-		// 		'code' => 404,
-		// 	]);
-		// }
+	public function cancelDelivery(){
+		$model = new Rider_Dashboard();
+		$session = session();
+		$id = $session->get('rid');
 
+		$rdata = $model->getCompleteData($id);
+		foreach($rdata as $row){
+			$ridername = $row['delP_fName'].' '.$row['delP_lName'];
+		}
+		
+		$reason = $this->request->getPost('reason');
+		$req_id = $this->request->getPost('req_id');
+		$c_id = $this->request->getPost('c_id');
+		$trackingNum = $this->request->getPost('trackingNum');
+
+		$deliveriesData = [
+			'Client_id' => $c_id,
+			'req_id' => $req_id,
+			'reason' => $reason
+		];
+
+		$deliveriesID = $model->cancelDelivery($req_id, $deliveriesData);
+		if(!$deliveriesID){
+			return json_encode([
+				'code' => 404
+			]);
+		}else{
+			$notificationData = [
+				'sender'     => $ridername,
+				'Client_id' => $c_id,
+				'delivery_id' => $deliveriesID,
+				'body'        => 'The delivery of your parcel has benn canceled, check your cancelled request section for more information.',
+				'tracking'  => $trackingNum,
+				'status' => 0
+			];
+	
+			if($model->notification($notificationData)){
+				return json_encode([
+					'code' => 202
+				]);
+			}else{
+				return json_encode([
+					'code' => 404
+				]);
+			}
+		}
+		
 	}
 }

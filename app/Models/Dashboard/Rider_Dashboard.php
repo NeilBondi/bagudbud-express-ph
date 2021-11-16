@@ -80,6 +80,26 @@ class Rider_Dashboard extends Model{
         
     }
 
+    public function cancelDelivery($reqid, $delData){
+        $db = \Config\Database::connect();
+        $deliveriesDB = $db->table('canceledDeliveries');
+        $builder = $db->table('client_request');
+
+        $builder->where('req_id', $reqid);
+        $builder->update(['status' => 0]);
+
+        $deliveriesDB->insert($delData);
+        return $db->insertID();
+    }
+
+    public function notification($data){
+        $db = \Config\Database::connect();
+        $notificatonDB = $db->table('notification');
+
+        $notificatonDB->insert($data);
+        return true;
+    }
+
     //profile section
     public function editProfile($id, $data){
         $db = \Config\Database::connect();
