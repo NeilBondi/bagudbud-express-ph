@@ -55,6 +55,7 @@ class RiderProfile extends BaseController
 				'Municipality' => $row['delP_Municipality'],
 				'barangay' => $row['delP_Address'],
 				'vehicle-type' => $row['vehicle_Type'],
+				'profile-avatar' => $row['Avatar'],
 			]);
 		}
 
@@ -75,6 +76,7 @@ class RiderProfile extends BaseController
 		$gender = $this->request->getPost('gender');
 		$Bday = $this->request->getPost('date-of-birth');
 		$vehicle = $this->request->getPost('vehicle-type');
+		$profile = $this->request->getPost('profile-avatar');
 
 		$date = date_create($Bday);
 		$xdate = date_format($date, 'Y-m-d');
@@ -88,7 +90,8 @@ class RiderProfile extends BaseController
 			'delP_Cnumber' => $c_num,
 			'delP_Gender' => $gender,
 			'delP_Bday' => $xdate,
-			'vehicle_Type' => $vehicle
+			'vehicle_Type' => $vehicle,
+			'Avatar' => $profile
 		];
 
 		$model = new Rider_Dashboard();
