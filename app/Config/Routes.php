@@ -59,9 +59,9 @@ $myRoutes = array(
 	"client-dashboard/notifications" => "ClientProfile::notifications",
 	"client-dashboard/notifications/(:num)" => "ClientProfile::notificationDetail",
 	"client-dashboard/success" => "ClientDashboard::successDeliveries",
-	"client-dashboard/success/(:num)" => "ClientDashboard::successDeliveryDetail",
+	"client-dashboard/success/(:num)" => "ClientDashboard::successDeliveryDetail/$1",
 	"client-dashboard/cancelled" => "ClientDashboard::cancelledDeliveries",
-	"client-dashboard/cancelled/(:num)" => "ClientDashboard::cancelledDeliveryDetail",
+	"client-dashboard/cancelled/(:num)" => "ClientDashboard::cancelledDeliveryDetail/$1",
 
 	// rider
 	"rider-dashboard/requests" => "RiderDashboard::index",

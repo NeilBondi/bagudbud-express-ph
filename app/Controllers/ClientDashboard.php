@@ -376,6 +376,7 @@ class ClientDashboard extends BaseController
 		return view('client/success-delivery-details', $data);
 	}
 	// success deliveries
+
 	public function cancelledDeliveries(){
 		$data = array(
             "page_title" => "Bagudbud | Success Deliveries",
@@ -384,11 +385,25 @@ class ClientDashboard extends BaseController
 		return view('client/cancelled-deliveries', $data);
 	}
 
-	public function cancelledDeliveryDetail(){
+	public function cancelledDeliveryDetail($id){
+		$model = new Client_Dashboard();
+
 		$data = array(
             "page_title" => "Bagudbud | Success Deliveries",
+			"request"    => $model->getCancelDelDetails($id)
         );
 
 		return view('client/cancelled-delivery-details', $data);
+	}
+
+	public function displayCancel(){
+		$model = new Client_Dashboard();
+
+		$session = session();
+		$id = $session->get('id');
+
+		$data['request'] = $model->getCancelDel($id);
+    	return view('client/displayCancellist', $data);
+		// return '<h1>hello</h1>';
 	}
 }

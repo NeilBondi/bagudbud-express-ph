@@ -218,9 +218,7 @@
             <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
             <script type="text/javascript">
                 $(() => {
-
-                    
-                   
+                 
                     let getUrl = window.location;
                     let baseUrl = `${getUrl.origin}/${getUrl.pathname.split('/')[1]}`;
                     let currentUrl = getUrl.pathname.split('/')[3];
@@ -347,6 +345,52 @@
                         $('#img-input').val('')
                     })
 
+                });
+
+                $(document).ready(function () {
+                    $('#cancel-form').submit(function (e) { 
+                        e.preventDefault();
+                        var reason = $('#floatingTextarea2').val();
+                        var req_id = <?php echo $row['req_id']; ?>;
+                        var c_id = <?php echo $row['Client_id']; ?>;
+                        var trackingNum = '<?php echo $row['tracking_id']; ?>';
+
+                        $.ajax({
+                            type: "post",
+                            url: "<?= base_url('RiderDashboard/cancelDelivery')?>",
+                            data: {
+                                reason: reason,
+                                req_id: req_id,
+                                c_id: c_id,
+                                trackingNum: trackingNum
+                            },
+                            dataType: "json",
+                            success: function (res) {
+                                if(res.code == 202){
+                                    const Toast = Swal.mixin({
+                                        toast: true,
+                                        position: 'top-end',
+                                        showConfirmButton: false,
+                                        timer: 2000,
+                                        timerProgressBar: false,
+                                        didOpen: (toast) => {
+                                            toast.addEventListener('mouseenter', Swal.stopTimer)
+                                            toast.addEventListener('mouseleave', Swal.resumeTimer)
+                                        }
+                                        })
+
+                                        Toast.fire({
+                                        icon: 'success',
+                                        title: 'Canceled'
+                                        }).then(function(){
+                                            location.href= "<?= base_url('rider-dashboard/deliveries')?>";
+                                        });                                 
+                                }
+                            }
+                        });
+                        // console.log(c_id);
+                    });
+                    
                 });
             </script>
 <?= $this->endSection(); ?>

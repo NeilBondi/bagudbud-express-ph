@@ -26,35 +26,11 @@
                                         <thead class="line-overlay">
                                             
                                         </thead>
-                                        <tbody id="userTable pt-5">
+                                        <tbody id="userTable pt-5" class="cancel">
 
                                             <!-- item start -->
                                             <!-- change the aria-label. change the number only based on the id in db ex. for the next item data-label="item-2" -->
-                                            <tr class="items" data-label="item-1" style="cursor: pointer;">
-                                                <td>
-                                                    <div class="d-flex align-items-center py-1 py-xxl-3">
-                                                            <div class="request-item-content w-100 ms-4">
-                                                                <div class="left-content">
-
-                                                                    <!-- Delivery man or Recipient -->
-
-                                                                    <p class="text-black fw-bold m-0">John Doe</p>
-
-                                                                    <!-- Recipient Address -->
-
-                                                                    <span class="display-7">San Miguel, Nabua</span>
-                                                                </div>
-
-                                                                    <!-- Date cancelled -->
-
-                                                                <div class="right-content">
-                                                                    <span class="display-7">7:01 am</span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr> 
+                                           
                                         </tbody>
                                     </table>
                                 </div>
@@ -65,9 +41,34 @@
                 </section>
             </div>
             <script>
-                $(() => {
-                    
-                })
+               $(document).ready(function () {  
+                cancelDel();
+                setInterval(() => {
+                    cancelDel();
+                }, 1000)
+               });
+
+               function cancelDel() {
+                        $.ajax({
+                            type: 'ajax',
+                            url: "<?= base_url('ClientDashboard/displayCancel'); ?>",
+                            async: true,
+                            success: function (data) {
+                            $('.cancel').html(data);
+                            
+                            let getUrl = window.location;
+                                let baseUrl = `${getUrl.origin}/${getUrl.pathname.split('/')[1]}`;
+                                let currentUrl = getUrl.pathname.split('/')[3];
+                                $('.items').each(function() {
+                                    $(this).click(function() {
+                                        // delivery details path
+                                        let id = $(this).attr('data-label').split('-')[1];
+                                        location.href = `${baseUrl}/client-dashboard/${currentUrl}/${id}`;
+                                    });
+                                });
+                            }
+                        })
+                }
             </script>
 
 <?= $this->endSection(); ?>

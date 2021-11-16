@@ -45,6 +45,9 @@
             <script type="text/javascript">
                 $(document).ready(function () {
                     reloadTable()
+                    setInterval(() => {
+                    reloadTable();
+                    }, 1000)
 
                     function reloadTable() {
                         $.ajax({
