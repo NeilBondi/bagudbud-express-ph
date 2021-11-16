@@ -49,6 +49,7 @@ class ClientProfile extends BaseController
 				'product-name' => $row['Product_type'],
 				'Municipality' => $row['Municipality'],
 				'barangay' => $row['Address'],
+				'profile-avatar' => $row['Avatar'],
 			];
 		}
 
@@ -86,6 +87,7 @@ class ClientProfile extends BaseController
 			'B_day' => $xdate,
 			'B_name' => $b_name,
 			'Product_type' => $product_type,
+			'Avatar' => $profile,
 		];
 
 		$model = new Client_Dashboard();

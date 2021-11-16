@@ -33,10 +33,15 @@
                                         <div class="no-request d-none d-flex justify-content-center">
                                             <p class="text-center">No Request Found</p>
                                         </div>
+                                        <div class="d-flex d-none flex-column justify-content-center invalid">
+                                            <img src="<?= base_url('/public/assets/img/undraw_page_not_found_re_e9o6.svg') ?>" style="max-width:40rem" class="my-5 img-fluid" alt="">
+                                            <h2 class="title-404 text-center mt-5">Not Found</h2>
+                                            <h5 class="text-secondary fw-normal text-center mb-5">Please enter a valid Tracking Number</h5>
+                                        </div>
                                         <div class="result w-100 d-none d-flex">
                                             <table class="table table-bordered stable-striped" style="border-radius: 50%;">
                                                 <tbody id="tracking-details">
-                                            
+                                                    
                                                 </tbody>
                                             </table>
                                         </div>
@@ -74,9 +79,16 @@
                              },
                              async: true,
                              success: function (data) {
-                                $('#tracking-details').html(data);
+                                 data = JSON.parse(data);
+                                if(data.status_code != 404) {
+                                    $('#tracking-details').html(data);
+                                    $('.invalid').addClass('d-none')
+                                    $('.result').removeClass('d-none')
+                                } else {
+                                    $('.invalid').removeClass('d-none')
+                                }
                                 $('.no-request').addClass('d-none')
-                                $('.result').removeClass('d-none')
+                                
                                 // alert('ok');
                              }
                          });

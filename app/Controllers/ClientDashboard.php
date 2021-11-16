@@ -82,7 +82,7 @@ class ClientDashboard extends BaseController
 
 		$r_id = $dash->addRequest($insertdata);//insert data and get returned last inserted array
 		if(!$r_id){
-			echo json_encode(['code' => 404, 'msg' => 'Something Went Wrong, Try again in a few minutes']);
+			return json_encode(['code' => 404, 'msg' => 'Something Went Wrong, Try again in a few minutes']);
 		}else{
 			//embed pricing function from library
 			$price = new Pricing();
@@ -102,9 +102,9 @@ class ClientDashboard extends BaseController
 			];
 
 			if($dash->addPayment($paymentData)){
-				echo json_encode(['code' => 202, 'msg' => 'Request Added Successfully']);
+				return json_encode(['code' => 202, 'msg' => 'Request Added Successfully']);
 			}else{
-				echo json_encode(['code' => 404, 'msg' => 'Something Went Wrong!, Try again in a few minutes']);
+				return json_encode(['code' => 404, 'msg' => 'Something Went Wrong!, Try again in a few minutes']);
 			}		
 		}	
 	}
@@ -282,7 +282,9 @@ class ClientDashboard extends BaseController
 			$data['request'] = $model->getTrackingDetails($trackingId);
     		return view('client/tracking-details', $data);
 		}else{
-			return '<h1>Invalid Tracking Number</h1>';
+			return json_encode([
+				"status_code" => 404
+			]);
 		}
 	}
 	//end for tracking
