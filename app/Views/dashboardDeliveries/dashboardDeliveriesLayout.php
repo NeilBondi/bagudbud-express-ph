@@ -404,8 +404,8 @@
                                 contentType: false,
                                 cache: false,
                                 processData: false,
-                                dataType: "json",
                                 success: function (resData) {
+                                    console.log(resData);
                                     if(resData.code == 202){
                                         const Toast = Swal.mixin({
                                             toast: true,
@@ -444,6 +444,9 @@
                                             $('.popup-container').removeClass('popup-active');
                                         })
                                     }
+                                },
+                                error: (res, r) => {
+                                    console.log(res, r)
                                 }
                             });
                         } else if (bool_number && requestID !== null) { 

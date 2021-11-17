@@ -344,8 +344,10 @@
                                                     }
                                                 });
                                             } else if(key === 'profile-avatar') {
-                                                $('#profile-avatar').val(`<?= base_url('/public/assets/dashboard/images/faces/') ?>${res[key]}`);
-                                                $('.profile-avatar-image').attr('src', `<?= base_url('/public/assets/dashboard/images/faces/') ?>${res[key]}`);
+                                                if (res[key] !== '') {
+                                                    $('#profile-avatar').val(`<?= base_url('/public/assets/dashboard/images/faces') ?>/${res[key]}`);
+                                                    $('.profile-avatar-image').attr('src', `<?= base_url('/public/assets/dashboard/images/faces') ?>/${res[key]}`);
+                                                }
                                             } else {
                                                 $parent.find(`input[name=${key}`).val(res[key]);
                                             }
