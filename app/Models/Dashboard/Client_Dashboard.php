@@ -279,8 +279,30 @@ class Client_Dashboard extends Model{
         $builder = $db->table('notification');
 
         $builder->where('Client_id', $id);
+        $builder->orderBy('ndate', 'DESC');
         $query = $builder->get();
         $data = $query->getResultArray();
         return $data;
     }
+
+    public function getNotifDetails($notifid){
+        $db = \Config\Database::connect();
+        $builder = $db->table('notification');
+
+        $builder->where('notif_id', $notifid);
+        $query = $builder->get();
+        $data = $query->getResultArray();
+
+        foreach($data as $row){
+            if($row['status'] == 0){
+                $builder->where('notif_id', $notifid);
+                $builder->update(['status' => 1]);
+                return $data;
+            }else{
+                return $data;
+            }
+        }
+    }
+
+
 }

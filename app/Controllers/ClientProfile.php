@@ -180,11 +180,13 @@ class ClientProfile extends BaseController
     	return view('client/displayNotificationlist', $data);
 	}
 
-	public function notificationDetail()
+	public function notificationDetail($id)
 	{
+		$model = new Client_Dashboard();
         // helper('form');
         $data = array(
-            "page_title" => "Bagudbud | Notifications"
+            "page_title" => "Bagudbud | Notifications",
+			"result"     => $model->getNotifDetails($id)
         );
 		return view('client/notification-detail', $data);
 	}

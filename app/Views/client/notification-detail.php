@@ -6,7 +6,12 @@
 <!-- 
 	Inserts the whole section to the base_no_nav.php
  -->
-<?= $this->section('content'); ?>
+<?= $this->section('content'); 
+    foreach($result as $row){
+
+        $date = date_create($row['ndate']);
+        $xdate = date_format($date, "F j, Y, g:i a");
+?>
 
             <div class="page-heading">
                 <h3 class="text-black">Notifications</h3>
@@ -31,12 +36,12 @@
                                     <div class="col-11">
                                         <div class="details-container">
                                             <div class="notif-header  border-bottom border-secondary mt-3 pb-2">
-                                                <span class="display-5 fw-bold text-primary">John Doe</span>
-                                                <p>October 3, 2021 12:00 pm</p>
+                                                <span class="display-5 fw-bold text-primary"><?php echo $row['sender'];?></span>
+                                                <p><?php echo $xdate?></p>
                                             </div>
                                             <div class="notif-body mt-5 px-sm-5 pb-5">
-                                                <p>The Delivery of your parcel has been cancelled, check your cancelled request section for more information.</p>
-                                                <p>Tracking Number: <span>1234567890sdfb</span></p>
+                                                <p><?php echo $row['body'];?></p>
+                                                <p>Tracking Number: <span><?php echo $row['tracking'];?></span></p>
                                             </div>
                                         </div>
                                     </div>
@@ -62,4 +67,7 @@
                 })
             </script>
 
-<?= $this->endSection(); ?>
+<?= $this->endSection(); 
+
+    }
+?>
