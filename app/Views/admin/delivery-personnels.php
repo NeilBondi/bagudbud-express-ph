@@ -19,7 +19,7 @@
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
-                                DataTable Example
+                                Delivery Personnel Table
                             </div>
                             <div class="card-body">
                                 <table id="datatablesSimple">
@@ -30,6 +30,7 @@
                                             <th>Vehicle Type</th>
                                             <th>Date of Birth</th>
                                             <th>Date Approved</th>
+                                            <th></th>
                                         </tr>
                                     </thead>
                                     <tfoot>
@@ -39,6 +40,7 @@
                                             <th>Vehicle Type</th>
                                             <th>Date of Birth</th>
                                             <th>Date Approved</th>
+                                            <th></th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
@@ -48,6 +50,12 @@
                                             <td>Motorcycle</td>
                                             <td>2011/04/25</td>
                                             <td>2011/04/25</td>
+                                            <td>
+                                                <div class="d-flex justify-content-center align-items-center">
+                                                    <button class="btn btn-primary me-2"><i class="bi bi-chat-dots"></i></i></button>
+                                                    <button class="btn btn-danger"><i class="bi bi-trash"></i></button>
+                                                </div>
+                                            </td>
                                         </tr>
                                         
                                     </tbody>

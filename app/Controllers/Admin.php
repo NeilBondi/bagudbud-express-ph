@@ -11,6 +11,15 @@ class Admin extends BaseController
         );
 		return view('admin/index', $data);
 	}
+
+	public function login()
+	{
+        $data = array(
+            "page_title" => "Bagudbud | Login"
+        );
+		return view('admin/login', $data);
+	}
+
 	public function client()
 	{
         $data = array(
@@ -18,6 +27,7 @@ class Admin extends BaseController
         );
 		return view('admin/clients', $data);
 	}
+
 	public function applications()
 	{
         $data = array(
@@ -25,6 +35,7 @@ class Admin extends BaseController
         );
 		return view('admin/applications', $data);
 	}
+
 	public function deliveryPersonnels()
 	{
         $data = array(
@@ -32,6 +43,7 @@ class Admin extends BaseController
         );
 		return view('admin/delivery-personnels', $data);
 	}
+
 	public function messages()
 	{
         $data = array(

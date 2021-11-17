@@ -81,6 +81,7 @@ $myRoutes = array(
 	'test' => 'Test::index',
 
 	'admin' => 'Admin::index',
+	'admin/login' => 'Admin::login',
 	'admin/client' => 'Admin::client',
 	'admin/applications' => 'Admin::applications',
 	'admin/delivery-personnels' => 'Admin::deliveryPersonnels',
