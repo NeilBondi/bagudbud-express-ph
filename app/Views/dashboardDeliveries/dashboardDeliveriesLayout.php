@@ -404,6 +404,7 @@
                                 contentType: false,
                                 cache: false,
                                 processData: false,
+                                dataType: 'json',
                                 success: function (resData) {
                                     console.log(resData);
                                     if(resData.code == 202){

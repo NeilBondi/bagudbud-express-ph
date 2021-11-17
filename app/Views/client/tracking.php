@@ -78,8 +78,8 @@
                                  trackingId: trackingId
                              },
                              async: true,
+                             dataType: 'json',
                              success: function (data) {
-                                 data = JSON.parse(data);
                                 if(data.status_code != 404) {
                                     $('#tracking-details').html(data);
                                     $('.invalid').addClass('d-none')
