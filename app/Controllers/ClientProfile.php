@@ -175,7 +175,7 @@ class ClientProfile extends BaseController
 		$id = $session->get('id');
 
 		$model = new Client_Dashboard();
-
+		
 		$data['request'] = $model->getNotif($id);
     	return view('client/displayNotificationlist', $data);
 	}

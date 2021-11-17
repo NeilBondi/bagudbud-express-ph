@@ -78,16 +78,17 @@
                                  trackingId: trackingId
                              },
                              async: true,
+                            //  dataType: "json",
                              success: function (data) {
-                                 data = JSON.parse(data);
-                                if(data.status_code != 404) {
+                                if(data == 404) {
+                                    $('.invalid').removeClass('d-none');
+                                } 
+                                else {
                                     $('#tracking-details').html(data);
-                                    $('.invalid').addClass('d-none')
-                                    $('.result').removeClass('d-none')
-                                } else {
-                                    $('.invalid').removeClass('d-none')
+                                    $('.invalid').addClass('d-none');
+                                    $('.result').removeClass('d-none');
                                 }
-                                $('.no-request').addClass('d-none')
+                                $('.no-request').addClass('d-none');
                                 
                                 // alert('ok');
                              }

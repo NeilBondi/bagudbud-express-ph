@@ -272,4 +272,14 @@ class Client_Dashboard extends Model{
         
         // $builder->join('deliveries', 'deliveries')
     }
+
+    public function getNotif($id){
+        $db = \Config\Database::connect();
+        $builder = $db->table('notification');
+
+        $builder->where('Client_id', $id);
+        $query = $builder->get();
+        $data = $query->getResultArray();
+        return $data;
+    }
 }

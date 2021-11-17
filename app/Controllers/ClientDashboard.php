@@ -17,6 +17,7 @@ class ClientDashboard extends BaseController
 		foreach ($userDBdata as $row) {
 			$clientData = array(
 				'Name'         => $row['Name'],
+				'Avatar'       => $row['Avatar'],
 				'Address'      => $row['Address'],
 				'Municipality' => $row['Municipality'],
 				'B_name'  => $row['B_name'],
@@ -175,12 +176,10 @@ class ClientDashboard extends BaseController
 		$userDBdata = $dash->getCompleteData($id);
 		foreach ($userDBdata as $row) {
 			$clientData = array(
-				'id'           => $row['Client_id'],
 				'Name'         => $row['Name'],
+				'Avatar'       => $row['Avatar'],
 				'Address'      => $row['Address'],
 				'Municipality' => $row['Municipality'],
-				'Email'        => $row['Email'],
-				'Contact_num'  => $row['Contact_num'],
 				'B_name'  => $row['B_name'],
 			);
 		}
@@ -282,9 +281,7 @@ class ClientDashboard extends BaseController
 			$data['request'] = $model->getTrackingDetails($trackingId);
     		return view('client/tracking-details', $data);
 		}else{
-			return json_encode([
-				"status_code" => 404
-			]);
+			return '404';
 		}
 	}
 	//end for tracking
