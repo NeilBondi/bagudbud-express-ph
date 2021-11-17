@@ -78,7 +78,14 @@ $myRoutes = array(
 	"c_resetPassword" => "PassReset/C_ResetPass::index",
 	"r_resetPassword" => "PassReset/R_ResetPass::index",
 
-	'test' => 'Test::index'
+	'test' => 'Test::index',
+
+	'admin' => 'Admin::index',
+	'admin/login' => 'Admin::login',
+	'admin/client' => 'Admin::client',
+	'admin/applications' => 'Admin::applications',
+	'admin/delivery-personnels' => 'Admin::deliveryPersonnels',
+	'admin/messages' => 'Admin::messages',
 );
 
 $routes->map($myRoutes);
