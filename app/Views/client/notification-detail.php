@@ -35,12 +35,8 @@
                                                 <p>October 3, 2021 12:00 pm</p>
                                             </div>
                                             <div class="notif-body mt-5 px-sm-5 pb-5">
-                                                <p>Your Package has been successfuly delivered to <b>John Doe</b> at <b>San Miguel, Nabua</b> by <b>John Doe</b> your Delivery Personnel.</p>
-                                                <div class="notif-image-container">
-                                                    <a href="<?= base_url('/public/assets/img/joyceeh-epino-backdrop_ka12.jpg') ?>">
-                                                        <img src="<?= base_url('/public/assets/img/joyceeh-epino-backdrop_ka12.jpg') ?>" class="img-fluid" style="max-width: 15rem;" alt="">
-                                                    </a>
-                                                </div>
+                                                <p>The Delivery of your parcel has been cancelled, check your cancelled request section for more information.</p>
+                                                <p>Tracking Number: <span>1234567890sdfb</span></p>
                                             </div>
                                         </div>
                                     </div>

@@ -78,6 +78,7 @@
                                         <div class="d-flex align-items-center">
                                             <div class="avatar avatar-xl">
                                                 <?php
+                                                    $logData['Avatar'] = empty($logData['Avatar']) ? "1.jpg" : $logData['Avatar'];
                                                     echo '<img src="'.base_url("/public/assets/dashboard/images/faces/".$logData['Avatar']."").'" alt="Face 1">';
                                                 ?>
                                             </div>

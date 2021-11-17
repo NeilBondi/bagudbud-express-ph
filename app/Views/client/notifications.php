@@ -30,7 +30,7 @@
 
                                             <!-- item start -->
                                             <!-- change the aria-label. change the number only based on the id in db ex. for the next item data-label="item-2" -->
-                                            <tr class="items" data-label="item-1" style="cursor: pointer;">
+                                            <!-- <tr class="items" data-label="item-1" style="cursor: pointer;">
                                                 <td>
                                                     <div class="notification-container d-flex align-items-center py-1 py-xxl-3">
                                                         
@@ -54,7 +54,7 @@
                                                         </div>
                                                     </div>
                                                 </td>
-                                            </tr> 
+                                            </tr>  -->
                                         </tbody>
                                     </table>
                                 </div>
@@ -65,19 +65,10 @@
             </div>
             <script>
                 $(document).ready(function () {  
-                    $('.notification-container').each(function() {
-                        if($(this).hasClass('status-1')) {
-                            $(this).prepend('<div class="location-icon bg-primary ms-3" style="height: 10px; width:10px"></div>')
-                        } else {
-                            $(this).first().addClass('ms-4')
-                        }
-                    });
-                    
-
                     reloadNotif();
                     setInterval(() => {
                         reloadNotif();
-                    }, 2000)
+                    }, 3000)
                 });
 
                function reloadNotif() {

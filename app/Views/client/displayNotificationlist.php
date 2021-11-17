@@ -4,9 +4,14 @@
 
         $date = date_create($row['ndate']);
         $xdate = date_format($date, "F j, Y, g:i a");   
-    
+        if ($row['status'] == '1') {
 ?>
+<<<<<<< HEAD
 <tr class="items" data-label="item-<?php echo $row['notif_id'];?>" style="cursor: pointer;">
+=======
+
+<tr class="items" data-label="item-1" style="cursor: pointer;">
+>>>>>>> 88caf83d41c8369f3d7609dda80260f9386a0ec0
     <td>
         <div class="d-flex align-items-center py-1 py-xxl-3">
             <div class="location-icon bg-primary ms-3" style="height: 10px; width:10px"></div>
@@ -20,5 +25,21 @@
     </td>
 </tr> 
 <?php
+        } else {
+?>
+<tr class="items" data-label="item-1" style="cursor: pointer;">
+    <td>
+        <div class="d-flex align-items-center py-1 py-xxl-3 ms-4">
+            <div class="request-item-content w-100 ms-4">
+                <div class="left-content">
+                    <p class="text-black fw-bold m-0"><?php echo $row['sender'];?></p>
+                    <span class="display-7"><?php echo $xdate?></span>
+                </div>
+            </div>
+        </div>
+    </td>
+</tr> 
+<?php
+        }
     }
 ?>
