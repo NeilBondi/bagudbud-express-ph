@@ -159,7 +159,8 @@ class RiderDashboard extends BaseController
 		$deliveriesData = [
 			'Client_id' => $c_id,
 			'req_id' => $req_id,
-			'reason' => $reason
+			'reason' => $reason,
+			'classification' => 0
 		];
 
 		$deliveriesID = $model->cancelDelivery($req_id, $deliveriesData);
