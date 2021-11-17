@@ -172,7 +172,7 @@ class RiderDashboard extends BaseController
 				'sender'     => $ridername,
 				'Client_id' => $c_id,
 				'delivery_id' => $deliveriesID,
-				'body'        => 'The delivery of your parcel has benn canceled, check your cancelled request section for more information.',
+				'body'        => 'The delivery of your parcel has been cancelled, check your cancelled request section for more information.',
 				'tracking'  => $trackingNum,
 				'status' => 0
 			];

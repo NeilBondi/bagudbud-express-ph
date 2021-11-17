@@ -170,6 +170,16 @@ class ClientProfile extends BaseController
 		return view('client/notifications', $data);
 	}
 
+	public function displayNotif(){
+		$session = session();
+		$id = $session->get('id');
+
+		$model = new Client_Dashboard();
+		
+		$data['request'] = $model->getNotif($id);
+    	return view('client/displayNotificationlist', $data);
+	}
+
 	public function notificationDetail()
 	{
         // helper('form');

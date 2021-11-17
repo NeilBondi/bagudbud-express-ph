@@ -17,6 +17,7 @@ class ClientDashboard extends BaseController
 		foreach ($userDBdata as $row) {
 			$clientData = array(
 				'Name'         => $row['Name'],
+				'Avatar'       => $row['Avatar'],
 				'Address'      => $row['Address'],
 				'Municipality' => $row['Municipality'],
 				'B_name'  => $row['B_name'],
@@ -175,12 +176,10 @@ class ClientDashboard extends BaseController
 		$userDBdata = $dash->getCompleteData($id);
 		foreach ($userDBdata as $row) {
 			$clientData = array(
-				'id'           => $row['Client_id'],
 				'Name'         => $row['Name'],
+				'Avatar'       => $row['Avatar'],
 				'Address'      => $row['Address'],
 				'Municipality' => $row['Municipality'],
-				'Email'        => $row['Email'],
-				'Contact_num'  => $row['Contact_num'],
 				'B_name'  => $row['B_name'],
 			);
 		}
@@ -282,9 +281,7 @@ class ClientDashboard extends BaseController
 			$data['request'] = $model->getTrackingDetails($trackingId);
     		return view('client/tracking-details', $data);
 		}else{
-			return json_encode([
-				"status_code" => 404
-			]);
+			return '404';
 		}
 	}
 	//end for tracking
@@ -341,24 +338,18 @@ class ClientDashboard extends BaseController
 		$session = session();
 		$id = $session->get('id');
 
-		$data = array(
-            "page_title" => "Bagudbud | Profile",
-        );
-		return view('client/client-profile', $data);
-
-		// if($id != null){
-		// 	$data = array(
-		// 		"page_title" => "Bagudbud | Pending",
-		// 		'logData' => $clientData,
-		// 	);
-		// 	return view('client-request-pending', $data);
-		// }else{
-		// 	$data = array(
-		// 		"page_title" => "Bagudbud | Dashboard",
-		// 		// 'logData' => $clientData//fetch session data
-		// 	);
-		// 	return view('client-login', $data);
-		// }
+		if($id != null){
+			$data = array(
+				"page_title" => "Bagudbud | Profile",
+			);
+			return view('client/client-profile', $data);
+		}else{
+			$data = array(
+				"page_title" => "Bagudbud | Dashboard",
+				// 'logData' => $clientData//fetch session data
+			);
+			return view('client-login', $data);
+		}
 	}
 
 	// success deliveries
@@ -408,4 +399,7 @@ class ClientDashboard extends BaseController
     	return view('client/displayCancellist', $data);
 		// return '<h1>hello</h1>';
 	}
+
+	
+
 }

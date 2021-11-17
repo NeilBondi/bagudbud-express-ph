@@ -77,7 +77,9 @@
                                     <div class="card-body px-4 px-md-3 py-4">
                                         <div class="d-flex align-items-center">
                                             <div class="avatar avatar-xl">
-                                                <img src="<?= base_url('/public/assets/dashboard/images/faces/1.jpg')?>" alt="Face 1">
+                                                <?php
+                                                    echo '<img src="'.base_url("/public/assets/dashboard/images/faces/".$logData['Avatar']."").'" alt="Face 1">';
+                                                ?>
                                             </div>
                                             <div class="ms-3 name">
 
@@ -130,6 +132,12 @@
                     reloadTable()
                     displayCountPending()
                     displayCountAccepted()
+
+                    setInterval(() => {
+                        reloadTable();
+                        displayCountPending();
+                        displayCountAccepted();
+                    }, 1000)
 
                     function reloadTable() {
                     $.ajax({

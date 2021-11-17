@@ -82,7 +82,7 @@ class Rider_Dashboard extends Model{
 
     public function cancelDelivery($reqid, $delData){
         $db = \Config\Database::connect();
-        $deliveriesDB = $db->table('canceledDeliveries');
+        $deliveriesDB = $db->table('deliveries');
         $builder = $db->table('client_request');
 
         $builder->where('req_id', $reqid);

@@ -12,10 +12,10 @@
             $adate = NULL;
         }else if($row['status'] == 2){
             $status = 'accepted - (for delivery)';
-        } else if($row['status'] == 0){
+        }else if($row['status'] == 0){
             $status = 'cancelled';
-            $adate = null;
-        } 
+            $adate = NULL;
+        }
         //55trial345897
 ?>
 <tr>

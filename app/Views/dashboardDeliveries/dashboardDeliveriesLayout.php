@@ -404,7 +404,7 @@
                                 contentType: false,
                                 cache: false,
                                 processData: false,
-                                dataType: 'json',
+                                dataType: "json",
                                 success: function (resData) {
                                     console.log(resData);
                                     if(resData.code == 202){
@@ -427,11 +427,9 @@
                                             $('#form')[0].reset();
                                             $('body').removeClass('popup-blur-active');
                                             $('.popup-container').removeClass('popup-active');
-                                            $('#userTable').load('#userTable');
+                                            // $('#userTable').load('#userTable');
                                             $('#numPending').load('#numPending');
-                                        });
-
-                                        
+                                        });                                      
                                     }
                                     else if(resData.code == 404){
 
