@@ -60,6 +60,11 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="col-12 d-flex justify-content-end me-sm-5">
+                                        <form action="" method="POST" class="me-sm-5">
+                                            <button class="btn btn-danger px-4 mb-5 mx-sm-5" type="submit">Delete</button>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>

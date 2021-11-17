@@ -83,7 +83,7 @@ class ClientDashboard extends BaseController
 
 		$r_id = $dash->addRequest($insertdata);//insert data and get returned last inserted array
 		if(!$r_id){
-			return json_encode(['code' => 404, 'msg' => 'Something Went Wrong, Try again in a few minutes']);
+			echo json_encode(['code' => 404, 'msg' => 'Something Went Wrong, Try again in a few minutes']);
 		}else{
 			//embed pricing function from library
 			$price = new Pricing();
@@ -103,9 +103,9 @@ class ClientDashboard extends BaseController
 			];
 
 			if($dash->addPayment($paymentData)){
-				return json_encode(['code' => 202, 'msg' => 'Request Added Successfully']);
+				echo json_encode(['code' => 202, 'msg' => 'Request Added Successfully']);
 			}else{
-				return json_encode(['code' => 404, 'msg' => 'Something Went Wrong!, Try again in a few minutes']);
+				echo json_encode(['code' => 404, 'msg' => 'Something Went Wrong!, Try again in a few minutes']);
 			}		
 		}	
 	}

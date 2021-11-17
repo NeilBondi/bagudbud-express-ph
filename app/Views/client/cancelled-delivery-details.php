@@ -56,13 +56,17 @@
                                                 </div>
                                             </div>
                                             <div class="notif-body mt-5 px-sm-5 pb-5">
-                                                <p style="text-indent:2rem">Your Package has been cancelled by <b><?= $row['delP_fName'].' '.$row['delP_lName'];?></b> your Delivery Man. Your package will originally send to <b><?= $row['recepient_name'];?></b> at <b><?php echo $row['recepient_address'];?>, <?php echo $row['recepient_municipality'];?></b> but it was cancelled due to a reason : <i style="letter-spacing: 2px;"><?= $row['reason'];?>.</i></p>
-                                                <p>Your package will be returned on your address within the day.</p>
-                                                <p>Thank you</p>
+                                                <p>The Delivery of your parcel has been cancelled, check your cancelled request section for more information.</p>
+                                                <p>Tracking Number: <span>1234567890sdfb</span></p>
                                                 <!-- <p class="pt-5">Kindly click the button below to contact the customer support to address your concerns.</p>
                                                 <a href="#" class="btn btn-primary">Customer Support</a> -->
                                             </div>
                                         </div>
+                                    </div>
+                                    <div class="col-12 d-flex justify-content-end me-sm-5">
+                                        <form action="" method="POST" class="me-sm-5">
+                                            <button class="btn btn-danger px-4 mb-5 mx-sm-5" type="submit">Delete</button>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
