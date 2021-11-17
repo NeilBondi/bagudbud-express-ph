@@ -28,45 +28,15 @@
                     <div class="no-request d-none d-flex justify-content-center">
                         <p class="text-center">No Request Found</p>
                     </div>
+                    <div class="d-flex d-none flex-column justify-content-center invalid">
+                        <img src="<?= base_url('/public/assets/img/iconBagudbud.png') ?>" style="max-width:40rem" class="my-5 img-fluid" alt="">
+                        <h2 class="title-404 text-center mt-5">Item Not Found</h2>
+                        <h5 class="text-secondary fw-normal text-center mb-5">Please enter a valid Tracking Number</h5>
+                    </div>
                     <div class="result w-100 d-none d-flex">
                         <table class="table table-bordered stable-striped" style="border-radius: 50%;">
-                            <tbody>
-                                <tr>
-                                    <th class="ps-sm-5">Tracking No.</th>
-                                    <td class="ps-sm-5">12134567890</td>
-                                </tr>
-                                <tr>
-                                    <th class="ps-sm-5" >Booking Date</th>
-                                    <td class="ps-sm-5">01/01/2021</td>
-                                </tr>
-                                <tr>
-                                    <th class="ps-sm-5">Delivery Mans's Name</th>
-                                    <td class="ps-sm-5">John Doe</td>
-                                </tr>
-                                <tr>
-                                    <th class="ps-sm-5" >Client's Name</th>
-                                    <td class="ps-sm-5">John Doe</td>
-                                </tr>
-                                <tr>
-                                    <th class="ps-sm-5">City of Client</th>
-                                    <td class="ps-sm-5">Nabua</td>
-                                </tr>
-                                <tr>
-                                    <th class="ps-sm-5" >Status</th>
-                                    <td class="ps-sm-5">Delivery Request</td>
-                                </tr>
-                                <tr>
-                                    <th class="ps-sm-5">Delivery Date and Time</th>
-                                    <td class="ps-sm-5">01/01/2021 7:00am</td>
-                                </tr>
-                                <tr>
-                                    <th class="ps-sm-5" >Recipient Name</th>
-                                    <td class="ps-sm-5">John Doe</td>
-                                </tr>
-                                <tr>
-                                    <th class="ps-sm-5">Recipient Address</th>
-                                    <td class="ps-sm-5">Nabua</td>
-                                </tr>
+                            <tbody id="tracking-details">
+                                
                             </tbody>
                         </table>
                     </div>
@@ -90,19 +60,59 @@
                             
                         }
                     })
+                    // $('#search-tracking-form').submit(function(event) {
+                    //     event.preventDefault();
+
+                    //     if ($('#search-tracking').val()) {
+                    //         $('.no-request').addClass('d-none')
+                    //         $('.result').removeClass('d-none')
+
+                    //     } else {
+                    //         $('.no-request').removeClass('d-none')
+                    //         $('.result').addClass('d-none')
+                    //         $('.no-request').prev().addClass('d-none');
+                    //     }
+                    // })
+
                     $('#search-tracking-form').submit(function(event) {
                         event.preventDefault();
 
-                        if ($('#search-tracking').val()) {
-                            $('.no-request').addClass('d-none')
-                            $('.result').removeClass('d-none')
+                        var trackingId = $('#search-tracking').val();
+                         $.ajax({
+                             type: "post",
+                             url: "<?= base_url('Tracking/trackingDetails')?>",
+                             data: {
+                                 trackingId: trackingId
+                             },
+                             async: true,
+                            //  dataType: "json",
+                             success: function (data) {
+                                if(data == 404) {
+                                    $('.invalid').removeClass('d-none');
+                                    $('.result').addClass('d-none');
+                                } 
+                                else {
+                                    $('#tracking-details').html(data);
+                                    $('.invalid').addClass('d-none');
+                                    $('.result').removeClass('d-none');
+                                }
+                                $('.no-request').addClass('d-none');
+                                
+                                // alert('ok');
+                             }
+                         });
 
-                        } else {
-                            $('.no-request').removeClass('d-none')
-                            $('.result').addClass('d-none')
-                            $('.no-request').prev().addClass('d-none');
-                        }
+                        // if ($('#search').val()) {
+                           
+                        // } 
+                        //else {
+                        //     $('.no-request').removeClass('d-none')
+                        //     $('.result').addClass('d-none')
+                        //     $('.no-request').prev().addClass('d-none');
+                        // }
                     })
+
+                    
                 })
             </script>
 <?= $this->endSection(); ?>

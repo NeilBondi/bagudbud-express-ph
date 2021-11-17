@@ -6,7 +6,7 @@
         $xdate = date_format($date, "F j, Y, g:i a");   
     
 ?>
-<tr class="items" data-label="item-1" style="cursor: pointer;">
+<tr class="items" data-label="item-<?php echo $row['notif_id'];?>" style="cursor: pointer;">
     <td>
         <div class="d-flex align-items-center py-1 py-xxl-3">
             <div class="location-icon bg-primary ms-3" style="height: 10px; width:10px"></div>

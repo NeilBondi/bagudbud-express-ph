@@ -219,6 +219,7 @@ class Client_Dashboard extends Model{
         $builder->join('payment', ' payment.req_id = client_request.req_id', 'left');
         $builder->join('delivery_personnel', 'delivery_personnel.delP_ID = client_request.delP_ID', 'left');
         $builder->join('clients', 'clients.Client_id = client_request.Client_id', 'left');
+        $builder->join('deliveries', 'deliveries.req_id = client_request.req_id');
         $builder->where('client_request.tracking_id', $trackingID);
         $query = $builder->get();
 
