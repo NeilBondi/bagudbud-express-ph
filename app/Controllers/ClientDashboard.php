@@ -339,24 +339,18 @@ class ClientDashboard extends BaseController
 		$session = session();
 		$id = $session->get('id');
 
-		$data = array(
-            "page_title" => "Bagudbud | Profile",
-        );
-		return view('client/client-profile', $data);
-
-		// if($id != null){
-		// 	$data = array(
-		// 		"page_title" => "Bagudbud | Pending",
-		// 		'logData' => $clientData,
-		// 	);
-		// 	return view('client-request-pending', $data);
-		// }else{
-		// 	$data = array(
-		// 		"page_title" => "Bagudbud | Dashboard",
-		// 		// 'logData' => $clientData//fetch session data
-		// 	);
-		// 	return view('client-login', $data);
-		// }
+		if($id != null){
+			$data = array(
+				"page_title" => "Bagudbud | Profile",
+			);
+			return view('client/client-profile', $data);
+		}else{
+			$data = array(
+				"page_title" => "Bagudbud | Dashboard",
+				// 'logData' => $clientData//fetch session data
+			);
+			return view('client-login', $data);
+		}
 	}
 
 	// success deliveries
@@ -406,4 +400,7 @@ class ClientDashboard extends BaseController
     	return view('client/displayCancellist', $data);
 		// return '<h1>hello</h1>';
 	}
+
+	
+
 }
