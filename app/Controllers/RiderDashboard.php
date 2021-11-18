@@ -188,6 +188,80 @@ class RiderDashboard extends BaseController
 				]);
 			}
 		}
+	}
+
+	//success request
+	public function successDelivery(){
+		$model = new Rider_Dashboard();
+		$session = session();
+		$id = $session->get('rid');
+
+		$rdata = $model->getCompleteData($id);
+		foreach($rdata as $row){
+			$ridername = $row['delP_fName'].' '.$row['delP_lName'];
+		}
+
+		//validate image before upload
+		$validated = $this->validate([
+            'img' => [
+                'uploaded[img]',
+                'mime_in[img,image/jpg,image/jpeg,image/gif,image/png,image/PNG,image/JPEG,image/JPG]',
+                'max_size[img,5096]',
+            ],
+        ]);
+
+        if (!$validated) {
+           return json_encode([
+			   'code' => 404
+		   ]);
+        }else{
+			$image = $this->request->getFile('img');//get the image from ajax submit
+
+			$imagename = $image->getRandomName();
+			$image->move('public/proofImages/', $imagename);//move image to folder storage
+
+
+			$req_id = $this->request->getPost('req_id');
+			$c_id = $this->request->getPost('cid');
+			$trackingNum = $this->request->getPost('trackingNum');
+
+			$deliveriesData = [
+				'Client_id' => $c_id,
+				'req_id' => $req_id,
+				'reason' => '0',
+				'image'  => $imagename,
+				'classification' => 1
+			];
+
+			$deliveriesID = $model->successDelivery($req_id, $deliveriesData);
+		if(!$deliveriesID){
+			return json_encode([
+				'code' => 405
+			]);
+		}else{
+			$notificationData = [
+				'sender'     => $ridername,
+				'Client_id' => $c_id,
+				'delivery_id' => $deliveriesID,
+				'body'        => 'The delivery of your product is successfull, check your Success Request section for more information.',
+				'tracking'  => $trackingNum,
+				'status' => 0
+			];
+	
+			if($model->notification($notificationData)){
+				return json_encode([
+					'code' => 202
+				]);
+			}else{
+				return json_encode([
+					'code' => 406
+				]);
+			}
+		}
+		}
+		
+		
+
 		
 	}
 }

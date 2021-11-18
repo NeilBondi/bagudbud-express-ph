@@ -127,7 +127,7 @@
                                             <div class="col mt-5 mt-md-0 p-0">
                                                 <div class="btns d-flex flex-column flex-sm-row">
                                                     <button class="cancel-delivery btn border-2 border-danger fw-bold py-2 mb-3 mb-sm-0 me-0 me-sm-2">Cancel Delivery</button>
-                                                    <button class="message btn btn-primary border-2 py-2 border-primary fw-bold">Message</button>
+                                                    <button class="message btn btn-primary border-2 py-2 border-primary fw-bold">Success</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -171,9 +171,9 @@
             <div class="message-container container-fluid position-absolute top-50 start-50 translate-middle justify-content-center row">
                     <div class="card" style="max-width: 40rem; width: 100%;">
                         <div class="card-body">
-                            <form method="post" class="" id="message-form">
+                            <form method="post" class="" id="message-form" enctype="multipart/form-data">
                                 <div class="d-inline-flex">
-                                    <h6 class="card-title position-relative text-black">Insert Picture</h5>
+                                    <h6 class="card-title position-relative text-black">Insert Picture As Proofs</h5>
                                 </div>
                                 <div class="row">
 
@@ -389,6 +389,66 @@
                             }
                         });
                         // console.log(c_id);
+                    });
+
+
+                    $('#message-form').submit(function (e) { 
+                        e.preventDefault();
+
+                        var formdata = new FormData(this);
+                        formdata.append('cid', <?php echo $row['Client_id'];?>);
+                        formdata.append('req_id', <?php echo $row['req_id'];?>);
+                        formdata.append('trackingNum', '<?php echo $row['tracking_id'];?>');
+
+                        for (var pair of formdata.entries()) {
+                            console.log(pair[0]+ ', ' + pair[1]); 
+                        }
+
+                        $.ajax({
+                            type: "post",
+                            url: "<?= base_url('RiderDashboard/successDelivery')?>",
+                            data: formdata,
+                            dataType: "json",
+                            contentType: false,
+                            processData: false,
+                            success: function (res) {
+                                if(res.code == 404){
+                                    Swal.fire(
+                                        'Opps!',
+                                        'Invalid File Type',
+                                        'warning'
+                                    )
+                                }
+                                else if(res.code == 202){
+                                    const Toast = Swal.mixin({
+                                        toast: true,
+                                        position: 'top-end',
+                                        showConfirmButton: false,
+                                        timer: 1000,
+                                        timerProgressBar: true,
+                                        didOpen: (toast) => {
+                                            toast.addEventListener('mouseenter', Swal.stopTimer)
+                                            toast.addEventListener('mouseleave', Swal.resumeTimer)
+                                        }
+                                        })
+
+                                        Toast.fire({
+                                        icon: 'success',
+                                        title: 'Delivered successfully'
+                                        }).then(function(){
+                                            location.href= "<?= base_url('rider-dashboard/deliveries')?>";
+                                        })                                 
+                                }
+                                else if(res.code == 405 || res.code == 406){
+                                    Swal.fire(
+                                        'Opps!',
+                                        'something went wrong, try again in few seconds',
+                                        'warning'
+                                    )
+                                }
+                            }
+                        });
+                     
                     });
                     
                 });

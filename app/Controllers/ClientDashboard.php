@@ -361,12 +361,25 @@ class ClientDashboard extends BaseController
 		return view('client/success-deliveries', $data);
 	}
 
-	public function successDeliveryDetail(){
+	public function successDeliveryDetail($id){
+		$model = new Client_Dashboard();
 		$data = array(
             "page_title" => "Bagudbud | Success Deliveries",
+			"request"    => $model->getSuccessDelDetails($id)
         );
 
 		return view('client/success-delivery-details', $data);
+	}
+
+	public function displaySuccess(){
+		$model = new Client_Dashboard();
+
+		$session = session();
+		$id = $session->get('id');
+
+		$data['request'] = $model->getSuccessDel($id);
+    	return view('client/displaySuccesslist', $data);
+		// return '<h1>hello</h1>';
 	}
 	// success deliveries
 

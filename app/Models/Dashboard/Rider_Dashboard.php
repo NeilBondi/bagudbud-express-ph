@@ -92,6 +92,19 @@ class Rider_Dashboard extends Model{
         return $db->insertID();
     }
 
+    public function successDelivery($reqid, $delData){
+        $db = \Config\Database::connect();
+        $deliveriesDB = $db->table('deliveries');
+        $builder = $db->table('client_request');
+
+        $builder->where('req_id', $reqid);
+        $builder->update(['status' => 3]);
+
+        $deliveriesDB->insert($delData);
+        return $db->insertID();
+    }
+
+    //insert notification
     public function notification($data){
         $db = \Config\Database::connect();
         $notificatonDB = $db->table('notification');

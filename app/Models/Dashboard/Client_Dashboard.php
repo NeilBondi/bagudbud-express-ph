@@ -242,6 +242,38 @@ class Client_Dashboard extends Model{
     }
 
     //end off tracking
+    public function getSuccessDel($id){
+        $db = \Config\Database::connect();
+        $builder = $db->table('deliveries');
+        $builder->select('*');
+        $builder->join('client_request', 'client_request.req_id = deliveries.req_id');
+        $builder->where('deliveries.Client_id', $id);
+        $builder->where('deliveries.classification', 1);
+        $builder->orderBy('deliveries.cancelsuccess_date', 'DESC');
+
+
+        $query = $builder->get();
+        $data = $query->getResultArray();
+        return $data;
+        
+        // $builder->join('deliveries', 'deliveries')
+    }
+
+    public function getSuccessDelDetails($id){
+        $db = \Config\Database::connect();
+        $builder = $db->table('deliveries');
+        $builder->select('*');
+        $builder->join('client_request', 'client_request.req_id = deliveries.req_id');
+        $builder->join('delivery_personnel', 'delivery_personnel.delP_ID = client_request.delP_ID');
+        $builder->where('delivery_id', $id);
+        $builder->where('deliveries.classification', 1);
+
+        $query = $builder->get();
+        $data = $query->getResultArray();
+        return $data;
+        
+        // $builder->join('deliveries', 'deliveries')
+    }
 
     public function getCancelDel($id){
         $db = \Config\Database::connect();
@@ -250,6 +282,7 @@ class Client_Dashboard extends Model{
         $builder->join('client_request', 'client_request.req_id = deliveries.req_id');
         $builder->where('deliveries.Client_id', $id);
         $builder->where('deliveries.classification', 0);
+        $builder->orderBy('deliveries.cancelsuccess_date', 'DESC');
 
         $query = $builder->get();
         $data = $query->getResultArray();

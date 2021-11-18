@@ -133,6 +133,12 @@
                     displayCountPending()
                     displayCountAccepted()
 
+                     setInterval(() => {
+                        reloadTable();
+                        displayCountPending();
+                        displayCountAccepted();
+                    }, 1000)
+
                     function reloadTable() {
                     $.ajax({
                         type: 'ajax',
