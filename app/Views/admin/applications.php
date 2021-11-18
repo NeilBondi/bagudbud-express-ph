@@ -52,8 +52,8 @@
                                             <td>2011/04/25</td>
                                             <td>
                                                 <div class="d-flex justify-content-center align-items-center">
-                                                    <button class="btn btn-primary me-2"><i class="bi bi-person-plus"></i></i></i></button>
-                                                    <button class="btn btn-danger"><i class="bi bi-trash"></i></button>
+                                                    <button class="hire-now btn btn-primary me-2"><i class="bi bi-person-plus"></i></button>
+                                                    <button class="delete-item btn btn-danger"><i class="bi bi-trash"></i></button>
                                                 </div>
                                             </td>
                                         </tr>
@@ -64,8 +64,50 @@
                         </div>
                     </div>
                 </main>
+                <div class="cancel-container container-fluid position-absolute top-50 start-50 translate-middle justify-content-center row">
+                    <div class="card" style="max-width: 40rem; width: 100%;">
+                        <div class="card-body">
+                            <form method="post" class="" id="delete-form">
+                                <div class="d-inline-flex">
+                                    <h6 class="card-title position-relative text-black">Reason</h5>
+                                </div>
+                                <div class="row">
+
+                                    <!-- reason text area -->
+
+                                    <div class="col">
+                                        <div class="mb-4 d-flex flex-column">
+                                            <div class="position-relative">
+                                                <textarea class="form-control fw-lighter border-1 border-dark" placeholder="Your explanation is required" required id="floatingTextarea2" style="height: 10rem"></textarea>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                
+                                <div class="">
+                                    <!-- Submit btn -->
+
+                                    <!-- <button type="submit" class="btn btn-primary">Add</button> -->
+                                    <input type="submit" class="btn btn-danger w-100 py-2" value="Confirm">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
                 <script>
                     $(() => {
+                        $('.hire-now').click(function() {
+                            $(this).empty();
+                            $(this).append('<i class="bi bi-person-check"></i>');
+                            $(this).removeClass('btn-primary');
+                            $(this).addClass('btn-success');
+                            setTimeout(() => {
+                                $(this).empty();
+                                $(this).append('<i class="bi bi-person-plus"></i>');
+                                $(this).addClass('btn-primary');
+                                $(this).removeClass('btn-success');
+                            }, 3000)
+                        })
                     })
                 </script>
     <?= $this->endSection(); ?>
