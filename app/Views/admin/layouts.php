@@ -9,6 +9,7 @@
         <title>Administrator Panel</title>
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
         <link href="<?= base_url('/public/assets/admin/css/styles.css') ?>" rel="stylesheet" />
+        <link href="<?= base_url('/public/assets/admin/css/app.css') ?>" rel="stylesheet" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -70,5 +71,40 @@
         <script src="<?= base_url('/public/assets/admin/js/scripts.js') ?>"></script>
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
         <script src="<?= base_url('/public/assets/admin/js/datatables-simple-demo.js') ?>"></script>
+        <script>
+            $(() => {
+                $('.delete-item').click(function() {
+
+                    $('.cancel-container').addClass('popup-active');
+                    $('body').addClass('popup-blur-active');
+                })
+
+                $('#delete-form').submit(function(event) {
+                    event.preventDefault()
+
+                    $('.cancel-container').removeClass('popup-active');
+                    $('body').removeClass('popup-blur-active');
+                })
+                $('.message-item').click(function() {
+
+                    $('.message-container').addClass('popup-active');
+                    $('body').addClass('popup-blur-active');
+                })
+
+                $('#notify-form').submit(function(event) {
+                    event.preventDefault()
+
+                    $('.message-container').removeClass('popup-active');
+                    $('body').removeClass('popup-blur-active');
+                })
+
+                $(document).click((e) => {
+                    if (e.target.tagName === 'BODY' || e.target.classList.contains('popup-active')) {
+                        $('.popup-active').removeClass('popup-active');
+                        $('body').removeClass('popup-blur-active');
+                    }
+                })
+            })
+        </script>
     </body>
 </html>
