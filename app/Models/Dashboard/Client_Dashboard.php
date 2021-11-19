@@ -337,5 +337,38 @@ class Client_Dashboard extends Model{
         }
     }
 
+    public function deleteCancel($id, $reqid){
+        $db = \Config\Database::connect();
+        $builder = $db->table('client_request');
+
+        $builder->where('Client_id', $id);
+        $builder->where('req_id', $reqid);
+
+        $builder->delete();
+        return true;
+    }
+
+    public function deleteSuccess($id, $reqid){
+        $db = \Config\Database::connect();
+        $builder = $db->table('client_request');
+
+        $builder->where('Client_id', $id);
+        $builder->where('req_id', $reqid);
+
+        $builder->delete();
+        return true;
+    }
+
+    public function deleteNotif($id, $notifid){
+        $db = \Config\Database::connect();
+        $builder = $db->table('notification');
+
+        $builder->where('Client_id', $id);
+        $builder->where('notif_id', $notifid);
+
+        $builder->delete();
+        return true;
+    }
+
 
 }

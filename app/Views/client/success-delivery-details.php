@@ -67,7 +67,7 @@ foreach ($request as $row){
                                         </div>
                                     </div>
                                     <div class="col-12 d-flex justify-content-end me-sm-5">
-                                        <form action="" method="POST" class="me-sm-5">
+                                        <form action="" method="POST" class="me-sm-5" id="success-delete">
                                             <button class="btn btn-danger px-4 mb-5 mx-sm-5" type="submit">Delete</button>
                                         </form>
                                     </div>
@@ -85,6 +85,27 @@ foreach ($request as $row){
                     $('.back-btn').click(() => {
                         location.href = `${baseUrl}/client-dashboard/${currentUrl}`;
                     })
+
+                    $('#success-delete').submit(function (e) { 
+                        e.preventDefault();
+                       var req_id = <?= $row['req_id'];?>;
+                       var image = '<?= $row['image'];?>';
+                    
+                       $.ajax({
+                           type: "post",
+                           url: "<?= base_url('ClientDashboard/successCancel')?>",
+                           data: {
+                               req_id: req_id,
+                               image: image
+                           },
+                           dataType: "json",
+                           success: function (res) {
+                               if(res.code == 202){
+                                    location.href= "<?= base_url('client-dashboard/success')?>";
+                               }
+                           }
+                       });
+                    });
                 })
             </script>
 

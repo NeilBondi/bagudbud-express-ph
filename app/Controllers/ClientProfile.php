@@ -190,4 +190,18 @@ class ClientProfile extends BaseController
         );
 		return view('client/notification-detail', $data);
 	}
+	public function deleteNotif(){
+		$model = new Client_Dashboard();
+
+		$session = session();
+		$id = $session->get('id');
+
+		$notif_id = $this->request->getPost('notif_id');
+
+		if($model->deleteNotif($id, $notif_id)){
+			return json_encode([
+				'code' => 202
+			]);
+		}
+	}
 }

@@ -402,6 +402,7 @@ class ClientDashboard extends BaseController
 		return view('client/cancelled-delivery-details', $data);
 	}
 
+	//display Cancelled requests
 	public function displayCancel(){
 		$model = new Client_Dashboard();
 
@@ -411,6 +412,43 @@ class ClientDashboard extends BaseController
 		$data['request'] = $model->getCancelDel($id);
     	return view('client/displayCancellist', $data);
 		// return '<h1>hello</h1>';
+	}
+
+	//delete cancelled request from deliveries
+	public function deleteCancel(){
+		$model = new Client_Dashboard();
+
+		$session = session();
+		$id = $session->get('id');
+
+		$reqid = $this->request->getPost('req_id');
+		if($model->deleteCancel($id, $reqid)){
+			return json_encode([
+				'code' => 202
+			]);
+		}
+	}
+
+	public function successCancel(){
+		$model = new Client_Dashboard();
+
+		$session = session();
+		$id = $session->get('id');
+
+		$reqid = $this->request->getPost('req_id');
+		$imagename = $this->request->getPost('image');
+
+		if(file_exists('public/proofImages/'.$imagename)){
+			unlink('public/proofImages/'.$imagename);
+			
+			$model->deleteSuccess($id, $reqid);
+			
+			return json_encode([
+				'code' => 202
+			]);
+		}
+
+
 	}
 
 	

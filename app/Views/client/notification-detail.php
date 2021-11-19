@@ -46,7 +46,7 @@
                                         </div>
                                     </div>
                                     <div class="col-12 d-flex justify-content-end me-sm-5">
-                                        <form action="" method="POST" class="me-sm-5">
+                                        <form action="" method="POST" class="me-sm-5" id="notif-delete">
                                             <button class="btn btn-danger px-4 mb-5 mx-sm-5" type="submit">Delete</button>
                                         </form>
                                     </div>
@@ -64,6 +64,25 @@
                     $('.back-btn').click(() => {
                         location.href = `${baseUrl}/client-dashboard/${currentUrl}`;
                     })
+
+                    $('#notif-delete').submit(function (e) { 
+                        e.preventDefault();
+                       var notif_id = <?= $row['notif_id'];?>;
+                        
+                       $.ajax({
+                           type: "post",
+                           url: "<?= base_url('ClientProfile/deleteNotif')?>",
+                           data: {
+                               notif_id: notif_id
+                           },
+                           dataType: "json",
+                           success: function (res) {
+                               if(res.code == 202){
+                                    location.href= "<?= base_url('client-dashboard/notifications')?>";
+                               }
+                           }
+                       });
+                    });
                 })
             </script>
 

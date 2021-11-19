@@ -118,7 +118,7 @@
 
                                 <div class="col">
                                     <div class="mt-xxl-3 mb-lg-2 d-flex flex-column">
-                                        <label for="name" class="fw-bold display-7 form-label col-form-label col-form-label-sm mt-1 mt-lg-0">Name</label>
+                                        <label for="name" class="fw-bold display-7 form-label col-form-label col-form-label-sm mt-1 mt-lg-0">Recepient Name</label>
                                         <input type="text" name="name" class="form-control form-control-sm py-2 fw-lighter" id="name" placeholder="Name">
                                     </div>
                                 </div>

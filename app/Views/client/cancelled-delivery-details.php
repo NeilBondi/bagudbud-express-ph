@@ -65,7 +65,7 @@
                                         </div>
                                     </div>
                                     <div class="col-12 d-flex justify-content-end me-sm-5">
-                                        <form action="" method="POST" class="me-sm-5">
+                                        <form action="" method="POST" class="me-sm-5" id="cancel-delete">
                                             <button class="btn btn-danger px-4 mb-5 mx-sm-5" type="submit">Delete</button>
                                         </form>
                                     </div>
@@ -79,6 +79,24 @@
             <script type="text/javascript">
                 $(document).ready(function () {
                     // alert('ok');
+                    $('#cancel-delete').submit(function (e) { 
+                        e.preventDefault();
+                       var req_id = <?= $row['req_id'];?>;
+                        
+                       $.ajax({
+                           type: "post",
+                           url: "<?= base_url('ClientDashboard/deleteCancel')?>",
+                           data: {
+                               req_id: req_id
+                           },
+                           dataType: "json",
+                           success: function (res) {
+                               if(res.code == 202){
+                                    location.href= "<?= base_url('client-dashboard/cancelled')?>";
+                               }
+                           }
+                       });
+                    });
                 });
                 $(() => {
                     let getUrl = window.location;

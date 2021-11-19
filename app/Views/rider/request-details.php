@@ -122,7 +122,7 @@
                                 if(res.code == 202){
                                     Swal.fire(
                                         'Okay',
-                                        'Request Added to your deleveries',
+                                        'Request Added to your deliveries',
                                         'success'
                                     ).then(function(){
                                         location.href= "<?= base_url('/rider-dashboard/requests')?>";
