@@ -23,6 +23,12 @@ class Rider_Signup extends Model{
         'vehicle_Type'
     ];
 
+    public function makeRecord($data){
+        $db = \Config\Database::connect();
+        $builder = $db->table('riderrecords');
+
+        $builder->insert($data);
+    }
 
     public function email_checker($email){ //check if email is already taken
         $db = \Config\Database::connect();

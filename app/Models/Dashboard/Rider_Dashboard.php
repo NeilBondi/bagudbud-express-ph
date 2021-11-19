@@ -104,6 +104,23 @@ class Rider_Dashboard extends Model{
         return $db->insertID();
     }
 
+    //update the record number of request in DB
+    public function addrequestrecord($id){
+        $db = \Config\Database::connect();
+        $builder = $db->table('riderrecords');
+
+        $builder->where('delP_ID', $id);
+        $query = $builder->get();
+
+        $data = $query->getResultArray();
+        foreach($data as $row){
+            $addnumber = $row['successdelivery'] + 1;
+        }
+
+        $builder->where('delP_ID', $id);
+        $builder->update(['successdelivery' => $addnumber]);
+    }
+
     //insert notification
     public function notification($data){
         $db = \Config\Database::connect();

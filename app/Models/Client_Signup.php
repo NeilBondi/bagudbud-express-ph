@@ -24,6 +24,13 @@ class Client_Signup extends Model
         'Vkey'
     ];
 
+    public function makeRecord($data){
+        $db = \Config\Database::connect();
+        $builder = $db->table('clientrecords');
+
+        $builder->insert($data);
+    }
+
     public function email_checker($email){ //check if email is already taken
         $db = \Config\Database::connect();
         $query = $db->query("SELECT * FROM clients WHERE Email = '$email' ");

@@ -195,6 +195,7 @@ class RiderDashboard extends BaseController
 		$model = new Rider_Dashboard();
 		$session = session();
 		$id = $session->get('rid');
+		$model->addrequestrecord($id);
 
 		$rdata = $model->getCompleteData($id);
 		foreach($rdata as $row){

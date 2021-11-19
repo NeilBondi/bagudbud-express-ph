@@ -81,6 +81,13 @@ class RiderSignup extends BaseController
 			$aData = ['delP_ID' => $id];
 				$apply = new Apply();
 				$apply->insert($aData); 
+			
+			$recorddata = [//make records into db
+				'delP_ID' => $id,
+				'successdelivery' => 0
+				
+			];
+			$client->makeRecord($recorddata);
 			// 		$applyId = $apply->getInsertID();
 			// 			$applyData = array(
 			// 				'applyId'   => $applyId,

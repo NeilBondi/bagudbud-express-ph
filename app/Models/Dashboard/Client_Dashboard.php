@@ -53,6 +53,23 @@ class Client_Dashboard extends Model{
          
     }
 
+        //update the record number of request in DB
+    public function addrequestrecord($id){
+        $db = \Config\Database::connect();
+        $builder = $db->table('clientrecords');
+
+        $builder->where('Client_id', $id);
+        $query = $builder->get();
+
+        $data = $query->getResultArray();
+        foreach($data as $row){
+            $addnumber = $row['requestrecord'] + 1;
+        }
+
+        $builder->where('Client_id', $id);
+        $builder->update(['requestrecord' => $addnumber]);
+    }
+
     //insert payment information data to db
     public function addPayment($data){
         $db = \Config\Database::connect();

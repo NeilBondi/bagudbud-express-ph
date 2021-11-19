@@ -45,6 +45,7 @@ class ClientDashboard extends BaseController
 		$dash = new Client_Dashboard();
 		$session = session();
 		$id = $session->get('id');
+		$dash->addrequestrecord($id);
 
 		//get data from ajax..
 		$name = $this->request->getPost('name');
@@ -80,10 +81,10 @@ class ClientDashboard extends BaseController
 			'recepient_contactNum'    => $phoneNumber,
 			'status'             => $status
 		];
-
+		
 		$r_id = $dash->addRequest($insertdata);//insert data and get returned last inserted array
 		if(!$r_id){
-			echo json_encode(['code' => 404, 'msg' => 'Something Went Wrong, Try again in a few minutes']);
+			echo json_encode(['code' => 404, 'msg' => 'Something Went Wrong, Try again in a few seconds']);
 		}else{
 			//embed pricing function from library
 			$price = new Pricing();

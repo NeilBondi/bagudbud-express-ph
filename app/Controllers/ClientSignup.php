@@ -321,6 +321,13 @@ class ClientSignup extends BaseController
 
 	$client = new Client_Signup();
 		if($client->insert($data)){
+			$cid = $client->getInsertID();
+			$recorddata = [
+				'Client_id' => $cid,
+				'requestrecord' => 0
+			];
+			$client->makeRecord($recorddata);
+
 			// send email process
 			// $to = $C_email;
 			// $subject = 'Account Verification';
