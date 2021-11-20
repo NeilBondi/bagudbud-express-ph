@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 
+use App\Models\Admin\Admin_Model;
+
 class Admin extends BaseController
 {
 	public function index()
@@ -53,6 +55,25 @@ class Admin extends BaseController
 	}
 
     
+	public function adminLogin() {
+		
+		$username = $this->request->getPost('username');
+		$password = $this->request->getPost('password');
 
+		$admin_model = new Admin_Model();
+		$result = $admin_model->getAdminData($username);
+		foreach ($result as $row) {
+			if ($row['username'] === $username && $row['password'] === $password) {
+				return json_encode([
+					"status_code" => 200,
+					"message" => "Successfully Logged In"
+				]);
+			}
+		}
+		return json_encode([
+			"status_code" => 404,
+			"message" => "Invalid Username or Password"
+		]);
+	}
 
 }

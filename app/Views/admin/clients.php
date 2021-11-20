@@ -25,31 +25,37 @@
                                 <table id="datatablesSimple">
                                     <thead>
                                         <tr>
-                                            <th>Name</th>
-                                            <th>Age</th>
+                                            <th>Tracking ID</th>
+                                            <th>Client Name</th>
                                             <th>Shop Name</th>
-                                            <th>Date of Birth</th>
-                                            <th>Date Approved</th>
+                                            <th>Municipality</th>
+                                            <th>Status</th>
+                                            <th>Product Type</th>
+                                            <th>Date Requested</th>
                                             <th></th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
-                                            <th>Name</th>
-                                            <th>Age</th>
+                                            <th>Tracking ID</th>
+                                            <th>Client Name</th>
                                             <th>Shop Name</th>
-                                            <th>Date of Birth</th>
-                                            <th>Date Approved</th>
+                                            <th>Municipality</th>
+                                            <th>Status</th>
+                                            <th>Product Type</th>
+                                            <th>Date Requested</th>
                                             <th></th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
                                         <tr>
-                                            <td>Tiger Nixon</td>
-                                            <td>21</td>
-                                            <td>Edinburgh</td>
-                                            <td>2011/04/25</td>
-                                            <td>2011/04/25</td>
+                                            <td>1234567</td>
+                                            <td>John Doe</th>
+                                            <td>Bagudbud</th>
+                                            <td>Nabua</th>
+                                            <td>Active</td>
+                                            <td>Food</td>
+                                            <td>2001/01/01</th>
                                             <td>
                                                 <div class="d-flex justify-content-center align-items-center">
                                                     <button class="message-item btn btn-primary me-2"><i class="bi bi-chat-dots"></i></i></button>
