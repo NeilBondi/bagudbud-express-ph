@@ -25,7 +25,9 @@
                                 <table id="datatablesSimple">
                                     <thead>
                                         <tr>
+                                            <th>Client ID</th>
                                             <th>Client Name</th>
+                                            <th>Shop Name</th>
                                             <th>Product Type</th>
                                             <th>Municipality</th>
                                             <th>Status</th>
@@ -35,7 +37,9 @@
                                     </thead>
                                     <tfoot>
                                         <tr>
+                                            <th>Client ID</th>
                                             <th>Client Name</th>
+                                            <th>Shop Name</th>
                                             <th>Product Type</th>
                                             <th>Municipality</th>
                                             <th>Status</th>
@@ -45,7 +49,9 @@
                                     </tfoot>
                                     <tbody>
                                         <tr>
+                                            <td>1</th>
                                             <td>John Doe</th>
+                                            <td>Bagudbud</td>
                                             <td>Food</td>
                                             <td>Nabua</th>
                                             <td>Active</td>
