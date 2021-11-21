@@ -45,7 +45,7 @@
                                     </tfoot>
                                     <tbody>
                                     <?php 
-                                        if (isset($data)) {
+                                        if (isset($data['data'])) {
                                         
                                         foreach($data['data'] as $row) { 
     
@@ -106,23 +106,19 @@
                 </div>
                 <script>
                     $(() => {
-                        $('.hire-now').click(function() {
-                            $(this).empty();
-                            $(this).append('<i class="bi bi-person-check"></i>');
-                            $(this).removeClass('btn-primary');
-                            $(this).addClass('btn-success');
-                            setTimeout(() => {
-                                $(this).empty();
-                                $(this).append('<i class="bi bi-person-plus"></i>');
-                                $(this).addClass('btn-primary');
-                                $(this).removeClass('btn-success');
-                            }, 3000)
-                        })
-
-                        // $('#datatablesSimple').DataTable({})
-                        // $('.hire-now').click(() => {
-
-                        // });
+                        $('table').click( e => {
+                            if (e.target.classList.contains('hire-now') || e.target.parentElement.classList.contains('hire-now')) {
+                                let self = e.target.tagName === "I" ? e.target.parentElement : e.target;
+                                self.innerHTML = "";
+                                self.innerHTML = '<i class="bi bi-person-check"></i>';
+                                self.classList.remove('btn-primary');
+                                self.classList.add('btn-success');
+                                
+                            } else if (e.target.classList.contains('delete-item') || e.target.parentElement.classList.contains('delete-item')) {
+                                document.querySelector('.cancel-container').classList.add('popup-active');
+                                document.querySelector('body').classList.add('popup-blur-active');
+                            }
+                        });
 
                         const getData = () => {
                             $.ajax({

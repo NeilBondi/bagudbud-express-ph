@@ -25,30 +25,30 @@
                                 <table id="datatablesSimple">
                                     <thead>
                                         <tr>
+                                            <th>Id</th>
                                             <th>Name</th>
-                                            <th>Age</th>
                                             <th>Vehicle Type</th>
-                                            <th>Date of Birth</th>
+                                            <th>Municipality</th>
                                             <th>Date Approved</th>
                                             <th></th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
+                                            <th>Id</th>
                                             <th>Name</th>
-                                            <th>Age</th>
                                             <th>Vehicle Type</th>
-                                            <th>Date of Birth</th>
+                                            <th>Municipality</th>
                                             <th>Date Approved</th>
                                             <th></th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
                                         <tr>
-                                            <td>Tiger Nixon</td>
-                                            <td>21</td>
+                                            <td>1</td>
+                                            <td>John Doe</td>
                                             <td>Motorcycle</td>
-                                            <td>2011/04/25</td>
+                                            <td>Nabua</td>
                                             <td>2011/04/25</td>
                                             <td>
                                                 <div class="d-flex justify-content-center align-items-center">
@@ -57,7 +57,6 @@
                                                 </div>
                                             </td>
                                         </tr>
-                                        
                                     </tbody>
                                 </table>
                             </div>
