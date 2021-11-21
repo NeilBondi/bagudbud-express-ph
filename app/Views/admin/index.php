@@ -14,31 +14,84 @@
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item active">Dashboard</li>
                         </ol>
-                        <div class="row">
-                            <div class="col-xl-4 col-md-6">
-                                <div class="card bg-primary text-white mb-4">
-                                    <div class="card-body">Clients</div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="<?= base_url('/admin/clients') ?>">View Details</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                        <div class="row d-flex justify-content-center">
+                            <div class="col-6 col-lg-3">
+                                <div class="card card-button pending-btn">
+                                    <div class="card-body px-4 px-md-3 py-4">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="stats-icon red">
+                                                    <i class="bi bi-person-video3 d-flex justify-content-center align-items-center"></i>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <h6 class="text-muted font-semibold">No. of Clients</h6>
+
+                                                <!-- Insert Pending Count -->
+
+                                                <h5 class="font-extrabold mb-0 text-black"><span id="numPending">1</span></h5>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-xl-4 col-md-6">
-                                <div class="card bg-warning text-white mb-4">
-                                    <div class="card-body">Applications</div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="<?= base_url('/admin/applications') ?>">View Details</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                            <div class="col-6 col-lg-3">
+                                <div class="card card-button active-deliveries-btn">
+                                    <div class="card-body px-4 px-md-3 py-4">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="stats-icon blue">
+                                                    <i class="bi bi-people d-flex justify-content-center align-items-center"></i>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <h6 class="text-muted font-semibold">No. of Applications</h6>
+
+                                                <!-- Insert Active Deliveries Count -->
+
+                                                <h5 class="font-extrabold mb-0 text-black"><span id="numAccepted">1</span></h5>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-xl-4 col-md-6">
-                                <div class="card bg-success text-white mb-4">
-                                    <div class="card-body">Delivery Personnels</div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="<?= base_url('/admin/delivery-personnels') ?>">View Details</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                            <div class="col-6 col-lg-3">
+                                <div class="card card-button pending-btn">
+                                    <div class="card-body px-4 px-md-3 py-4">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="stats-icon purple">
+                                                    <i class="bi bi-clipboard-data d-flex justify-content-center align-items-center"></i>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <h6 class="text-muted font-semibold">No. of Requests</h6>
+
+                                                <!-- Insert Pending Count -->
+
+                                                <h5 class="font-extrabold mb-0 text-black"><span id="numPending">1</span></h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-lg-3">
+                                <div class="card card-button active-deliveries-btn">
+                                    <div class="card-body px-4 px-md-3 py-4">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="stats-icon green">
+                                                    <i class="bi bi-check2-square  d-flex justify-content-center align-items-center"></i>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <h6 class="text-muted font-semibold">No. of Successful Deliveries</h6>
+
+                                                <!-- Insert Active Deliveries Count -->
+
+                                                <h5 class="font-extrabold mb-0 text-black"><span id="numAccepted">1</span></h5>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -48,38 +101,35 @@
                                 <i class="fas fa-table me-1"></i>
                                 Requests
                             </div>
-                            <div class="card-body">
+                            <div class="card-body mt-3">
                                 <table id="datatablesSimple">
                                     <thead>
                                         <tr>
-                                            <th>Name</th>
-                                            <th>Position</th>
-                                            <th>Office</th>
-                                            <th>Age</th>
-                                            <th>Start date</th>
-                                            <th>Salary</th>
+                                            <th>Tracking ID</th>
+                                            <th>Client Name</th>
+                                            <th>Municipality</th>
+                                            <th>Status</th>
+                                            <th>Date Reqiested</th>
                                             <th></th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
-                                            <th>Name</th>
-                                            <th>Position</th>
-                                            <th>Office</th>
-                                            <th>Age</th>
-                                            <th>Start date</th>
-                                            <th>Salary</th>
+                                            <th>Tracking ID</th>
+                                            <th>Client Name</th>
+                                            <th>Municipality</th>
+                                            <th>Status</th>
+                                            <th>Date Reqiested</th>
                                             <th></th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
                                         <tr>
-                                            <td>Tiger Nixon</td>
-                                            <td>System Architect</td>
-                                            <td>Edinburgh</td>
-                                            <td>61</td>
+                                            <td>123456779</td>
+                                            <td>John Doe</td>
+                                            <td>Nabua</td>
+                                            <td>1</td>
                                             <td>2011/04/25</td>
-                                            <td>$320,800</td>
                                             <td>
                                                 <div class="delete-item d-flex justify-content-center align-items-center">
                                                     <button class="delete-item btn btn-danger"><i class="bi bi-trash"></i></button>

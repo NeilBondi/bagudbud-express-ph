@@ -32,8 +32,12 @@ class Admin extends BaseController
 
 	public function applications()
 	{
+		$admin_model = new Admin_Model();
+		$result['data'] = $admin_model->getAllApplications();
+
         $data = array(
-            "page_title" => "Bagudbud | Admin"
+            "page_title" => "Bagudbud | Admin",
+			"data" => $result
         );
 		return view('admin/applications', $data);
 	}
@@ -74,6 +78,13 @@ class Admin extends BaseController
 			"status_code" => 404,
 			"message" => "Invalid Username or Password"
 		]);
+	}
+
+	public function getAllApplications() {
+		$admin_model = new Admin_Model();
+		$result['data'] = $admin_model->getAllApplications();
+
+		return view('admin/applications', $result);
 	}
 
 }
