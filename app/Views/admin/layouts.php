@@ -7,6 +7,7 @@
         <meta name="description" content="" />
         <meta name="author" content="" />
         <title>Administrator Panel</title>
+        <link rel="shortcut icon" href="<?= base_url() ?>/public/assets/img/iconBagudbud.png" type="image/x-icon">
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
         <link href="<?= base_url('/public/assets/admin/css/styles.css') ?>" rel="stylesheet" />
         <link href="<?= base_url('/public/assets/admin/css/app.css') ?>" rel="stylesheet" />

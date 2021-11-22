@@ -24,10 +24,53 @@ class Admin extends BaseController
 
 	public function client()
 	{
+		$admin_model = new Admin_Model();
         $data = array(
-            "page_title" => "Bagudbud | Admin"
+            "page_title" => "Bagudbud | Admin",
+			"logdata"    => $admin_model->getAllClients()
         );
 		return view('admin/clients', $data);
+	}
+
+	public function notifyClient(){
+		$admin_model = new Admin_Model();
+		$mssg = $this->request->getPost('mssg');
+		$cid = $this->request->getPost('cid');
+
+		$data = [
+			'sender' => 'Admin',
+			'Client_id' => $cid,
+			'delivery_id' => 0,
+			'body' => $mssg,
+			'tracking' => 'from admin',
+			'status'  => 0
+		];
+
+		if($admin_model->notify($data)){
+			return json_encode([
+				'code' => 202,
+				'msg' => 'Send'
+			]);
+		}else{
+			return json_encode([
+				'code' => 404
+			]);
+		}
+	}
+
+	public function deleteClient(){
+		$admin_model = new Admin_Model();
+		$cid = $this->request->getPost('cid');
+
+		if($admin_model->deleteC($cid)){
+			return json_encode([
+				'code' => 202
+			]);
+		}else{
+			return json_encode([
+				'code' => 404
+			]);
+		}
 	}
 
 	public function applications()

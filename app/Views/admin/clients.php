@@ -48,21 +48,33 @@
                                         </tr>
                                     </tfoot>
                                     <tbody>
-                                        <tr>
-                                            <td>1</th>
-                                            <td>John Doe</th>
-                                            <td>Bagudbud</td>
-                                            <td>Food</td>
-                                            <td>Nabua</th>
-                                            <td>Active</td>
-                                            <td>19</th>
+                                        <?php 
+                                            foreach($logdata as $row){
+
+                                            if($row['Verified'] == 1){
+                                                $status = 'verified/active';
+                                            }else{
+                                                $status = 'Not verified';
+                                            }
+                                        ?>
+                                        <tr id="<?= $row['Client_id'];?>">
+                                            <td><?= $row['Client_id'];?></th>
+                                            <td><?= $row['Name'].' '.$row['L_name'];;?></th>
+                                            <td><?= $row['B_name'];?></td>
+                                            <td><?= $row['Product_type'];?></td>
+                                            <td><?= $row['Municipality'];?></th>
+                                            <td><?= $status;?></td>
+                                            <td><?= $row['requestrecord'];?></th>
                                             <td>
                                                 <div class="d-flex justify-content-center align-items-center">
-                                                    <button class="message-item btn btn-primary me-2"><i class="bi bi-chat-dots"></i></i></button>
-                                                    <button class="delete-btn btn btn-danger"><i class="bi bi-trash"></i></button>
+                                                    <button class="message-item btn btn-primary me-2" id="<?= $row['Client_id'];?>"><i class="bi bi-chat-dots"></i></i></button>
+                                                    <button class="delete-btn btn btn-danger" id="<?= $row['Client_id'];?>"><i class="bi bi-trash"></i></button>
                                                 </div>
                                             </td>
                                         </tr>
+                                        <?php
+                                            }
+                                        ?>
                                     </tbody>
                                 </table>
                             </div>
@@ -82,7 +94,7 @@
                                         <div class="col">
                                             <div class="mb-4 d-flex flex-column">
                                                 <div class="position-relative">
-                                                    <textarea class="form-control fw-lighter border-1 border-dark" placeholder="" required id="floatingTextarea2" style="height: 10rem"></textarea>
+                                                    <textarea id="mssg" class="form-control fw-lighter border-1 border-dark" placeholder="" required id="floatingTextarea2" style="height: 10rem"></textarea>
                                                     
                                                 </div>
                                             </div>
@@ -99,8 +111,88 @@
                         </div>
                     </div>
                 </main>
+                <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
                 <script>
                     $(() => {
+                        $('.message-item').click(function (e) { 
+                            e.preventDefault();
+                            var cid = $(this).attr("id");
+                           
+                            $('#notify-form').submit(function (e) { 
+                                e.preventDefault();
+                                var mssg = $('#mssg').val();
+
+                                $.ajax({
+                                    type: "post",
+                                    url: "<?= base_url('Admin/notifyClient')?>",
+                                    data: {
+                                        cid: cid,
+                                        mssg: mssg
+                                    },
+                                    dataType: "json",
+                                    success: function (res) {
+                                        if(res.code == 202){
+                                            const Toast = Swal.mixin({
+                                            toast: true,
+                                            position: 'top-end',
+                                            showConfirmButton: false,
+                                            timer: 2000,
+                                            timerProgressBar: true,
+                                            didOpen: (toast) => {
+                                                toast.addEventListener('mouseenter', Swal.stopTimer)
+                                                toast.addEventListener('mouseleave', Swal.resumeTimer)
+                                            }
+                                            })
+
+                                            Toast.fire({
+                                            icon: 'success',
+                                            title: res.msg
+                                            }).then(function(){
+                                                $('#notify-form').trigger("reset");
+                                            });
+                                        }else{
+                                            const Toast = Swal.mixin({
+                                            toast: true,
+                                            position: 'top-end',
+                                            showConfirmButton: false,
+                                            timer: 2000,
+                                            timerProgressBar: true,
+                                            didOpen: (toast) => {
+                                                toast.addEventListener('mouseenter', Swal.stopTimer)
+                                                toast.addEventListener('mouseleave', Swal.resumeTimer)
+                                            }
+                                            })
+
+                                            Toast.fire({
+                                            icon: 'error',
+                                            title: 'Message not sent'
+                                            })
+                                        }
+                                    }
+                                });
+                            });
+                            
+                        });
+
+                        $('.delete-btn').click(function (e) { 
+                            e.preventDefault();
+                            var cid = $(this).attr("id");
+                            
+                            $.ajax({
+                                type: "post",
+                                url: "<?= base_url('Admin/deleteClient')?>",
+                                data: {
+                                    cid: cid
+                                },
+                                dataType: "json",
+                                success: function (res) {
+                                    if(res.code == 202){
+                                        $('#' + cid + '').fadeOut('slow');
+                                    }
+                                }
+                            });
+                        });
+
                     })
                 </script>
     <?= $this->endSection(); ?>
