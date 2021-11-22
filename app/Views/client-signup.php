@@ -253,7 +253,7 @@
                             <button type="submit" class="submit-btn btn btn-primary border-2 text-black mt-3 px-4 px-xxl-5 py-xxl-2">
                                 <span class="display-6 fw-bold text-white">Next</span>
                             </button>
-                            <a href="<?= base_url(); ?>/login" class="btn btn-transparent button-active-transparent text-black mt-3 me-2 px-3 px-xxl-5 py-2">
+                            <a href="<?= base_url(); ?>/client-login" class="btn btn-transparent button-active-transparent text-black mt-3 me-2 px-3 px-xxl-5 py-2">
                                 <span class="display-7 fw-normal">Return</span>
                             </a>
                         </div>
