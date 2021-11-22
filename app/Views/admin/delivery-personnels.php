@@ -48,11 +48,10 @@
                                     <tbody>
                                         <?php 
                                             if (isset($data['data'])) {
-                                            
                                             foreach($data['data'] as $row) { 
-        
-                                            $date = date_create($row['createDate']);
-                                            $xdate = date_format($date, "F j, Y, g:i a");   
+                                                if ($row['delP_Status'] === '1') {
+                                                    $date = date_create($row['createDate']);
+                                                    $xdate = date_format($date, "F j, Y, g:i a");   
 
                                         ?>
                                         <tr>
@@ -69,7 +68,7 @@
                                                 </div>
                                             </td>
                                         </tr>
-                                        <?php }} ?>
+                                        <?php }}} ?>
                                     </tbody>
                                 </table>
                             </div>
@@ -137,7 +136,7 @@
                         </div>
                     </div>
                 </div>
-                
+                <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
                 <script>
                     $(() => {
                         $('table').click( e => {
@@ -152,6 +151,58 @@
                                 let nodelist = self.parentElement.parentElement.parentElement.children;
                                 document.querySelector('.cancel-container').classList.add('popup-active');
                                 document.querySelector('body').classList.add('popup-blur-active');
+
+                                $('.cancel-container').submit(function(event) {
+                                    event.preventDefault();
+
+                                    $.ajax({
+                                        type: "post",
+                                        url: "<?= base_url('Admin/deletePersonnel')?>",
+                                        data: {
+                                            cid: nodelist[0].textContent
+                                        },
+                                        dataType: "json",
+                                        success: function (res) {
+                                            if(res.code == 202){
+                                                const Toast = Swal.mixin({
+                                                    toast: true,
+                                                    position: 'top-end',
+                                                    showConfirmButton: false,
+                                                    timer: 2000,
+                                                    timerProgressBar: true,
+                                                    didOpen: (toast) => {
+                                                        toast.addEventListener('mouseenter', Swal.stopTimer)
+                                                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+                                                    }
+                                                })
+
+                                                Toast.fire({
+                                                    icon: 'success',
+                                                    title: res.msg
+                                                }).then(() => {
+                                                    location.reload()
+                                                })
+                                            }else{
+                                                const Toast = Swal.mixin({
+                                                    toast: true,
+                                                    position: 'top-end',
+                                                    showConfirmButton: false,
+                                                    timer: 2000,
+                                                    timerProgressBar: true,
+                                                    didOpen: (toast) => {
+                                                        toast.addEventListener('mouseenter', Swal.stopTimer)
+                                                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+                                                    }
+                                                })
+
+                                                Toast.fire({
+                                                    icon: 'error',
+                                                    title: 'Error Hiring!'
+                                                })
+                                            }
+                                        }
+                                    });
+                                })
                             }
                         });
                     })

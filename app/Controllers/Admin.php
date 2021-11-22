@@ -133,4 +133,36 @@ class Admin extends BaseController
 		return view('Admin/displays/applications-row', $result);
 	}
 
+	public function setPersonnelStatus() {
+		$id = $this->request->getPost('cid');
+
+		$admin_model = new Admin_Model();
+		if($admin_model->setPersonnelsStatus($id)) {
+			return json_encode([
+				"code" => 202,
+				"msg" => "Successfully Hired!"
+			]);
+		}
+		return json_encode([
+			"status_code" => 404,
+			"message" => "Delivery Personnel not found!"
+		]);
+	}
+
+	public function deletePersonnel() {
+		$id = $this->request->getPost('cid');
+
+		$admin_model = new Admin_Model();
+		if($admin_model->deleteApplication($id) && $admin_model->deletePersonnel($id)) {
+			return json_encode([
+				"code" => 202,
+				"msg" => "Successfully Deleted!"
+			]);
+		}
+		return json_encode([
+			"status_code" => 404,
+			"message" => "Application not found!"
+		]);
+	}
+
 }

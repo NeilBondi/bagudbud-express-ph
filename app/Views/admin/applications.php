@@ -104,38 +104,126 @@
                         </div>
                     </div>
                 </div>
+                <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
                 <script>
                     $(() => {
                         $('table').click( e => {
                             if (e.target.classList.contains('hire-now') || e.target.parentElement.classList.contains('hire-now')) {
                                 let self = e.target.tagName === "I" ? e.target.parentElement : e.target;
+                                let nodelist = self.parentElement.parentElement.parentElement.children;
                                 self.innerHTML = "";
                                 self.innerHTML = '<i class="bi bi-person-check"></i>';
                                 self.classList.remove('btn-primary');
                                 self.classList.add('btn-success');
+
+                                $.ajax({
+                                    type: "post",
+                                    url: "<?= base_url('Admin/setPersonnelStatus')?>",
+                                    data: {
+                                        cid: nodelist[0].textContent
+                                    },
+                                    dataType: "json",
+                                    success: function (res) {
+                                        if(res.code == 202){
+                                            const Toast = Swal.mixin({
+                                                toast: true,
+                                                position: 'top-end',
+                                                showConfirmButton: false,
+                                                timer: 2000,
+                                                timerProgressBar: true,
+                                                didOpen: (toast) => {
+                                                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                                                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                                                }
+                                            })
+
+                                            Toast.fire({
+                                                icon: 'success',
+                                                title: res.msg
+                                            })
+                                        }else{
+                                            const Toast = Swal.mixin({
+                                                toast: true,
+                                                position: 'top-end',
+                                                showConfirmButton: false,
+                                                timer: 2000,
+                                                timerProgressBar: true,
+                                                didOpen: (toast) => {
+                                                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                                                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                                                }
+                                            })
+
+                                            Toast.fire({
+                                                icon: 'error',
+                                                title: 'Error Hiring!'
+                                            })
+                                        }
+                                    }
+                                });
                                 
                             } else if (e.target.classList.contains('delete-item') || e.target.parentElement.classList.contains('delete-item')) {
+                                let self = e.target.tagName === "I" ? e.target.parentElement : e.target;
+                                let nodelist = self.parentElement.parentElement.parentElement.children;
+
                                 document.querySelector('.cancel-container').classList.add('popup-active');
                                 document.querySelector('body').classList.add('popup-blur-active');
+
+                                $('.cancel-container').submit(function(event) {
+                                    event.preventDefault();
+
+                                    $.ajax({
+                                        type: "post",
+                                        url: "<?= base_url('Admin/deletePersonnel')?>",
+                                        data: {
+                                            cid: nodelist[0].textContent
+                                        },
+                                        dataType: "json",
+                                        success: function (res) {
+                                            if(res.code == 202){
+                                                const Toast = Swal.mixin({
+                                                    toast: true,
+                                                    position: 'top-end',
+                                                    showConfirmButton: false,
+                                                    timer: 2000,
+                                                    timerProgressBar: true,
+                                                    didOpen: (toast) => {
+                                                        toast.addEventListener('mouseenter', Swal.stopTimer)
+                                                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+                                                    }
+                                                })
+
+                                                Toast.fire({
+                                                    icon: 'success',
+                                                    title: res.msg
+                                                }).then(() => {
+                                                    location.reload()
+                                                })
+                                            }else{
+                                                const Toast = Swal.mixin({
+                                                    toast: true,
+                                                    position: 'top-end',
+                                                    showConfirmButton: false,
+                                                    timer: 2000,
+                                                    timerProgressBar: true,
+                                                    didOpen: (toast) => {
+                                                        toast.addEventListener('mouseenter', Swal.stopTimer)
+                                                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+                                                    }
+                                                })
+
+                                                Toast.fire({
+                                                    icon: 'error',
+                                                    title: 'Error Hiring!'
+                                                })
+                                            }
+                                        }
+                                    });
+                                })
                             }
                         });
 
-                        const getData = () => {
-                            $.ajax({
-                                url: "<?= base_url('Admin/getAllApplications'); ?>",
-                                method: "GET",
-                                success: function (res) {
-                                    if (typeof res !== null) {
-                                        $('.dataTables-empty').addClass('d-none')
-                                        $('tbody').empty()
-                                        $('tbody').append(res)
-                                    } else {
-                                        $('.dataTables-empty').removeClass('d-none')
-                                    }
-                                }
-                            });
-                        }
-                        // getData();
+                        
                     })
                 </script>
     <?= $this->endSection(); ?>
