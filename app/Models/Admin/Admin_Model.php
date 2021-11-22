@@ -68,7 +68,6 @@ class Admin_Model extends Model{
         $builder->delete();
 
         return true;
-
     }
 
     public function getAllApplications(){
