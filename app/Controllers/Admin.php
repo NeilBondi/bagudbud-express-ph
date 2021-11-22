@@ -161,15 +161,15 @@ class Admin extends BaseController
 			$subject = 'Account Verification';
 			$body = '<h1> Acount verified </h1>';
 
-			$email = \Config\Services::email();
+			// $email = \Config\Services::email();
 
-			$email->setFrom('johdigay@my.cspc.edu.ph', 'BAGUDBUD express');
-			$email->setTo($to);
-			$email->setSubject($subject);
-			$email->setMessage($body);			
+			// $email->setFrom('johdigay@my.cspc.edu.ph', 'BAGUDBUD express');
+			// $email->setTo($to);
+			// $email->setSubject($subject);
+			// $email->setMessage($body);			
 
-			if($email->send()){
-				// go to EmailVerification Page
+			// if($email->send()){
+			// 	// go to EmailVerification Page
 
 				if($admin_model->setPersonnelsStatus($id)) {
 					return json_encode([
@@ -183,37 +183,48 @@ class Admin extends BaseController
 				]);
 				// headrer("Location: ".base_url('/email-verification')."");
 					
-			}else{
-				$data = $email->printDebugger(['headers']);
-				echo json_encode(['code' => 505, 'msg' => $data]);
-			}
-			 //end of send email process
-		// if($admin_model->setPersonnelsStatus($id)) {
-		// 	return json_encode([
-		// 		"code" => 202,
-		// 		"msg" => "Successfully Hired!"
-		// 	]);
-		// }
-		// return json_encode([
-		// 	"status_code" => 404,
-		// 	"message" => "Delivery Personnel not found!"
-		// ]);
+			// }else{
+			// 	$data = $email->printDebugger(['headers']);
+			// 	echo json_encode(['code' => 505, 'msg' => $data]);
+			// }
 	}
 
 	public function deletePersonnel() {
 		$id = $this->request->getPost('cid');
+		$email = $this->request->getPost('email');
 
 		$admin_model = new Admin_Model();
-		if($admin_model->deleteApplication($id) && $admin_model->deletePersonnel($id)) {
+		// send email process
+		$to = $email;
+		$subject = 'Account Verification';
+		$body = '<h1> Your account has been deleted because of inactive status </h1>';
+
+		// $email = \Config\Services::email();
+
+		// $email->setFrom('johdigay@my.cspc.edu.ph', 'BAGUDBUD express');
+		// $email->setTo($to);
+		// $email->setSubject($subject);
+		// $email->setMessage($body);			
+
+		// if($email->send()){
+		// 	// go to EmailVerification Page
+
+			if($admin_model->deleteApplication($id) && $admin_model->deletePersonnel($id)) {
+				return json_encode([
+					"code" => 202,
+					"msg" => "Successfully Hired!"
+				]);
+			}
 			return json_encode([
-				"code" => 202,
-				"msg" => "Successfully Deleted!"
+				"status_code" => 404,
+				"message" => "Delivery Personnel not found!"
 			]);
-		}
-		return json_encode([
-			"status_code" => 404,
-			"message" => "Application not found!"
-		]);
+			// headrer("Location: ".base_url('/email-verification')."");
+				
+		// }else{
+		// 	$data = $email->printDebugger(['headers']);
+		// 	echo json_encode(['code' => 505, 'msg' => $data]);
+		// }
 	}
 
 }

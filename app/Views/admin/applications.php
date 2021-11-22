@@ -62,7 +62,7 @@
                                             <td>
                                                 <div class="d-flex justify-content-center align-items-center">
                                                     <button class="hire-now btn btn-primary me-2"><i class="bi bi-person-plus"></i></button>
-                                                    <button class="delete-item btn btn-danger"><i class="bi bi-trash"></i></button>
+                                                    <button class="delete-item-btn btn btn-danger"><i class="bi bi-trash"></i></button>
                                                 </div>
                                             </td>
                                         </tr>
@@ -74,36 +74,6 @@
                         </div>
                     </div>
                 </main>
-                <div class="cancel-container container-fluid position-absolute top-50 start-50 translate-middle justify-content-center row">
-                    <div class="card" style="max-width: 40rem; width: 100%;">
-                        <div class="card-body">
-                            <form method="post" class="" id="delete-form">
-                                <div class="d-inline-flex">
-                                    <h6 class="card-title position-relative text-black">Reason</h5>
-                                </div>
-                                <div class="row">
-
-                                    <!-- reason text area -->
-
-                                    <div class="col">
-                                        <div class="mb-4 d-flex flex-column">
-                                            <div class="position-relative">
-                                                <textarea class="form-control fw-lighter border-1 border-dark" placeholder="Your explanation is required" required id="floatingTextarea2" style="height: 10rem"></textarea>
-                                                
-                                            </div>
-                                        </div>
-                                    </div>
-                                
-                                <div class="">
-                                    <!-- Submit btn -->
-
-                                    <!-- <button type="submit" class="btn btn-primary">Add</button> -->
-                                    <input type="submit" class="btn btn-danger w-100 py-2" value="Confirm">
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
                 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
                 <script>
                     $(() => {
@@ -125,6 +95,7 @@
                                     },
                                     dataType: "json",
                                     success: function (res) {
+                                        console.log(res.msg)
                                         if(res.code == 202){
                                             const Toast = Swal.mixin({
                                                 toast: true,
@@ -157,27 +128,24 @@
 
                                             Toast.fire({
                                                 icon: 'error',
-                                                title: 'Error Hiring!'
+                                                title: res.msg
                                             })
                                         }
                                     }
                                 });
                                 
-                            } else if (e.target.classList.contains('delete-item') || e.target.parentElement.classList.contains('delete-item')) {
+                            } else if (e.target.classList.contains('delete-item-btn') || e.target.parentElement.classList.contains('delete-item-btn')) {
                                 let self = e.target.tagName === "I" ? e.target.parentElement : e.target;
                                 let nodelist = self.parentElement.parentElement.parentElement.children;
 
-                                document.querySelector('.cancel-container').classList.add('popup-active');
-                                document.querySelector('body').classList.add('popup-blur-active');
-
-                                $('.cancel-container').submit(function(event) {
-                                    event.preventDefault();
-
+                                    let msg = $('textarea').text();
                                     $.ajax({
                                         type: "post",
                                         url: "<?= base_url('Admin/deletePersonnel')?>",
                                         data: {
-                                            cid: nodelist[0].textContent
+                                            cid: nodelist[0].textContent,
+                                            msg,
+                                            email: nodelist[2].textContent
                                         },
                                         dataType: "json",
                                         success: function (res) {
@@ -220,7 +188,6 @@
                                             }
                                         }
                                     });
-                                })
                             }
                         });
 

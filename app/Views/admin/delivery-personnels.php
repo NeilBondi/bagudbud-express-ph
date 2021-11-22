@@ -159,7 +159,8 @@
                                         type: "post",
                                         url: "<?= base_url('Admin/deletePersonnel')?>",
                                         data: {
-                                            cid: nodelist[0].textContent
+                                            cid: nodelist[0].textContent,
+                                            email: nodelist[2].textContent
                                         },
                                         dataType: "json",
                                         success: function (res) {

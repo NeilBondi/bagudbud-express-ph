@@ -329,17 +329,17 @@ class ClientSignup extends BaseController
 			$client->makeRecord($recorddata);
 
 			// send email process
-			// $to = $C_email;
-			// $subject = 'Account Verification';
+			$to = $C_email;
+			$subject = 'Account Verification';
 
-			// $email = \Config\Services::email();
+			$email = \Config\Services::email();
 
-			// $email->setFrom('johdigay@my.cspc.edu.ph', 'BAGUDBUD express');
-			// $email->setTo($to);
-			// $email->setSubject($subject);
-			// $email->setMessage($body);			
+			$email->setFrom('johdigay@my.cspc.edu.ph', 'BAGUDBUD express');
+			$email->setTo($to);
+			$email->setSubject($subject);
+			$email->setMessage($body);			
 
-			// if($email->send()){
+			if($email->send()){
 				// go to EmailVerification Page
 				echo json_encode([
 					'redirect' => base_url('/email-verification'),
@@ -347,10 +347,10 @@ class ClientSignup extends BaseController
 				]);
 				// headrer("Location: ".base_url('/email-verification')."")
 					
-			// }else{
-			// 	$data = $email->printDebugger(['headers']);
-			// 	echo json_encode(['code' => 505, 'msg' => $data]);
-			// }
+			}else{
+				$data = $email->printDebugger(['headers']);
+				echo json_encode(['code' => 505, 'msg' => $data]);
+			}
 			 //end of send email process
 	   }
 	   else{
