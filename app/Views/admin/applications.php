@@ -44,29 +44,29 @@
                                         </tr>
                                     </tfoot>
                                     <tbody>
-                                    <?php 
-                                        if (isset($data['data'])) {
-                                        
-                                        foreach($data['data'] as $row) { 
-    
-                                        $date = date_create($row['apply_Date']);
-                                        $xdate = date_format($date, "F j, Y, g:i a");   
+                                        <?php 
+                                            if (isset($data['data'])) {
+                                            
+                                            foreach($data['data'] as $row) { 
+        
+                                            $date = date_create($row['apply_Date']);
+                                            $xdate = date_format($date, "F j, Y, g:i a");   
 
-                                    ?>
-                                    <tr>
-                                        <td><?= $row['delP_ID'] ?></td>
-                                        <td><?= $row['delP_fName'] . " " . $row['delP_lName'] ?></td>
-                                        <td><?= $row['delP_Email'] ?></td>
-                                        <td><?= $row['vehicle_Type'] ?></td>
-                                        <td><?= $xdate ?></td>
-                                        <td>
-                                            <div class="d-flex justify-content-center align-items-center">
-                                                <button class="hire-now btn btn-primary me-2"><i class="bi bi-person-plus"></i></button>
-                                                <button class="delete-item btn btn-danger"><i class="bi bi-trash"></i></button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <?php }} ?>
+                                        ?>
+                                        <tr>
+                                            <td><?= $row['delP_ID'] ?></td>
+                                            <td><?= $row['delP_fName'] . " " . $row['delP_lName'] ?></td>
+                                            <td><?= $row['delP_Email'] ?></td>
+                                            <td><?= $row['vehicle_Type'] ?></td>
+                                            <td><?= $xdate ?></td>
+                                            <td>
+                                                <div class="d-flex justify-content-center align-items-center">
+                                                    <button class="hire-now btn btn-primary me-2"><i class="bi bi-person-plus"></i></button>
+                                                    <button class="delete-item btn btn-danger"><i class="bi bi-trash"></i></button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <?php }} ?>
                                         
                                     </tbody>
                                 </table>
@@ -107,17 +107,17 @@
                 <script>
                     $(() => {
                         $('table').click( e => {
-                            if (e.target.classList.contains('hire-now') || e.target.parentElement.classList.contains('hire-now')) {
-                                let self = e.target.tagName === "I" ? e.target.parentElement : e.target;
-                                self.innerHTML = "";
-                                self.innerHTML = '<i class="bi bi-person-check"></i>';
-                                self.classList.remove('btn-primary');
-                                self.classList.add('btn-success');
+                        //     if (e.target.classList.contains('hire-now') || e.target.parentElement.classList.contains('hire-now')) {
+                        //         let self = e.target.tagName === "I" ? e.target.parentElement : e.target;
+                        //         self.innerHTML = "";
+                        //         self.innerHTML = '<i class="bi bi-person-check"></i>';
+                        //         self.classList.remove('btn-primary');
+                        //         self.classList.add('btn-success');
                                 
-                            } else if (e.target.classList.contains('delete-item') || e.target.parentElement.classList.contains('delete-item')) {
-                                document.querySelector('.cancel-container').classList.add('popup-active');
-                                document.querySelector('body').classList.add('popup-blur-active');
-                            }
+                        //     } else if (e.target.classList.contains('delete-item') || e.target.parentElement.classList.contains('delete-item')) {
+                        //         document.querySelector('.cancel-container').classList.add('popup-active');
+                        //         document.querySelector('body').classList.add('popup-blur-active');
+                        //     }
                         });
 
                         const getData = () => {
@@ -125,6 +125,7 @@
                                 url: "<?= base_url('Admin/getAllApplications'); ?>",
                                 method: "GET",
                                 success: function (res) {
+                                    console.log(res)
                                     if (typeof res !== null) {
                                         $('.dataTables-empty').addClass('d-none')
                                         $('tbody').empty()
@@ -135,7 +136,7 @@
                                 }
                             });
                         }
-                        // getData();
+                        getData();
                     })
                 </script>
     <?= $this->endSection(); ?>

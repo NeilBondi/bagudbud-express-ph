@@ -37,15 +37,18 @@ class Admin extends BaseController
 
         $data = array(
             "page_title" => "Bagudbud | Admin",
-			"data" => $result
+			// "data" => $result
         );
 		return view('admin/applications', $data);
 	}
 
 	public function deliveryPersonnels()
 	{
+		$admin_model = new Admin_Model();
+		$result['data'] = $admin_model->getAllDeliveryPersonnels();
         $data = array(
-            "page_title" => "Bagudbud | Admin"
+            "page_title" => "Bagudbud | Admin",
+			"data" => $result
         );
 		return view('admin/delivery-personnels', $data);
 	}
@@ -84,7 +87,7 @@ class Admin extends BaseController
 		$admin_model = new Admin_Model();
 		$result['data'] = $admin_model->getAllApplications();
 
-		return view('admin/applications', $result);
+		return view('Admin/displays/applications-row', $result);
 	}
 
 }

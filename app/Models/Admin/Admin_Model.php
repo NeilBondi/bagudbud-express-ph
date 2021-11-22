@@ -14,9 +14,7 @@ class Admin_Model extends Model{
 
         $builder->where('username', $username);
         $query = $builder->get();
-
-        $data = $query->getResultArray();
-        return $data;
+        return $query->getResultArray();
        
     }
 
@@ -26,6 +24,14 @@ class Admin_Model extends Model{
         $builder->select('dp_applications.delP_ID, delP_fName, delP_lName, delP_Email, vehicle_Type, apply_Date');
         $builder->join('delivery_personnel', 'delivery_personnel.delP_ID = dp_applications.delP_ID');
         $query = $builder->get();
-       return $query->getResultArray();
+        return $query->getResultArray();
+    }
+
+    public function getAllDeliveryPersonnels(){
+        $db = \Config\Database::connect();
+        $builder = $db->table('delivery_personnel');
+        $builder->select('delP_ID, delP_fName, delP_lName, delP_Email, delP_Municipality, vehicle_Type, createDate');
+        $query = $builder->get();
+        return $query->getResultArray();
     }
 }

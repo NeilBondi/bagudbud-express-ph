@@ -27,6 +27,7 @@
                                         <tr>
                                             <th>Id</th>
                                             <th>Name</th>
+                                            <th>Email</th>
                                             <th>Vehicle Type</th>
                                             <th>Municipality</th>
                                             <th>Date Approved</th>
@@ -37,6 +38,7 @@
                                         <tr>
                                             <th>Id</th>
                                             <th>Name</th>
+                                            <th>Email</th>
                                             <th>Vehicle Type</th>
                                             <th>Municipality</th>
                                             <th>Date Approved</th>
@@ -44,19 +46,30 @@
                                         </tr>
                                     </tfoot>
                                     <tbody>
+                                        <?php 
+                                            if (isset($data['data'])) {
+                                            
+                                            foreach($data['data'] as $row) { 
+        
+                                            $date = date_create($row['createDate']);
+                                            $xdate = date_format($date, "F j, Y, g:i a");   
+
+                                        ?>
                                         <tr>
-                                            <td>1</td>
-                                            <td>John Doe</td>
-                                            <td>Motorcycle</td>
-                                            <td>Nabua</td>
-                                            <td>2011/04/25</td>
+                                            <td><?= $row['delP_ID'] ?></td>
+                                            <td><?= $row['delP_fName'] . " " . $row['delP_lName'] ?></td>
+                                            <td><?= $row['delP_Email'] ?></td>
+                                            <td><?= $row['vehicle_Type'] ?></td>
+                                            <td><?= $row['delP_Municipality'] ?></td>
+                                            <td><?= $xdate ?></td>
                                             <td>
                                                 <div class="d-flex justify-content-center align-items-center">
-                                                    <button class="message-item btn btn-primary me-2"><i class="bi bi-chat-dots"></i></i></button>
+                                                    <button class="message-item btn btn-primary me-2"><i class="bi bi-chat-dots"></i></button>
                                                     <button class="delete-item btn btn-danger"><i class="bi bi-trash"></i></button>
                                                 </div>
                                             </td>
                                         </tr>
+                                        <?php }} ?>
                                     </tbody>
                                 </table>
                             </div>
@@ -127,6 +140,20 @@
                 
                 <script>
                     $(() => {
+                        $('table').click( e => {
+                            if (e.target.classList.contains('message-item') || e.target.parentElement.classList.contains('message-item')) {
+                                let self = e.target.tagName === "I" ? e.target.parentElement : e.target;
+                                let nodelist = self.parentElement.parentElement.parentElement.children;
+                                document.querySelector('.message-container').classList.add('popup-active');
+                                document.querySelector('body').classList.add('popup-blur-active');
+                                
+                            } else if (e.target.classList.contains('delete-item') || e.target.parentElement.classList.contains('delete-item')) {
+                                let self = e.target.tagName === "I" ? e.target.parentElement : e.target;
+                                let nodelist = self.parentElement.parentElement.parentElement.children;
+                                document.querySelector('.cancel-container').classList.add('popup-active');
+                                document.querySelector('body').classList.add('popup-blur-active');
+                            }
+                        });
                     })
                 </script>
     <?= $this->endSection(); ?>
