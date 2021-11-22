@@ -8,8 +8,10 @@ class Admin extends BaseController
 {
 	public function index()
 	{
+		$admin_model = new Admin_Model();
         $data = array(
-            "page_title" => "Bagudbud | Admin"
+            "page_title" => "Bagudbud | Admin",
+			"logdata"    => $admin_model->getAllRequest()
         );
 		return view('admin/index', $data);
 	}
@@ -63,6 +65,21 @@ class Admin extends BaseController
 		$cid = $this->request->getPost('cid');
 
 		if($admin_model->deleteC($cid)){
+			return json_encode([
+				'code' => 202
+			]);
+		}else{
+			return json_encode([
+				'code' => 404
+			]);
+		}
+	}
+
+	public function deleteRequest(){
+		$admin_model = new Admin_Model();
+		$rid = $this->request->getPost('req_id');
+
+		if($admin_model->deleteR($rid)){
 			return json_encode([
 				'code' => 202
 			]);

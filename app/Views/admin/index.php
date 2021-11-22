@@ -124,19 +124,27 @@
                                         </tr>
                                     </tfoot>
                                     <tbody>
-                                        <tr>
-                                            <td>123456779</td>
-                                            <td>John Doe</td>
-                                            <td>Nabua</td>
-                                            <td>1</td>
-                                            <td>2011/04/25</td>
+                                        <?php 
+                                            foreach($logdata as $row){
+
+                                                $date = date_create($row['req_date']);
+                                                $xdate = date_format($date, "F j, Y, g:i a");
+                                        ?>
+                                        <tr id="<?= $row['req_id'];?>">
+                                            <td><?= $row['tracking_id'];?></td>
+                                            <td><?= $row['recepient_name'];?></td>
+                                            <td><?= $row['recepient_municipality'];?></td>
+                                            <td><?= $row['status'];?></td>
+                                            <td><?= $xdate?></td>
                                             <td>
                                                 <div class="delete-item d-flex justify-content-center align-items-center">
-                                                    <button class="delete-item btn btn-danger"><i class="bi bi-trash"></i></button>
+                                                    <button data="<?= $row['Client_id'];?>" class="delete-item btn btn-danger delete" id="<?= $row['req_id'];?>"><i class="bi bi-trash"></i></button>
                                                 </div>
                                             </td>
                                         </tr>
-
+                                        <?php
+                                            }
+                                        ?>
                                     </tbody>
                                 </table>
                             </div>
@@ -187,5 +195,68 @@
                 </div>
             </div>
         </div>
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+            $(document).ready(function () {
+                $('.delete').click(function (e) { 
+                    e.preventDefault();
+                    var req_id = $(this).attr("id");
+                    var cid = $(this).attr("data");
+                    
+                    $('#delete-form').submit(function (e) { 
+                        e.preventDefault();
+                        var mssg = $('#floatingTextarea2').val();
+                        
+                        $.ajax({
+                            type: "post",
+                            url: "<?= base_url('Admin/notifyClient')?>",
+                            data: {
+                                cid:cid,
+                                mssg: mssg
+                            },
+                            dataType: "json",
+                            success: function (res) {
+                                if(res.code == 202){
+                                    $.ajax({
+                                        type: "post",
+                                        url: "<?= base_url('Admin/deleteRequest')?>",
+                                        data: {
+                                            req_id:req_id
+                                        },
+                                        dataType: "json",
+                                        success: function (resdata) {
+                                            if(resdata.code == 202){
+                                                const Toast = Swal.mixin({
+                                                toast: true,
+                                                position: 'top-end',
+                                                showConfirmButton: false,
+                                                timer: 2000,
+                                                timerProgressBar: true,
+                                                didOpen: (toast) => {
+                                                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                                                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                                                }
+                                                })
+
+                                                Toast.fire({
+                                                icon: 'success',
+                                                title: 'Deleted'
+                                                }).then(function(){
+                                                    $('#detele-form').trigger("reset");
+                                                    $('#' + req_id + '').fadeOut('slow');
+                                                })
+                                            }else{
+                                                alert('cant delete this request')
+                                            }
+                                            
+                                        }
+                                    });
+                                }
+                            }
+                        });
+                    });
+                });
+            });
+        </script>
         
 <?= $this->endSection(); ?>

@@ -19,6 +19,15 @@ class Admin_Model extends Model{
         return $data;
        
     }
+    function getAllRequest(){
+        $db = \Config\Database::connect();
+        $builder = $db->table('client_request');
+        $builder->where('status', 1);
+        $query = $builder->get();
+
+        $data = $query->getResultArray();
+        return $data;
+    }
 
     //fetch all clients with thier records
     public function getAllClients(){
@@ -47,6 +56,17 @@ class Admin_Model extends Model{
         $builder = $db->table('clients');
 
         $builder->where('Client_id', $id);
+        $builder->delete();
+
+        return true;
+
+    }
+
+    public function deleteR($id){
+        $db = \Config\Database::connect();
+        $builder = $db->table('client_request');
+
+        $builder->where('req_id', $id);
         $builder->delete();
 
         return true;
