@@ -21,42 +21,52 @@
                                 <i class="fas fa-table me-1"></i>
                                 Applications Table
                             </div>
-                            <div class="card-body">
+                            <div class="card-body mt-3">
                                 <table id="datatablesSimple">
                                     <thead>
                                         <tr>
+                                            <th>Id</th>
                                             <th>Name</th>
-                                            <th>Age</th>
+                                            <th>Email</th>
                                             <th>Vehicle Type</th>
-                                            <th>Date of Birth</th>
-                                            <th>Date Requested</th>
+                                            <th>Date Applied</th>
                                             <th></th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
+                                            <th>Id</th>
                                             <th>Name</th>
-                                            <th>Age</th>
+                                            <th>Email</th>
                                             <th>Vehicle Type</th>
-                                            <th>Date of Birth</th>
-                                            <th>Date Requested</th>
+                                            <th>Date Applied</th>
                                             <th></th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
-                                        <tr>
-                                            <td>Tiger Nixon</td>
-                                            <td>21</td>
-                                            <td>Motorcycle</td>
-                                            <td>2011/04/25</td>
-                                            <td>2011/04/25</td>
-                                            <td>
-                                                <div class="d-flex justify-content-center align-items-center">
-                                                    <button class="hire-now btn btn-primary me-2"><i class="bi bi-person-plus"></i></button>
-                                                    <button class="delete-item btn btn-danger"><i class="bi bi-trash"></i></button>
-                                                </div>
-                                            </td>
-                                        </tr>
+                                    <?php 
+                                        if (isset($data)) {
+                                        
+                                        foreach($data['data'] as $row) { 
+    
+                                        $date = date_create($row['apply_Date']);
+                                        $xdate = date_format($date, "F j, Y, g:i a");   
+
+                                    ?>
+                                    <tr>
+                                        <td><?= $row['delP_ID'] ?></td>
+                                        <td><?= $row['delP_fName'] . " " . $row['delP_lName'] ?></td>
+                                        <td><?= $row['delP_Email'] ?></td>
+                                        <td><?= $row['vehicle_Type'] ?></td>
+                                        <td><?= $xdate ?></td>
+                                        <td>
+                                            <div class="d-flex justify-content-center align-items-center">
+                                                <button class="hire-now btn btn-primary me-2"><i class="bi bi-person-plus"></i></button>
+                                                <button class="delete-item btn btn-danger"><i class="bi bi-trash"></i></button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <?php }} ?>
                                         
                                     </tbody>
                                 </table>
@@ -108,6 +118,28 @@
                                 $(this).removeClass('btn-success');
                             }, 3000)
                         })
+
+                        // $('#datatablesSimple').DataTable({})
+                        // $('.hire-now').click(() => {
+
+                        // });
+
+                        const getData = () => {
+                            $.ajax({
+                                url: "<?= base_url('Admin/getAllApplications'); ?>",
+                                method: "GET",
+                                success: function (res) {
+                                    if (typeof res !== null) {
+                                        $('.dataTables-empty').addClass('d-none')
+                                        $('tbody').empty()
+                                        $('tbody').append(res)
+                                    } else {
+                                        $('.dataTables-empty').removeClass('d-none')
+                                    }
+                                }
+                            });
+                        }
+                        // getData();
                     })
                 </script>
     <?= $this->endSection(); ?>
