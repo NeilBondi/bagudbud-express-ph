@@ -52,13 +52,13 @@ class Admin_Model extends Model{
         return true;
 
     }
-    
+
     public function getAllApplications(){
         $db = \Config\Database::connect();
         $builder = $db->table('dp_applications');
         $builder->select('dp_applications.delP_ID, delP_fName, delP_lName, delP_Email, vehicle_Type, apply_Date');
         $builder->join('delivery_personnel', 'delivery_personnel.delP_ID = dp_applications.delP_ID');
         $query = $builder->get();
-       return $query->getResultArray();
+        return $query->getResultArray();
     }
 }
