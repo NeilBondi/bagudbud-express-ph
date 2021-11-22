@@ -25,39 +25,50 @@
                                 <table id="datatablesSimple">
                                     <thead>
                                         <tr>
+                                            <th>Id</th>
                                             <th>Name</th>
-                                            <th>Age</th>
+                                            <th>Email</th>
                                             <th>Vehicle Type</th>
-                                            <th>Date of Birth</th>
+                                            <th>Municipality</th>
                                             <th>Date Approved</th>
                                             <th></th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
+                                            <th>Id</th>
                                             <th>Name</th>
-                                            <th>Age</th>
+                                            <th>Email</th>
                                             <th>Vehicle Type</th>
-                                            <th>Date of Birth</th>
+                                            <th>Municipality</th>
                                             <th>Date Approved</th>
                                             <th></th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
+                                        <?php 
+                                            if (isset($data['data'])) {
+                                            foreach($data['data'] as $row) { 
+                                                if ($row['delP_Status'] === '1') {
+                                                    $date = date_create($row['createDate']);
+                                                    $xdate = date_format($date, "F j, Y, g:i a");   
+
+                                        ?>
                                         <tr>
-                                            <td>Tiger Nixon</td>
-                                            <td>21</td>
-                                            <td>Motorcycle</td>
-                                            <td>2011/04/25</td>
-                                            <td>2011/04/25</td>
+                                            <td><?= $row['delP_ID'] ?></td>
+                                            <td><?= $row['delP_fName'] . " " . $row['delP_lName'] ?></td>
+                                            <td><?= $row['delP_Email'] ?></td>
+                                            <td><?= $row['vehicle_Type'] ?></td>
+                                            <td><?= $row['delP_Municipality'] ?></td>
+                                            <td><?= $xdate ?></td>
                                             <td>
                                                 <div class="d-flex justify-content-center align-items-center">
-                                                    <button class="message-item btn btn-primary me-2"><i class="bi bi-chat-dots"></i></i></button>
+                                                    <button class="message-item btn btn-primary me-2"><i class="bi bi-chat-dots"></i></button>
                                                     <button class="delete-item btn btn-danger"><i class="bi bi-trash"></i></button>
                                                 </div>
                                             </td>
                                         </tr>
-                                        
+                                        <?php }}} ?>
                                     </tbody>
                                 </table>
                             </div>
@@ -125,9 +136,75 @@
                         </div>
                     </div>
                 </div>
-                
+                <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
                 <script>
                     $(() => {
+                        $('table').click( e => {
+                            if (e.target.classList.contains('message-item') || e.target.parentElement.classList.contains('message-item')) {
+                                let self = e.target.tagName === "I" ? e.target.parentElement : e.target;
+                                let nodelist = self.parentElement.parentElement.parentElement.children;
+                                document.querySelector('.message-container').classList.add('popup-active');
+                                document.querySelector('body').classList.add('popup-blur-active');
+                                
+                            } else if (e.target.classList.contains('delete-item') || e.target.parentElement.classList.contains('delete-item')) {
+                                let self = e.target.tagName === "I" ? e.target.parentElement : e.target;
+                                let nodelist = self.parentElement.parentElement.parentElement.children;
+                                document.querySelector('.cancel-container').classList.add('popup-active');
+                                document.querySelector('body').classList.add('popup-blur-active');
+
+                                $('.cancel-container').submit(function(event) {
+                                    event.preventDefault();
+
+                                    $.ajax({
+                                        type: "post",
+                                        url: "<?= base_url('Admin/deletePersonnel')?>",
+                                        data: {
+                                            cid: nodelist[0].textContent
+                                        },
+                                        dataType: "json",
+                                        success: function (res) {
+                                            if(res.code == 202){
+                                                const Toast = Swal.mixin({
+                                                    toast: true,
+                                                    position: 'top-end',
+                                                    showConfirmButton: false,
+                                                    timer: 2000,
+                                                    timerProgressBar: true,
+                                                    didOpen: (toast) => {
+                                                        toast.addEventListener('mouseenter', Swal.stopTimer)
+                                                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+                                                    }
+                                                })
+
+                                                Toast.fire({
+                                                    icon: 'success',
+                                                    title: res.msg
+                                                }).then(() => {
+                                                    location.reload()
+                                                })
+                                            }else{
+                                                const Toast = Swal.mixin({
+                                                    toast: true,
+                                                    position: 'top-end',
+                                                    showConfirmButton: false,
+                                                    timer: 2000,
+                                                    timerProgressBar: true,
+                                                    didOpen: (toast) => {
+                                                        toast.addEventListener('mouseenter', Swal.stopTimer)
+                                                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+                                                    }
+                                                })
+
+                                                Toast.fire({
+                                                    icon: 'error',
+                                                    title: 'Error Hiring!'
+                                                })
+                                            }
+                                        }
+                                    });
+                                })
+                            }
+                        });
                     })
                 </script>
     <?= $this->endSection(); ?>
