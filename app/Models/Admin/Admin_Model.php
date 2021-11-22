@@ -14,9 +14,7 @@ class Admin_Model extends Model{
 
         $builder->where('username', $username);
         $query = $builder->get();
-
-        $data = $query->getResultArray();
-        return $data;
+        return $query->getResultArray();
        
     }
 
@@ -61,4 +59,41 @@ class Admin_Model extends Model{
         $query = $builder->get();
         return $query->getResultArray();
     }
+
+    public function getAllDeliveryPersonnels(){
+        $db = \Config\Database::connect();
+        $builder = $db->table('delivery_personnel');
+        $builder->select('delP_ID, delP_fName, delP_Status, delP_lName, delP_Email, delP_Municipality, vehicle_Type, createDate');
+        $query = $builder->get();
+        return $query->getResultArray();
+    }
+
+    public function setPersonnelsStatus($id){
+        $db = \Config\Database::connect();
+        $builder = $db->table('delivery_personnel');
+        
+        $builder->where('delP_ID', $id);
+        $builder->update(['delP_Status' => 1]);
+        return true;
+    }
+
+    public function deleteApplication($id){
+        $db = \Config\Database::connect();
+        $builder = $db->table('dp_applications');
+        
+        $builder->where('delP_ID', $id);
+        $builder->delete();
+        return true;
+    }
+
+    public function deletePersonnel($id){
+        $db = \Config\Database::connect();
+        $builder = $db->table('delivery_personnel');
+        
+        $builder->where('delP_ID', $id);
+        $builder->delete();
+        return true;
+    }
+
+
 }

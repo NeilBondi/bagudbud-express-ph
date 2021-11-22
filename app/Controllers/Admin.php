@@ -87,8 +87,11 @@ class Admin extends BaseController
 
 	public function deliveryPersonnels()
 	{
+		$admin_model = new Admin_Model();
+		$result['data'] = $admin_model->getAllDeliveryPersonnels();
         $data = array(
-            "page_title" => "Bagudbud | Admin"
+            "page_title" => "Bagudbud | Admin",
+			"data" => $result
         );
 		return view('admin/delivery-personnels', $data);
 	}
@@ -127,7 +130,39 @@ class Admin extends BaseController
 		$admin_model = new Admin_Model();
 		$result['data'] = $admin_model->getAllApplications();
 
-		return view('admin/applications', $result);
+		return view('Admin/displays/applications-row', $result);
+	}
+
+	public function setPersonnelStatus() {
+		$id = $this->request->getPost('cid');
+
+		$admin_model = new Admin_Model();
+		if($admin_model->setPersonnelsStatus($id)) {
+			return json_encode([
+				"code" => 202,
+				"msg" => "Successfully Hired!"
+			]);
+		}
+		return json_encode([
+			"status_code" => 404,
+			"message" => "Delivery Personnel not found!"
+		]);
+	}
+
+	public function deletePersonnel() {
+		$id = $this->request->getPost('cid');
+
+		$admin_model = new Admin_Model();
+		if($admin_model->deleteApplication($id) && $admin_model->deletePersonnel($id)) {
+			return json_encode([
+				"code" => 202,
+				"msg" => "Successfully Deleted!"
+			]);
+		}
+		return json_encode([
+			"status_code" => 404,
+			"message" => "Application not found!"
+		]);
 	}
 
 }
