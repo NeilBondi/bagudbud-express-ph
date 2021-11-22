@@ -31,43 +31,21 @@ class RiderDashboard extends BaseController
 	//display handle the data of user pass to requests page
 	public function deliveries() {
 
-		// $dash = new Client_Dashboard();
-		// $session = session();
-		// $id = $session->get('rid');
+		$session = session();
+		$id = $session->get('rid');
 
-		// $userDBdata = $dash->getCompleteData($id);
-		// foreach ($userDBdata as $row) {
-		// 	$clientData = array(
-		// 		'id'           => $row['Client_id'],
-		// 		'Name'         => $row['Name'],
-		// 		'Address'      => $row['Address'],
-		// 		'Municipality' => $row['Municipality'],
-		// 		'Email'        => $row['Email'],
-		// 		'Contact_num'  => $row['Contact_num'],
-		// 		'B_name'  => $row['B_name'],
-		// 	);
-		// }
-		
-		// if($id != null){
-		// 	$data = array(
-		// 		"page_title" => "Bagudbud | Pending",
-		// 		'logData' => $clientData,
-		// 	);
-		// 	return view('client-request-pending', $data);
-		// }else{
-		// 	$data = array(
-		// 		"page_title" => "Bagudbud | Dashboard",
-		// 		// 'logData' => $clientData//fetch session data
-		// 	);
-		// 	return view('client-login', $data);
-		// }
-
-		$data = array(
-			"page_title" => "Bagudbud | Dashboard",
-			// 'logData' => $clientData//fetch session data
-		);
-		return view('rider/rider-deliveries', $data);
-		
+		if($id != null){
+			$data = array(
+				"page_title" => "Bagudbud | Dashboard",
+			);
+			return view('rider/rider-deliveries', $data);
+		}else{
+			$data = array(
+				"page_title" => "Bagudbud | Dashboard",
+				// 'logData' => $clientData//fetch session data
+			);
+			return view('rider-login', $data);
+		}		
 	}
 
 	public function displayAllRequest(){

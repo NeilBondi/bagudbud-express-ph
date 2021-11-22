@@ -107,17 +107,17 @@
                 <script>
                     $(() => {
                         $('table').click( e => {
-                        //     if (e.target.classList.contains('hire-now') || e.target.parentElement.classList.contains('hire-now')) {
-                        //         let self = e.target.tagName === "I" ? e.target.parentElement : e.target;
-                        //         self.innerHTML = "";
-                        //         self.innerHTML = '<i class="bi bi-person-check"></i>';
-                        //         self.classList.remove('btn-primary');
-                        //         self.classList.add('btn-success');
+                            if (e.target.classList.contains('hire-now') || e.target.parentElement.classList.contains('hire-now')) {
+                                let self = e.target.tagName === "I" ? e.target.parentElement : e.target;
+                                self.innerHTML = "";
+                                self.innerHTML = '<i class="bi bi-person-check"></i>';
+                                self.classList.remove('btn-primary');
+                                self.classList.add('btn-success');
                                 
-                        //     } else if (e.target.classList.contains('delete-item') || e.target.parentElement.classList.contains('delete-item')) {
-                        //         document.querySelector('.cancel-container').classList.add('popup-active');
-                        //         document.querySelector('body').classList.add('popup-blur-active');
-                        //     }
+                            } else if (e.target.classList.contains('delete-item') || e.target.parentElement.classList.contains('delete-item')) {
+                                document.querySelector('.cancel-container').classList.add('popup-active');
+                                document.querySelector('body').classList.add('popup-blur-active');
+                            }
                         });
 
                         const getData = () => {
@@ -125,7 +125,6 @@
                                 url: "<?= base_url('Admin/getAllApplications'); ?>",
                                 method: "GET",
                                 success: function (res) {
-                                    console.log(res)
                                     if (typeof res !== null) {
                                         $('.dataTables-empty').addClass('d-none')
                                         $('tbody').empty()
@@ -136,7 +135,7 @@
                                 }
                             });
                         }
-                        getData();
+                        // getData();
                     })
                 </script>
     <?= $this->endSection(); ?>
