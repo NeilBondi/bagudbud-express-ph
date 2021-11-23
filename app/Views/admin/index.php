@@ -29,7 +29,7 @@
 
                                                 <!-- Insert Pending Count -->
 
-                                                <h5 class="font-extrabold mb-0 text-black"><span id="numPending">1</span></h5>
+                                                <h5 class="font-extrabold mb-0 text-black"><span id="client"></span></h5>
                                             </div>
                                         </div>
                                     </div>
@@ -49,7 +49,7 @@
 
                                                 <!-- Insert Active Deliveries Count -->
 
-                                                <h5 class="font-extrabold mb-0 text-black"><span id="numAccepted">1</span></h5>
+                                                <h5 class="font-extrabold mb-0 text-black"><span id="application"></span></h5>
                                             </div>
                                         </div>
                                     </div>
@@ -69,7 +69,7 @@
 
                                                 <!-- Insert Pending Count -->
 
-                                                <h5 class="font-extrabold mb-0 text-black"><span id="numPending">1</span></h5>
+                                                <h5 class="font-extrabold mb-0 text-black"><span id="request"></span></h5>
                                             </div>
                                         </div>
                                     </div>
@@ -89,7 +89,7 @@
 
                                                 <!-- Insert Active Deliveries Count -->
 
-                                                <h5 class="font-extrabold mb-0 text-black"><span id="numAccepted">1</span></h5>
+                                                <h5 class="font-extrabold mb-0 text-black"><span id="deliveries"></span></h5>
                                             </div>
                                         </div>
                                     </div>
@@ -257,6 +257,57 @@
                     });
                 });
             });
+            setInterval(() => {
+                getcleints();
+                getApplication();
+                getRequest();
+                getDeliveries();
+            }, 1000)
+            
+            function getcleints(){
+                $.ajax({
+                    type: 'ajax',
+                    url: "<?= base_url('Admin/countClient'); ?>",
+                    async: true,
+                    dataType: 'json',
+                    success: function (data) {
+                        $('#client').html(data.result);
+                    }
+                })
+            }
+            function getApplication(){
+                $.ajax({
+                    type: 'ajax',
+                    url: "<?= base_url('Admin/countApplication'); ?>",
+                    async: true,
+                    dataType: 'json',
+                    success: function (data) {
+                        $('#application').html(data.result);
+                    }
+                })
+            }
+            function getRequest(){
+                $.ajax({
+                    type: 'ajax',
+                    url: "<?= base_url('Admin/countRequest'); ?>",
+                    async: true,
+                    dataType: 'json',
+                    success: function (data) {
+                        $('#request').html(data.result);
+                    }
+                })
+            }
+            function getDeliveries(){
+                $.ajax({
+                    type: 'ajax',
+                    url: "<?= base_url('Admin/countDeliveries'); ?>",
+                    async: true,
+                    dataType: 'json',
+                    success: function (data) {
+                        $('#deliveries').html(data.result);
+                    }
+                })
+            }
         </script>
         
 <?= $this->endSection(); ?>

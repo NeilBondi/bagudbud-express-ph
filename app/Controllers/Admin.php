@@ -216,4 +216,69 @@ class Admin extends BaseController
 		]);
 	}
 
+
+	public function countClient(){
+		$model = new Admin_Model();
+
+		$db = \Config\Database::connect();
+        $builder = $db->table('clients');
+
+
+		return json_encode([
+			'result' => $builder->countAllResults(),
+		]);
+	}
+
+	public function countApplication(){
+		$model = new Admin_Model();
+
+		$db = \Config\Database::connect();
+        $builder = $db->table('dp_applications');
+
+
+		return json_encode([
+			'result' => $builder->countAllResults(),
+		]);
+	}
+
+	public function countRequest(){
+		$model = new Admin_Model();
+
+		$db = \Config\Database::connect();
+        $builder = $db->table('clientrecords');
+		// $builder->select('requestrecord');
+		$query = $builder->get();
+		$data = $query->getResultArray();
+
+		$allrequest = 0;
+		foreach($data as $result){
+			$allrequest = $allrequest + $result['requestrecord'];
+		}
+
+
+		return json_encode([
+			'result' => $allrequest,
+		]);
+	}
+
+	public function countDeliveries(){
+		$model = new Admin_Model();
+
+		$db = \Config\Database::connect();
+        $builder = $db->table('riderrecords');
+		// $builder->select('requestrecord');
+		$query = $builder->get();
+		$data = $query->getResultArray();
+
+		$allrequest = 0;
+		foreach($data as $result){
+			$allrequest = $allrequest + $result['successdelivery'];
+		}
+
+
+		return json_encode([
+			'result' => $allrequest,
+		]);
+	}
+
 }
