@@ -47,14 +47,14 @@ class Email extends BaseConfig
 	 *
 	 * @var string
 	 */
-	public $SMTPHost = '';
+	public $SMTPHost = 'smtp.sendgrid.net';
 
 	/**
 	 * SMTP Username
 	 *
 	 * @var string
 	 */
-	public $SMTPUser = '';
+	public $SMTPUser = 'apikey';
 
 	/**
 	 * SMTP Password
@@ -68,7 +68,7 @@ class Email extends BaseConfig
 	 *
 	 * @var integer
 	 */
-	public $SMTPPort = 587;
+	public $SMTPPort = 2525;
 
 	/**
 	 * SMTP Timeout (in seconds)
