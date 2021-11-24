@@ -105,10 +105,10 @@ class Admin extends BaseController
 	public function deliveryPersonnels()
 	{
 		$admin_model = new Admin_Model();
-		$result['data'] = $admin_model->getAllDeliveryPersonnels();
+		// $result['data'] = $
         $data = array(
             "page_title" => "Bagudbud | Admin",
-			"data" => $result
+			"data" => $admin_model->getAllDeliveryPersonnels()
         );
 		return view('admin/delivery-personnels', $data);
 	}
@@ -212,7 +212,7 @@ class Admin extends BaseController
 			if($admin_model->deleteApplication($id) && $admin_model->deletePersonnel($id)) {
 				return json_encode([
 					"code" => 202,
-					"msg" => "Successfully Hired!"
+					"msg" => "Removed From Application List!"
 				]);
 			}
 			return json_encode([
