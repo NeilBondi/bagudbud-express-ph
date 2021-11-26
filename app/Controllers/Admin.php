@@ -8,12 +8,26 @@ class Admin extends BaseController
 {
 	public function index()
 	{
+
+		$session = session();
+		$id = $session->get('admin');
+
 		$admin_model = new Admin_Model();
-        $data = array(
-            "page_title" => "Bagudbud | Admin",
-			"logdata"    => $admin_model->getAllRequest()
-        );
-		return view('admin/index', $data);
+
+		if($id != null){
+			$data = array(
+				"page_title" => "Bagudbud | Admin",
+				"logdata"    => $admin_model->getAllRequest()
+			);
+			return view('admin/index', $data);
+		}else{
+			$data = array(
+				"page_title" => "Bagudbud | Admin",
+				// 'logData' => $clientData//fetch session data
+			);
+			return view('admin/login', $data);
+		}
+
 	}
 
 	public function login()
@@ -27,11 +41,23 @@ class Admin extends BaseController
 	public function client()
 	{
 		$admin_model = new Admin_Model();
-        $data = array(
-            "page_title" => "Bagudbud | Admin",
-			"logdata"    => $admin_model->getAllClients()
-        );
-		return view('admin/clients', $data);
+       
+		$session = session();
+		$id = $session->get('admin');
+
+		if($id != null){
+			$data = array(
+				"page_title" => "Bagudbud | Admin",
+				"logdata"    => $admin_model->getAllClients()
+			);
+			return view('admin/clients', $data);
+		}else{
+			$data = array(
+				"page_title" => "Bagudbud | Admin",
+				// 'logData' => $clientData//fetch session data
+			);
+			return view('admin/login', $data);
+		}
 	}
 
 	public function notifyClient(){
@@ -95,22 +121,46 @@ class Admin extends BaseController
 		$admin_model = new Admin_Model();
 		$result['data'] = $admin_model->getAllApplications();
 
-        $data = array(
-            "page_title" => "Bagudbud | Admin",
-			"data" => $result
-        );
-		return view('admin/applications', $data);
+    
+		$session = session();
+		$id = $session->get('admin');
+		
+		if($id != null){
+			$data = array(
+				"page_title" => "Bagudbud | Admin",
+				"data" => $result
+			);
+			return view('admin/applications', $data);
+		}else{
+			$data = array(
+				"page_title" => "Bagudbud | Admin",
+				// 'logData' => $clientData//fetch session data
+			);
+			return view('admin/login', $data);
+		}
 	}
 
 	public function deliveryPersonnels()
 	{
 		$admin_model = new Admin_Model();
 		// $result['data'] = $
-        $data = array(
-            "page_title" => "Bagudbud | Admin",
-			"data" => $admin_model->getAllDeliveryPersonnels()
-        );
-		return view('admin/delivery-personnels', $data);
+
+		$session = session();
+		$id = $session->get('admin');
+		
+		if($id != null){
+			$data = array(
+				"page_title" => "Bagudbud | Admin",
+				"data" => $admin_model->getAllDeliveryPersonnels()
+			);
+			return view('admin/delivery-personnels', $data);
+		}else{
+			$data = array(
+				"page_title" => "Bagudbud | Admin",
+				// 'logData' => $clientData//fetch session data
+			);
+			return view('admin/login', $data);
+		}
 	}
 
 	public function messages()
@@ -131,6 +181,8 @@ class Admin extends BaseController
 		$result = $admin_model->getAdminData($username);
 		foreach ($result as $row) {
 			if ($row['username'] === $username && $row['password'] === $password) {
+				$session = session();
+				$session->set('admin', $row['id']);
 				return json_encode([
 					"status_code" => 200,
 					"message" => "Successfully Logged In"
@@ -291,5 +343,12 @@ class Admin extends BaseController
 			'result' => $allrequest,
 		]);
 	}
+
+	public function logout()
+    {
+        $session = session();
+        $session->destroy();
+        return redirect()->to(base_url('admin/login'));
+    }
 
 }
