@@ -30,6 +30,12 @@
                                             <div class="form-floating mb-3">
                                                 <input class="form-control" id="inputPassword" required name="password" type="password" placeholder="Password" />
                                                 <label for="inputPassword">Password</label>
+                                                <div class="form-check mt-3 mb-5">
+                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
+                                                    <label class="form-check-label" for="flexCheckChecked">
+                                                        Show Password
+                                                    </label>
+                                                </div>
                                             </div>
                                             <div class="d-flex mt-4 mb-0">
                                                 <button type="submit" class="btn btn-primary w-100 py-3">Login</button>
@@ -64,6 +70,14 @@
 
         <script>
             $(() => {
+                $('#flexCheckChecked').change(function() {
+                    if ($(this).is(':checked')) {
+                        $('input[name=password]').attr('type', 'text')
+                    } else {
+                        $('input[name=password]').attr('type', 'password')
+                    }
+                })
+
                 $('#admin-form').submit(function(event) {
                     event.preventDefault();
                     // prevent from entering
