@@ -30,7 +30,7 @@
                                             <th>Email</th>
                                             <th>Vehicle Type</th>
                                             <th>Municipality</th>
-                                            <th>Date Approved</th>
+                                            <th>Success delivery</th>
                                             <th></th>
                                         </tr>
                                     </thead>
@@ -41,18 +41,14 @@
                                             <th>Email</th>
                                             <th>Vehicle Type</th>
                                             <th>Municipality</th>
-                                            <th>Date Approved</th>
+                                            <th>Success delivery</th>
                                             <th></th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
                                         <?php 
-                                            if (isset($data['data'])) {
-                                            foreach($data['data'] as $row) { 
-                                                if ($row['delP_Status'] === '1') {
-                                                    $date = date_create($row['createDate']);
-                                                    $xdate = date_format($date, "F j, Y, g:i a");   
-
+                                            if (isset($data)) {
+                                            foreach($data as $row) {  
                                         ?>
                                         <tr>
                                             <td><?= $row['delP_ID'] ?></td>
@@ -60,7 +56,7 @@
                                             <td><?= $row['delP_Email'] ?></td>
                                             <td><?= $row['vehicle_Type'] ?></td>
                                             <td><?= $row['delP_Municipality'] ?></td>
-                                            <td><?= $xdate ?></td>
+                                            <td><?= $row['successdelivery']; ?></td>
                                             <td>
                                                 <div class="d-flex justify-content-center align-items-center">
                                                     <button class="message-item btn btn-primary me-2"><i class="bi bi-chat-dots"></i></button>
@@ -68,7 +64,7 @@
                                                 </div>
                                             </td>
                                         </tr>
-                                        <?php }}} ?>
+                                        <?php }} ?>
                                     </tbody>
                                 </table>
                             </div>
