@@ -115,7 +115,6 @@
 
             $date3 = date_create($row['cancelsuccess_date']);
             $cdate = date_format($date3, "F j, Y, g:i a");    
-            $adate = NULL;
             ?>
 
             <tr>
@@ -169,7 +168,6 @@
             $date3 = date_create($row['cancelsuccess_date']); 
             $sdate = date_format($date3, "F j, Y, g:i a"); 
             $cdate = NULL;
-
             ?>
 
             <tr>
