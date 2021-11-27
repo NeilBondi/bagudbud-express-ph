@@ -97,20 +97,13 @@
                 <a href="#" class="burger-btn d-inline-block d-xl-none">
                     <i class="bi bi-justify fs-3"></i>
                 </a>
-                <a href="" class="btn d-block d-sm-none">
-                    <div class="avatar avatar-sm">
-                        <img src="<?= base_url('/public/assets/dashboard/images/faces/1.jpg')?>" alt="Face 1">
-                    </div>
-                    <span class="mx-2">John Doe</span>
-                    <img src="<?= base_url('/public/assets/img/arrow-down.svg')?>" alt="">
-                </a>
             </header>
             <div class="popup-container container-fluid position-absolute top-50 start-50 translate-middle justify-content-center row">
                 <div class="col-11 col-md-9 col-lg-8 col-xl-6 col-xxl-5 p-4 card">
                     <div class="card-body">
                         <form method="post" class="" id="form">
                             <div class="d-inline-flex">
-                                <h5 class="card-title position-relative title text-black">Add Request</h5>
+                                <h5 class="card-title position-relative title text-black"><span class="add-request-title">Add</span> Request</h5>
                             </div>
                             <div class="row row-cols-1 row-cols-lg-2">
 
@@ -281,6 +274,7 @@
                     // end
 
                     $('.add-delivery').click(() => {
+                        $('.add-request-title').text('Add')
                         // redirect to add deliveries
                         // location.href = ${baseUrl}/client-dashboard/add-deliveries
                         $('.popup-container').addClass('popup-active');
@@ -302,6 +296,8 @@
                         $('body').removeClass('freeze');
                         requestID = null;
                     })
+                    // console.log($('.add-delivery'))
+                    // $('.modal').modal('show');
 
                     $('.method-description').prev('select').change(function() {
                         if ($(this).val() === 'COD') {
@@ -316,6 +312,7 @@
                     // Edit request
                     
                     $('.edit-request-btn').click(function() {
+                        $('.add-request-title').text('Edit')
                         $('.popup-container').addClass('popup-active');
                         $('body').addClass('popup-blur-active');
                         if($(document).innerWidth() <= 576) {
@@ -374,7 +371,7 @@
                     var bool_number = true;
                     var bool_muni = true;
                 
-                    $('#phone-number').keyup(function (e) { // validate phone number
+                    $('#phone-number').keyup(function (e) {
                         var num = $(this).val(); 
                         var filter = /^(09)\d{9}$/;
                         
@@ -394,7 +391,7 @@
                     $('#form').submit(function (e) { 
                         e.preventDefault();
 
-                        if(bool_number && requestID === null){ // insert or create new request
+                        if(bool_number && requestID === null){ // create new request
                             $.ajax({
                                 type: "post",
                                 url: "<?= base_url('ClientDashboard/addRecepient')?>",

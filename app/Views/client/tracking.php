@@ -20,7 +20,7 @@
                             </div>
                             <div class="card-body">
                                 <div class="row d-flex justify-content-center">
-                                    <form action="post" class="col-11 col-md-9 d-inline-flex justify-content-center flex-column flex-md-row" id="search-form">
+                                    <form action="" class="col-11 col-md-9 d-inline-flex justify-content-center flex-column flex-md-row" id="search-form">
                                         <input type="text" name="search" class="form-control form-control-lg py-3 fw-lighter rounded-0" id="search" placeholder="Search">
                                         <button type="submit" name="submit" id="submit" class="btn btn-primary rounded-0 display-5 px-5 py-3 py-md-0 mt-3 mt-md-0 fw-bold">Search</button>
                                     </form>
@@ -38,9 +38,9 @@
                                             <h2 class="title-404 text-center mt-5">Not Found</h2>
                                             <h5 class="text-secondary fw-normal text-center mb-5">Please enter a valid Tracking Number</h5>
                                         </div>
-                                        <div class="result w-100 d-none d-flex">
+                                        <div class="result w-100 d-none d-flex" id="result">
                                             <table class="table table-bordered stable-striped" style="border-radius: 50%;">
-                                                <tbody id="tracking-details">
+                                                <tbody id="trackingInfo">
                                                     
                                                 </tbody>
                                             </table>
@@ -67,6 +67,7 @@
                             
                         }
                     })
+
                     $('#search-form').submit(function(event) {
                         event.preventDefault();
 
@@ -85,13 +86,13 @@
                                     $('.result').addClass('d-none');
                                 } 
                                 else {
-                                    $('#tracking-details').html(data);
+                                    $('#trackingInfo').html(data);
                                     $('.invalid').addClass('d-none');
-                                    $('.result').removeClass('d-none');
+                                    $('#result').removeClass('d-none');
                                 }
                                 $('.no-request').addClass('d-none');
                                 
-                                // alert('ok');
+                                console.log(data);
                              }
                          });
 

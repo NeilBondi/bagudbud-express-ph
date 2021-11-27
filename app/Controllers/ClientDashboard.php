@@ -278,8 +278,12 @@ class ClientDashboard extends BaseController
 
 		$trackingId = $this->request->getPost('trackingId');
 
-		if($model->checkTracking($trackingId)){
-			$data['request'] = $model->getTrackingDetails($trackingId);
+		if($model->checkTracking($trackingId)){ 
+
+			$data = array(
+				'request' => $model->getTrackingDetails($trackingId)
+			);	
+
     		return view('client/tracking-details', $data);
 		}else{
 			return '404';
