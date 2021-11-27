@@ -16,14 +16,6 @@
                 <div class="row position-fixed w-26 h-100 p-0 bg-primary d-flex flex-column justify-content-center align-items-end">
                     <div class="col d-flex justify-content-center align-items-center">
                         <div class="container-fluid d-flex flex-column px-5">
-                            <button class="facebook-btn border border-outline-secondary position-relative display-9 fw-bold rounded bg-white text-black mb-4 p-2 p-xxl-3">
-                                <img src="<?= base_url('/public/assets/img/facebook.svg') ?>" class="facebook-img position-absolute top-50 start-10 translate-middle-y w-10" alt="">
-                                <span>Sign in with Facebook</span>
-                            </button>
-                            <button class="google-btn border border-outline-secondary position-relative display-9 fw-bold rounded bg-white text-black mb-4 p-2 p-xxl-3">
-                                <img src="<?= base_url('/public/assets/img/search.svg') ?>" class="google-img position-absolute top-50 start-10 translate-middle-y w-10" alt="">
-                                <span>Sign in with Google</span>
-                            </button>
                             <a href="<?= base_url('/client-login'); ?>" class="border border-outline-secondary position-relative d-flex justify-content-center align-items-center text-decoration-none display-9 fw-bold rounded bg-white text-black mb-4 p-2 p-xxl-3">
                                 Already have an account? Sign in
                             </a>

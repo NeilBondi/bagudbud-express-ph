@@ -277,10 +277,16 @@ class ClientDashboard extends BaseController
 		$model = new Client_Dashboard();
 
 		$trackingId = $this->request->getPost('trackingId');
-
+		$data['request'] = '';
 		if($model->checkTracking($trackingId)){
-			$data['request'] = $model->getTrackingDetails($trackingId);
+			if ($model->isPending($trackingId)) {
+				$data['request'] = $model->getTrackingDetailsPending($trackingId);
+			} else {
+				$data['request'] = $model->getTrackingDetails($trackingId);
+			}
+			// print_r($data);
     		return view('client/tracking-details', $data);
+			
 		}else{
 			return '404';
 		}

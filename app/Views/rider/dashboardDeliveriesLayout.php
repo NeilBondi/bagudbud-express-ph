@@ -77,13 +77,6 @@
                 <a href="#" class="burger-btn d-inline-block d-xl-none">
                     <i class="bi bi-justify fs-3"></i>
                 </a>
-                <a href="" class="btn d-block d-sm-none">
-                    <div class="avatar avatar-sm">
-                        <img src="<?= base_url('/public/assets/dashboard/images/faces/1.jpg')?>" alt="Face 1">
-                    </div>
-                    <span class="mx-2">John Doe</span>
-                    <img src="<?= base_url('/public/assets/img/arrow-down.svg')?>" alt="">
-                </a>
             </header>
             <div class="popup-container container-fluid position-absolute top-50 start-50 translate-middle justify-content-center row">
                 <div class="col-11 col-md-9 col-lg-8 col-xl-6 col-xxl-5 p-4 card">

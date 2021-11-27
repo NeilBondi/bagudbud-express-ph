@@ -430,7 +430,7 @@
 										<h3 class="req" style="font-weight: 700;">Instruction for Sending</h3>
 										<p style="margin: 1rem 0 0 1.5rem;">Kindly submit via Email</p>
 										<p style="margin: .25rem 0 0 1.5rem;">To:
-											<b style="font-style: italic;">bagudbudexpress@gmail.com</b>
+											<b style="font-style: italic;">bagudbudexpressph@gmail.com</b>
 										</p>
 										<p style="margin: .25rem 0 0 1.5rem;">Subject: <b>Your Name and Application ID</b>
 										</p>

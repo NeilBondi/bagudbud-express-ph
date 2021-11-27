@@ -234,9 +234,22 @@ class Client_Dashboard extends Model{
         $builder = $db->table('client_request');
         $builder->select('*');
         $builder->join('payment', ' payment.req_id = client_request.req_id', 'left');
-        $builder->join('delivery_personnel', 'delivery_personnel.delP_ID = client_request.delP_ID', 'left');
+        // $builder->join('delivery_personnel', 'delivery_personnel.delP_ID = client_request.delP_ID', 'left');
         $builder->join('clients', 'clients.Client_id = client_request.Client_id', 'left');
-        $builder->join('deliveries', 'deliveries.req_id = client_request.req_id');
+        // $builder->join('deliveries', 'deliveries.req_id = client_request.req_id');
+        $builder->where('client_request.tracking_id', $trackingID);
+        $query = $builder->get();
+
+        $data = $query->getResultArray();
+        return $data;
+    } 
+
+    public function getTrackingDetailsPending($trackingID){
+        $db = \Config\Database::connect();
+        $builder = $db->table('client_request');
+        $builder->select('*');
+        $builder->join('payment', ' payment.req_id = client_request.req_id', 'left');
+        $builder->join('clients', 'clients.Client_id = client_request.Client_id', 'left');
         $builder->where('client_request.tracking_id', $trackingID);
         $query = $builder->get();
 
@@ -256,6 +269,20 @@ class Client_Dashboard extends Model{
             return false;
         }
 
+    }
+
+    public function isPending($trackingID){
+        $db = \Config\Database::connect();
+        $builder = $db->table('client_request');
+        $builder->select('delP_ID');
+        $builder->where('tracking_id', $trackingID);
+        $result = $builder->get()->getResultArray();
+
+        if($result[0]['delP_ID'] === null){
+          return true;
+        }else{
+            return false;
+        }
     }
 
     //end off tracking

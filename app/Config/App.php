@@ -23,8 +23,8 @@ class App extends BaseConfig
 	 *
 	 * @var string
 	 */
-	// public $baseURL = 'http://localhost/bagudbud-express/';
-	public $baseURL = 'http://7199-45-155-89-150.ngrok.io/bagudbud-express/';
+	public $baseURL = 'http://localhost/bagudbud-express/';
+	// public $baseURL = 'https://ab12-119-93-212-159.ngrok.io/bagudbud-express';
 
 	/**
 	 * --------------------------------------------------------------------------

@@ -88,39 +88,39 @@ class RiderSignup extends BaseController
 				
 			];
 			$client->makeRecord($recorddata);
-			// 		$applyId = $apply->getInsertID();
-			// 			$applyData = array(
-			// 				'applyId'   => $applyId,
-			// 				'applyName' => ucwords($name)
-			// 			);
+					$applyId = $apply->getInsertID();
+						$applyData = array(
+							'applyId'   => $applyId,
+							'applyName' => ucwords($name)
+						);
 
-			// $parser = \Config\Services::parser();
+			$parser = \Config\Services::parser();
 
-			// $body = $parser->setData($applyData)//html email template---)
-            //  				->render('temp/emailTemp');
+			$body = $parser->setData($applyData)//html email template---)
+             				->render('temp/emailTemp');
 
-			//send email process-------------------------------------------
-			// $to = $C_email;
-			// $subject = 'Account Verification And Requirements Information';
+			// send email process-------------------------------------------
+			$to = $C_email;
+			$subject = 'Account Verification And Requirements Information';
 
-			// $email = \Config\Services::email();
+			$email = \Config\Services::email();
 
-			// $email->setFrom('johdigay@my.cspc.edu.ph', 'BAGUDBUD express');
-			// $email->setTo($to);
-			// $email->setSubject($subject);
-			// $email->setMessage($body);			
+			$email->setFrom('johdigay@my.cspc.edu.ph', 'BAGUDBUD express');
+			$email->setTo($to);
+			$email->setSubject($subject);
+			$email->setMessage($body);			
 
-			// if($email->send()){
+			if($email->send()){
 				//go to EmailVerification Page---)
 				echo json_encode([
 					'redirect' => base_url('/riderNotif'),
 					'user_email' => $C_email
 				]);
 					
-			// }else{
-			// 	$data = $email->printDebugger(['headers']);
-			// 	echo json_encode(['code' => 505, 'msg' => $data]);
-			// }
+			}else{
+				$data = $email->printDebugger(['headers']);
+				echo json_encode(['code' => 505, 'msg' => $data]);
+			}
 			 //end of send email process-----------------------------------
 	   }
 	   else{
