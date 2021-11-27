@@ -302,8 +302,6 @@
                         $('body').removeClass('freeze');
                         requestID = null;
                     })
-                    // console.log($('.add-delivery'))
-                    // $('.modal').modal('show');
 
                     $('.method-description').prev('select').change(function() {
                         if ($(this).val() === 'COD') {
@@ -376,7 +374,7 @@
                     var bool_number = true;
                     var bool_muni = true;
                 
-                    $('#phone-number').keyup(function (e) {
+                    $('#phone-number').keyup(function (e) { // validate phone number
                         var num = $(this).val(); 
                         var filter = /^(09)\d{9}$/;
                         
@@ -396,7 +394,7 @@
                     $('#form').submit(function (e) { 
                         e.preventDefault();
 
-                        if(bool_number && requestID === null){ // create new request
+                        if(bool_number && requestID === null){ // insert or create new request
                             $.ajax({
                                 type: "post",
                                 url: "<?= base_url('ClientDashboard/addRecepient')?>",
@@ -427,8 +425,6 @@
                                             $('#form')[0].reset();
                                             $('body').removeClass('popup-blur-active');
                                             $('.popup-container').removeClass('popup-active');
-                                            // $('#userTable').load('#userTable');
-                                            $('#numPending').load('#numPending');
                                         });                                      
                                     }
                                     else if(resData.code == 404){
