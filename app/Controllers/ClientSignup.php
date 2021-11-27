@@ -127,7 +127,7 @@ class ClientSignup extends BaseController
 			.email-masthead_name {
 			  font-size: 16px;
 			  font-weight: bold;
-			  color: #839197;
+			  color: #fff;
 			  text-decoration: none;
 			  text-shadow: 0 1px 0 white;
 			}
@@ -231,6 +231,7 @@ class ClientSignup extends BaseController
 			}
 			.button--blue {
 			  background-color: #414EF9;
+			  color: #fff !important;
 			}
 		
 			/*Media Queries ------------------------------ */
@@ -275,7 +276,7 @@ class ClientSignup extends BaseController
 									<!--[if mso]><v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="{{action_url}}" style="height:45px;v-text-anchor:middle;width:200px;" arcsize="7%" stroke="f" fill="t">
 									<v:fill type="tile" color="#414EF9" />
 									<w:anchorlock/>
-									<center style="color:#ffffff;font-family:sans-serif;font-size:15px;">Verify Email</center>
+									<center style="color:#fff !important;font-family:sans-serif;font-size:15px;">Verify Email</center>
 								  </v:roundrect><![endif]-->
 									<a href="'.base_url('ClientLogin/verify/'.$vkey.'').'" class="button button--blue">Verify Email</a>
 								  </div>

@@ -80,6 +80,7 @@
                              async: true,
                             //  dataType: "json",
                              success: function (data) {
+                                 console.log(data)
                                 if(data == 404) {
                                     $('.invalid').removeClass('d-none');
                                     $('.result').addClass('d-none');

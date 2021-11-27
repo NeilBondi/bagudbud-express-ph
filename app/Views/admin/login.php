@@ -82,7 +82,7 @@
                 $('#admin-form').submit(function(event) {
                     event.preventDefault();
                     // prevent from entering
-                    if ($('input[type=password]').val().length < 16) {
+                    if ($('input[name=password]').val().length < 16) {
                         $('.err-handler').removeClass('d-none');
                         $('.err-handler').text("Password must be atleast 16 characters");
                         return;
