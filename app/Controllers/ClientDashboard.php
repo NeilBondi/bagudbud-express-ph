@@ -285,6 +285,7 @@ class ClientDashboard extends BaseController
 			);	
 
     		return view('client/tracking-details', $data);
+			
 		}else{
 			return '404';
 		}

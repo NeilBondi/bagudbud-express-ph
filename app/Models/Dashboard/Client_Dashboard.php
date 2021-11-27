@@ -291,6 +291,20 @@ class Client_Dashboard extends Model{
 
     }
 
+    public function isPending($trackingID){
+        $db = \Config\Database::connect();
+        $builder = $db->table('client_request');
+        $builder->select('delP_ID');
+        $builder->where('tracking_id', $trackingID);
+        $result = $builder->get()->getResultArray();
+
+        if($result[0]['delP_ID'] === null){
+          return true;
+        }else{
+            return false;
+        }
+    }
+
     //end off tracking
     public function getSuccessDel($id){
         $db = \Config\Database::connect();

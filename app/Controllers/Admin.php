@@ -213,14 +213,14 @@ class Admin extends BaseController
 			$subject = 'Account Verification';
 			$body = '<h1> Acount verified </h1>';
 
-			// $email = \Config\Services::email();
+			$email = \Config\Services::email();
 
-			// $email->setFrom('johdigay@my.cspc.edu.ph', 'BAGUDBUD express');
-			// $email->setTo($to);
-			// $email->setSubject($subject);
-			// $email->setMessage($body);			
+			$email->setFrom('johdigay@my.cspc.edu.ph', 'BAGUDBUD express');
+			$email->setTo($to);
+			$email->setSubject($subject);
+			$email->setMessage($body);			
 
-			// if($email->send()){
+			if($email->send()){
 			// 	// go to EmailVerification Page
 
 				if($admin_model->setPersonnelsStatus($id)) {
@@ -235,10 +235,10 @@ class Admin extends BaseController
 				]);
 				// headrer("Location: ".base_url('/email-verification')."");
 					
-			// }else{
-			// 	$data = $email->printDebugger(['headers']);
-			// 	echo json_encode(['code' => 505, 'msg' => $data]);
-			// }
+			}else{
+				$data = $email->printDebugger(['headers']);
+				echo json_encode(['code' => 505, 'msg' => $data]);
+			}
 	}
 
 	public function deletePersonnel() {
@@ -251,14 +251,14 @@ class Admin extends BaseController
 		$subject = 'Account Verification';
 		$body = '<h1> Your account has been deleted because of inactive status </h1>';
 
-		// $email = \Config\Services::email();
+		$email = \Config\Services::email();
 
-		// $email->setFrom('johdigay@my.cspc.edu.ph', 'BAGUDBUD express');
-		// $email->setTo($to);
-		// $email->setSubject($subject);
-		// $email->setMessage($body);			
+		$email->setFrom('johdigay@my.cspc.edu.ph', 'BAGUDBUD express');
+		$email->setTo($to);
+		$email->setSubject($subject);
+		$email->setMessage($body);			
 
-		// if($email->send()){
+		if($email->send()){
 		// 	// go to EmailVerification Page
 
 			if($admin_model->deleteApplication($id) && $admin_model->deletePersonnel($id)) {
@@ -273,10 +273,10 @@ class Admin extends BaseController
 			]);
 			// headrer("Location: ".base_url('/email-verification')."");
 				
-		// }else{
-		// 	$data = $email->printDebugger(['headers']);
-		// 	echo json_encode(['code' => 505, 'msg' => $data]);
-		// }
+		}else{
+			$data = $email->printDebugger(['headers']);
+			echo json_encode(['code' => 505, 'msg' => $data]);
+		}
 	}
 
 
