@@ -16,10 +16,10 @@ class C_ResetPass extends BaseController
     //send otp code
     public function sendOTP(){
         $session = \Config\Services::session(); //session start
-        $email = $this->request->getPost('email');
+        $c_email = $this->request->getPost('email');
        
         $check = new CReset();
-        if($check->checkEmail($email)){
+        if($check->checkEmail($c_email)){
             $FiveDigitRandomNumber = mt_rand(10000,99999);
 
             $data = [
@@ -27,9 +27,9 @@ class C_ResetPass extends BaseController
             ];
             $insert = new CReset();
 
-                if($insert->insertOtpCode($data, $email)){
+                if($insert->insertOtpCode($data, $c_email)){
                     // send email process
-                    $to = $email;
+                    $to = $c_email;
                     $subject = 'Password Reset OTP code';
                     $body = '<div style="font-family: Helvetica,Arial,sans-serif;min-width:1000px;overflow:auto;    line-height:2">
                             <div style="margin:50px auto;width:70%;padding:20px 0">
@@ -38,7 +38,7 @@ class C_ResetPass extends BaseController
                             </div>
                             <p style="font-size:1.1em">Hi,</p>
                             <p>Thank you for choosing Bagudbud Express. Use the following OTP to complete your Password Reset procedures. OTP is valid for 15 minutes</p>
-                            <h2 style="background: #00466a;margin: 0 auto;width: max-content;padding: 0 10px;color: #fff;border-radius: 4px;">'. $data[`resetCode`] .'</h2>
+                            <h2 style="background: #00466a;margin: 0 auto;width: max-content;padding: 0 10px;color: #fff;border-radius: 4px;">'.$FiveDigitRandomNumber.'</h2>
                             <p style="font-size:0.9em;">Regards,<br />Bagudbud Express</p>
                             <hr style="border:none;border-top:1px solid #eee" />
                             <div style="float:right;padding:8px 0;color:#aaa;font-size:0.8em;line-height:1;font-weight:300">
@@ -48,31 +48,31 @@ class C_ResetPass extends BaseController
                             </div>
                             </div>
                             </div>';
-                    // $email = \Config\Services::email();
+                    $email = \Config\Services::email();
 
-                    // $email->setFrom('johdigay@my.cspc.edu.ph', 'BAGUDBUD express');
-                    // $email->setTo($to);
-                    // $email->setSubject($subject);
-                    // $email->setMessage($body);			
+                    $email->setFrom('johdigay@my.cspc.edu.ph', 'BAGUDBUD express');
+                    $email->setTo($to);
+                    $email->setSubject($subject);
+                    $email->setMessage($body);			
 
-                    // if($email->send()){
+                    if($email->send()){
                         // go to EmailVerification Page
-                        $session_Data = [
-                            'OTPpass' => true,
-                        ];
+                        // $session_Data = [
+                        //     'OTPpass' => true,
+                        // ];
 
-                        $session->set($session_Data); 
+                        $session->set('OTPpass', true); 
                         return json_encode([
                             'code' => 500,
                             'redirect' => base_url('/c_resetOTP'),
-                            'user_email' => $email
+                            'user_email' => $c_email
                         ]);
                         // headrer("Location: ".base_url('/email-verification')."")
                             
-                    // }else{
-                    // 	$data = $email->printDebugger(['headers']);
-                    // 	echo json_encode(['code' => 505, 'msg' => $data]);
-                    // }
+                    }else{
+                    	$data = $email->printDebugger(['headers']);
+                    	echo json_encode(['code' => 505, 'msg' => $data]);
+                    }
                     //end of send email process
                 }else{
                     echo json_encode(['code' => 506, 'msg' => 'Please try again Later']);
