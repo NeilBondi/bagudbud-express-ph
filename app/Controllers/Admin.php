@@ -261,7 +261,45 @@ class Admin extends BaseController
 		if($email->send()){
 		// 	// go to EmailVerification Page
 
-			if($admin_model->deleteApplication($id) && $admin_model->deletePersonnel($id)) {
+			if($admin_model->deletePersonnel($id)) {
+				return json_encode([
+					"code" => 202,
+					"msg" => "Removed From Delivery Personnel List!"
+				]);
+			}
+			return json_encode([
+				"status_code" => 404,
+				"message" => "Delivery Personnel not found!"
+			]);
+			// headrer("Location: ".base_url('/email-verification')."");
+				
+		}else{
+			$data = $email->printDebugger(['headers']);
+			echo json_encode(['code' => 505, 'msg' => $data]);
+		}
+	}
+
+	public function deleteApplication() {
+		$id = $this->request->getPost('cid');
+		$email = $this->request->getPost('email');
+
+		$admin_model = new Admin_Model();
+		// send email process
+		$to = $email;
+		$subject = 'Account Verification';
+		$body = '<h1> Sorry </h1>';
+
+		$email = \Config\Services::email();
+
+		$email->setFrom('bagudbudexpressph@gmail.com', 'BAGUDBUD express');
+		$email->setTo($to);
+		$email->setSubject($subject);
+		$email->setMessage($body);			
+
+		if($email->send()){
+		// 	// go to EmailVerification Page
+
+			if($admin_model->deleteApplication($id)) {
 				return json_encode([
 					"code" => 202,
 					"msg" => "Removed From Application List!"
@@ -269,7 +307,7 @@ class Admin extends BaseController
 			}
 			return json_encode([
 				"status_code" => 404,
-				"message" => "Delivery Personnel not found!"
+				"message" => "Application not found!"
 			]);
 			// headrer("Location: ".base_url('/email-verification')."");
 				

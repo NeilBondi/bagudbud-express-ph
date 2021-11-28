@@ -141,7 +141,7 @@
                                     let msg = $('textarea').text();
                                     $.ajax({
                                         type: "post",
-                                        url: "<?= base_url('Admin/deletePersonnel')?>",
+                                        url: "<?= base_url('Admin/deleteApplication')?>",
                                         data: {
                                             cid: nodelist[0].textContent,
                                             msg,

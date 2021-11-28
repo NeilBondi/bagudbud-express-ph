@@ -29,8 +29,8 @@ class R_ResetPass extends BaseController
 
                 if($insert->insertOtpCode($data, $email)){
                     // send email process
-                    // $to = $email;
-                    // $subject = 'Password Reset OTP code';
+                    $to = $email;
+                    $subject = 'Password Reset OTP code';
                     $body = '<div style="font-family: Helvetica,Arial,sans-serif;min-width:1000px;overflow:auto;    line-height:2">
                             <div style="margin:50px auto;width:70%;padding:20px 0">
                             <div style="border-bottom:1px solid #eee">
@@ -48,14 +48,14 @@ class R_ResetPass extends BaseController
                             </div>
                             </div>
                             </div>';
-                    // $email = \Config\Services::email();
+                    $email = \Config\Services::email();
 
-                    // $email->setFrom('johdigay@my.cspc.edu.ph', 'BAGUDBUD express');
-                    // $email->setTo($to);
-                    // $email->setSubject($subject);
-                    // $email->setMessage($body);			
+                    $email->setFrom('johdigay@my.cspc.edu.ph', 'BAGUDBUD express');
+                    $email->setTo($to);
+                    $email->setSubject($subject);
+                    $email->setMessage($body);			
 
-                    // if($email->send()){
+                    if($email->send()){
                         // go to EmailVerification Page
                         $session_Data = [
                             'OTPpass' => true,
@@ -69,10 +69,10 @@ class R_ResetPass extends BaseController
                         ]);
                         // headrer("Location: ".base_url('/email-verification')."")
                             
-                    // }else{
-                    // 	$data = $email->printDebugger(['headers']);
-                    // 	echo json_encode(['code' => 505, 'msg' => $data]);
-                    // }
+                    }else{
+                    	$data = $email->printDebugger(['headers']);
+                    	echo json_encode(['code' => 505, 'msg' => $data]);
+                    }
                     //end of send email process
                 }else{
                     echo json_encode(['code' => 506, 'msg' => 'Please try again Later']);

@@ -43,6 +43,7 @@
                     },
                     dataType: "json",
                     success: function (res) {
+                        console.log(res);
                         if(res.code == 505){
                             $('#alert').text(res.msg).removeClass('d-none');
                         }

@@ -76,9 +76,14 @@
                             </ul>
                         </li>
                         <li class="notifications sidebar-item">
-                            <a href="<?= base_url('/client-dashboard/notifications') ?>" class='sidebar-link'>
+                            <a href="<?= base_url('/client-dashboard/notifications') ?>" class='sidebar-link position-relative'>
                                 <i class="bi bi-bell-fill"></i>
-                                <span>Notifications</span>
+                                <span class="position-relative">
+                                    Notifications
+                                </span>
+                                <span class="notif-count position-absolute top-10 start-0 translate-middle badge rounded-pill bg-danger d-none display-9">
+                                    <span class="visually-hidden">unread notifications</span>
+                                </span>
                             </a>
                         </li>
                         <li class="tracking sidebar-item">
@@ -539,6 +544,26 @@
                         })
                     })
 
+                    function notif() {
+                        $.ajax({
+                            type: "get",
+                            url: "<?= base_url('ClientDashboard/getNotifCount');?>",
+                            dataType: "json",
+                            success: function (res) {
+                                if(res.status == 200){
+                                    if (res.result) {
+                                        $('.notif-count').text(res.result);
+                                        $('.notif-count').removeClass('d-none');
+                                    } else {
+                                        $('.notif-count').addClass('d-none');
+                                    }
+                                }
+                            }
+                        });
+                    }
+                    setInterval(() => {
+                        notif();
+                    }, 1000);
                 });
 
                 

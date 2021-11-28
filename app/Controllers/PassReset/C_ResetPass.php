@@ -29,8 +29,8 @@ class C_ResetPass extends BaseController
 
                 if($insert->insertOtpCode($data, $email)){
                     // send email process
-                    // $to = $email;
-                    // $subject = 'Password Reset OTP code';
+                    $to = $email;
+                    $subject = 'Password Reset OTP code';
                     $body = '<div style="font-family: Helvetica,Arial,sans-serif;min-width:1000px;overflow:auto;    line-height:2">
                             <div style="margin:50px auto;width:70%;padding:20px 0">
                             <div style="border-bottom:1px solid #eee">
@@ -38,7 +38,7 @@ class C_ResetPass extends BaseController
                             </div>
                             <p style="font-size:1.1em">Hi,</p>
                             <p>Thank you for choosing Bagudbud Express. Use the following OTP to complete your Password Reset procedures. OTP is valid for 15 minutes</p>
-                            <h2 style="background: #00466a;margin: 0 auto;width: max-content;padding: 0 10px;color: #fff;border-radius: 4px;">324457</h2>
+                            <h2 style="background: #00466a;margin: 0 auto;width: max-content;padding: 0 10px;color: #fff;border-radius: 4px;">'. $data[`resetCode`] .'</h2>
                             <p style="font-size:0.9em;">Regards,<br />Bagudbud Express</p>
                             <hr style="border:none;border-top:1px solid #eee" />
                             <div style="float:right;padding:8px 0;color:#aaa;font-size:0.8em;line-height:1;font-weight:300">
@@ -62,7 +62,7 @@ class C_ResetPass extends BaseController
                         ];
 
                         $session->set($session_Data); 
-                        echo json_encode([
+                        return json_encode([
                             'code' => 500,
                             'redirect' => base_url('/c_resetOTP'),
                             'user_email' => $email

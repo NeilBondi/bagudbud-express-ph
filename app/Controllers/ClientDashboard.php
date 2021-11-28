@@ -453,8 +453,18 @@ class ClientDashboard extends BaseController
 				'code' => 202
 			]);
 		}
+	}
 
+	public function getNotifCount() {
+		$session = session();
+		$id = $session->get('id');
+		$model = new Client_Dashboard();
 
+		$data = $model->countNotif($id);
+		return json_encode([
+			'status' => '200',
+			'result' => $data
+		]);
 	}
 
 	

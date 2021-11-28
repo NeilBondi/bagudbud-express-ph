@@ -434,5 +434,16 @@ class Client_Dashboard extends Model{
         return true;
     }
 
+    public function countNotif($clientID) {
+        $db = \Config\Database::connect();
+        $builder = $db->table('notification');
+        $builder->select('status');
+        $builder->join('clients', 'clients.Client_id = notification.Client_id', 'left');
+        $builder->where([
+            'notification.Client_id' => 11,
+            'status' => 0
+        ]);
 
+        return $builder->countAllResults();
+    }
 }

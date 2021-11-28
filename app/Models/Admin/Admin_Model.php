@@ -101,15 +101,9 @@ class Admin_Model extends Model{
     public function deleteApplication($id){
         $db = \Config\Database::connect();
         $builder = $db->table('dp_applications');
-        $deleteDP = $db->table('delivery_personnel');
         
         $builder->where('delP_ID', $id);
         $builder->delete();
-
-        $deleteDP->where('delP_ID', $id);
-        $deleteDP->delete();
-
-
         return true;
     }
 
