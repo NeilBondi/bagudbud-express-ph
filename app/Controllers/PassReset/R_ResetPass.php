@@ -16,10 +16,10 @@ class R_ResetPass extends BaseController
     //send otp code
     public function sendOTP(){
         $session = \Config\Services::session(); //session start
-        $email = $this->request->getPost('email');
+        $r_email = $this->request->getPost('email');
        
         $check = new RReset();
-        if($check->checkEmail($email)){
+        if($check->checkEmail($r_email)){
             $FiveDigitRandomNumber = mt_rand(10000,99999);
 
             $data = [
@@ -27,7 +27,7 @@ class R_ResetPass extends BaseController
             ];
             $insert = new RReset();
 
-                if($insert->insertOtpCode($data, $email)){
+                if($insert->insertOtpCode($data, $r_email)){
                     // send email process
                     // $to = $email;
                     // $subject = 'Password Reset OTP code';
@@ -38,7 +38,7 @@ class R_ResetPass extends BaseController
                             </div>
                             <p style="font-size:1.1em">Hi,</p>
                             <p>Thank you for choosing Bagudbud Express. Use the following OTP to complete your Password Reset procedures. OTP is valid for 15 minutes</p>
-                            <h2 style="background: #00466a;margin: 0 auto;width: max-content;padding: 0 10px;color: #fff;border-radius: 4px;">324457</h2>
+                            <h2 style="background: #00466a;margin: 0 auto;width: max-content;padding: 0 10px;color: #fff;border-radius: 4px;">'.$FiveDigitRandomNumber.'</h2>
                             <p style="font-size:0.9em;">Regards,<br />Bagudbud Express</p>
                             <hr style="border:none;border-top:1px solid #eee" />
                             <div style="float:right;padding:8px 0;color:#aaa;font-size:0.8em;line-height:1;font-weight:300">
@@ -65,7 +65,7 @@ class R_ResetPass extends BaseController
                         echo json_encode([
                             'code' => 500,
                             'redirect' => base_url('/r_resetOTP'),
-                            'user_email' => $email
+                            'user_email' => $r_email
                         ]);
                         // headrer("Location: ".base_url('/email-verification')."")
                             
