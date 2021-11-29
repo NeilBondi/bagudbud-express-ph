@@ -23,7 +23,14 @@
                                     <div class="inner-container px-3 px-lg-5 d-flex flex-column align-items-center"  style="max-width: 40rem; width: 100%">
                                         <div class="row w-100">
                                             <p style="text-indent: 3rem;">
-                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet earum alias culpa, doloremque adipisci rem consectetur esse aut numquam iste.
+                                            If you want to permanently delete your Bagudbud Express
+                                            account, let us know, if possible we would like to hear from you
+                                            the reason of deleting your account (use the field below) to
+                                            improve our service. Bagudbud Express may retain certain
+                                            information after account deletion. However, once the deletion
+                                            process is complete, you will not be able to reactivate your
+                                            account or retrieve any off the data or information you have
+                                            provided.
                                             </p>
                                         </div>
                                         <div class="row w-100">
