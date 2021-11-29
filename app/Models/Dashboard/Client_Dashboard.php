@@ -1,14 +1,17 @@
 <?php
 
 namespace App\Models\Dashboard;
+
 use CodeIgniter\Model;
 
-class Client_Dashboard extends Model{
+class Client_Dashboard extends Model
+{
 
 
     //fetch the user data from db base on ID
-    public function getCompleteData($id){
-        
+    public function getCompleteData($id)
+    {
+
 
         $db = \Config\Database::connect();
         $builder = $db->table('clients');
@@ -18,43 +21,43 @@ class Client_Dashboard extends Model{
 
         $data = $query->getResultArray();
         return $data;
-       
     }
 
     //return the number of pending request based from user id
-    public function countPendingRequest($id){
+    public function countPendingRequest($id)
+    {
         $db = \Config\Database::connect();
         $builder = $db->table('client_request');
         $builder->where('Client_id', $id);
         $builder->where('status', 1);
         return $builder->countAllResults();
-        
     }
 
-    public function countAcceptedRequest($id){
+    public function countAcceptedRequest($id)
+    {
         $db = \Config\Database::connect();
         $builder = $db->table('client_request');
         $builder->where('Client_id', $id);
         $builder->where('status', 2);
         return $builder->countAllResults();
-        
     }
 
     //insert add request data to db and return the id of inserted data
-    public function addRequest($data){
+    public function addRequest($data)
+    {
         $db = \Config\Database::connect();
         $builder = $db->table('client_request');
-      
-        if($builder->insert($data)){
+
+        if ($builder->insert($data)) {
             return $db->insertID();
-        }else{
+        } else {
             return false;
         }
-         
     }
 
-        //update the record number of request in DB
-    public function addrequestrecord($id){
+    //update the record number of request in DB
+    public function addrequestrecord($id)
+    {
         $db = \Config\Database::connect();
         $builder = $db->table('clientrecords');
 
@@ -62,7 +65,7 @@ class Client_Dashboard extends Model{
         $query = $builder->get();
 
         $data = $query->getResultArray();
-        foreach($data as $row){
+        foreach ($data as $row) {
             $addnumber = $row['requestrecord'] + 1;
         }
 
@@ -71,20 +74,21 @@ class Client_Dashboard extends Model{
     }
 
     //insert payment information data to db
-    public function addPayment($data){
+    public function addPayment($data)
+    {
         $db = \Config\Database::connect();
         $builder = $db->table('payment');
-      
-        if($builder->insert($data)){
+
+        if ($builder->insert($data)) {
             return true;
-        }else{
+        } else {
             return false;
         }
-         
     }
 
     //display request list...
-    public function getRequest($id){
+    public function getRequest($id)
+    {
 
         $db = \Config\Database::connect();
         $builder = $db->table('client_request');
@@ -100,7 +104,8 @@ class Client_Dashboard extends Model{
     }
 
     //display accepted request list...
-    public function getAccepted($id){
+    public function getAccepted($id)
+    {
 
         $db = \Config\Database::connect();
         $builder = $db->table('client_request');
@@ -117,7 +122,8 @@ class Client_Dashboard extends Model{
     }
 
     //display acceted details....
-    public function getAcceptedDetails($reqid){
+    public function getAcceptedDetails($reqid)
+    {
         $db = \Config\Database::connect();
         $builder = $db->table('client_request');
         $builder->select('*');
@@ -133,7 +139,8 @@ class Client_Dashboard extends Model{
     }
 
     //display request details...
-    public function getRequestDetails($id){
+    public function getRequestDetails($id)
+    {
 
         $db = \Config\Database::connect();
         $builder = $db->table('client_request');
@@ -147,18 +154,20 @@ class Client_Dashboard extends Model{
     }
 
     //delete && cancel request..
-    public function deleteRequest($id){
+    public function deleteRequest($id)
+    {
         $db = \Config\Database::connect();
         $builder = $db->table('client_request');
 
         $builder->where('req_id', $id);
         $builder->delete();
 
-        return true;        
+        return true;
     }
 
     //edit request..
-    public function editRequest($requestdata, $paymentData, $reqid){
+    public function editRequest($requestdata, $paymentData, $reqid)
+    {
 
         $db = \Config\Database::connect();
         $request = $db->table('client_request');
@@ -172,51 +181,53 @@ class Client_Dashboard extends Model{
 
 
         return true;
-        
     }
 
     //profile section..........................
 
     //edit profile
-    public function editProfile($id, $data){
+    public function editProfile($id, $data)
+    {
         $db = \Config\Database::connect();
         $builder = $db->table('clients');
 
         $builder->where('Client_id', $id);
         $builder->update($data);
 
-        return true;        
+        return true;
     }
 
     //delete account
-    public function deleteAccount($id){
+    public function deleteAccount($id)
+    {
         $db = \Config\Database::connect();
         $builder = $db->table('clients');
-        
+
         $builder->where('Client_id', $id);
         $builder->delete();
 
-        return true;        
+        return true;
     }
 
-    public function checkCPassword($id, $password){
+    public function checkCPassword($id, $password)
+    {
         $db = \Config\Database::connect();
         $builder = $db->table('clients');
         // $builder->select('Password');
         $builder->where('Client_id', $id);
         $query = $builder->get();
 
-        foreach($query->getResultArray() as $row){
-            if(password_verify($password, $row['Password'])){
+        foreach ($query->getResultArray() as $row) {
+            if (password_verify($password, $row['Password'])) {
                 return true;
-            }else{
+            } else {
                 return false;
             }
         }
-    
     }
 
-    public function updatePassword($id, $password){
+    public function updatePassword($id, $password)
+    {
         $db = \Config\Database::connect();
         $builder = $db->table('clients');
         // $builder->select('Password');
@@ -229,15 +240,16 @@ class Client_Dashboard extends Model{
 
     //tracking
 
-    public function getTrackingDetails($trackingID){
+    public function getTrackingDetails($trackingID)
+    {
         $db = \Config\Database::connect();
         $builder = $db->table('client_request');
         $builder->where('tracking_id', $trackingID);
         $query = $builder->get();
         $data = $query->getResultArray();
 
-        foreach($data as $row){
-            if($row['status'] == 0 OR $row['status'] == 3){
+        foreach ($data as $row) {
+            if ($row['status'] == 0 or $row['status'] == 3) {
                 $cancess = $db->table('client_request');
                 $cancess->select('*');
                 $cancess->join('payment', ' payment.req_id = client_request.req_id', 'left');
@@ -249,8 +261,7 @@ class Client_Dashboard extends Model{
 
                 $result = $query->getResultArray();
                 return $result;
-            }
-            elseif($row['status'] == 1){
+            } elseif ($row['status'] == 1) {
                 $pending = $db->table('client_request');
                 $pending->select('*');
                 $pending->join('payment', ' payment.req_id = client_request.req_id', 'left');
@@ -260,8 +271,7 @@ class Client_Dashboard extends Model{
 
                 $result = $query->getResultArray();
                 return $result;
-            }
-            else{
+            } else {
                 $accepted = $db->table('Client_request');
                 $accepted->select('*');
                 $accepted->join('payment', ' payment.req_id = client_request.req_id', 'left');
@@ -272,41 +282,42 @@ class Client_Dashboard extends Model{
 
                 $result = $query->getResultArray();
                 return $result;
-
-            }       
-        } 
+            }
+        }
     }
 
-    public function checkTracking($trackingID){
+    public function checkTracking($trackingID)
+    {
         $db = \Config\Database::connect();
         $builder = $db->table('client_request');
         $builder->where('tracking_id', $trackingID);
         $count = $builder->countAllResults();
 
-        if($count > 0){
-          return true;
-        }else{
+        if ($count > 0) {
+            return true;
+        } else {
             return false;
         }
-
     }
 
-    public function isPending($trackingID){
+    public function isPending($trackingID)
+    {
         $db = \Config\Database::connect();
         $builder = $db->table('client_request');
         $builder->select('delP_ID');
         $builder->where('tracking_id', $trackingID);
         $result = $builder->get()->getResultArray();
 
-        if($result[0]['delP_ID'] === null){
-          return true;
-        }else{
+        if ($result[0]['delP_ID'] === null) {
+            return true;
+        } else {
             return false;
         }
     }
 
     //end off tracking
-    public function getSuccessDel($id){
+    public function getSuccessDel($id)
+    {
         $db = \Config\Database::connect();
         $builder = $db->table('deliveries');
         $builder->select('*');
@@ -319,11 +330,12 @@ class Client_Dashboard extends Model{
         $query = $builder->get();
         $data = $query->getResultArray();
         return $data;
-        
+
         // $builder->join('deliveries', 'deliveries')
     }
 
-    public function getSuccessDelDetails($id){
+    public function getSuccessDelDetails($id)
+    {
         $db = \Config\Database::connect();
         $builder = $db->table('deliveries');
         $builder->select('*');
@@ -335,11 +347,12 @@ class Client_Dashboard extends Model{
         $query = $builder->get();
         $data = $query->getResultArray();
         return $data;
-        
+
         // $builder->join('deliveries', 'deliveries')
     }
 
-    public function getCancelDel($id){
+    public function getCancelDel($id)
+    {
         $db = \Config\Database::connect();
         $builder = $db->table('deliveries');
         $builder->select('*');
@@ -351,11 +364,12 @@ class Client_Dashboard extends Model{
         $query = $builder->get();
         $data = $query->getResultArray();
         return $data;
-        
+
         // $builder->join('deliveries', 'deliveries')
     }
 
-    public function getCancelDelDetails($id){
+    public function getCancelDelDetails($id)
+    {
         $db = \Config\Database::connect();
         $builder = $db->table('deliveries');
         $builder->select('*');
@@ -367,11 +381,12 @@ class Client_Dashboard extends Model{
         $query = $builder->get();
         $data = $query->getResultArray();
         return $data;
-        
+
         // $builder->join('deliveries', 'deliveries')
     }
 
-    public function getNotif($id){
+    public function getNotif($id)
+    {
         $db = \Config\Database::connect();
         $builder = $db->table('notification');
 
@@ -382,7 +397,8 @@ class Client_Dashboard extends Model{
         return $data;
     }
 
-    public function getNotifDetails($notifid){
+    public function getNotifDetails($notifid)
+    {
         $db = \Config\Database::connect();
         $builder = $db->table('notification');
 
@@ -390,18 +406,19 @@ class Client_Dashboard extends Model{
         $query = $builder->get();
         $data = $query->getResultArray();
 
-        foreach($data as $row){
-            if($row['status'] == 0){
+        foreach ($data as $row) {
+            if ($row['status'] == 0) {
                 $builder->where('notif_id', $notifid);
                 $builder->update(['status' => 1]);
                 return $data;
-            }else{
+            } else {
                 return $data;
             }
         }
     }
 
-    public function deleteCancel($id, $reqid){
+    public function deleteCancel($id, $reqid)
+    {
         $db = \Config\Database::connect();
         $builder = $db->table('client_request');
 
@@ -412,7 +429,8 @@ class Client_Dashboard extends Model{
         return true;
     }
 
-    public function deleteSuccess($id, $reqid){
+    public function deleteSuccess($id, $reqid)
+    {
         $db = \Config\Database::connect();
         $builder = $db->table('client_request');
 
@@ -423,7 +441,8 @@ class Client_Dashboard extends Model{
         return true;
     }
 
-    public function deleteNotif($id, $notifid){
+    public function deleteNotif($id, $notifid)
+    {
         $db = \Config\Database::connect();
         $builder = $db->table('notification');
 
@@ -434,13 +453,14 @@ class Client_Dashboard extends Model{
         return true;
     }
 
-    public function countNotif($clientID) {
+    public function countNotif($clientID)
+    {
         $db = \Config\Database::connect();
         $builder = $db->table('notification');
         $builder->select('status');
         $builder->join('clients', 'clients.Client_id = notification.Client_id', 'left');
         $builder->where([
-            'notification.Client_id' => 11,
+            'notification.Client_id' => $clientID,
             'status' => 0
         ]);
 
