@@ -121,7 +121,7 @@
 				</div>
 				<div class="col-md-7 seller-info">
 					<h1 class="title font-weight-bold">Are you an online seller?</h1>
-					<p class="mt-4">Deliver your items with us. Whether you are a local blog shop or an ordinary online seller, we will be delighted in delivering fro you whether a parcel-collection or a doorto-door delivery in the Rinconada. </p>
+					<p class="mt-4">Deliver your items with us. Whether you are a local blog shop or an ordinary online seller, we will be delighted in delivering for you whether a parcel-collection or a door-to-door delivery in the Rinconada. </p>
 					<a href="<?= base_url('/client-login') ?>" class="btn btn-first mt-5">Start Now</a>
 				</div>
 			</div>
