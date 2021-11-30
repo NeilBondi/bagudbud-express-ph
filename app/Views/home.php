@@ -286,9 +286,7 @@
 					<!-- Content -->
 					<h6 class="text-uppercase font-weight-bold">Bagudbud Express</h6>
 					<hr class="green accent-3 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
-					<p>Here you can use rows and columns to organize your footer content. Lorem ipsum dolor sit amet,
-						consectetur
-						adipisicing elit.</p>
+					<p>Bagudbud Express guarantees reliable delivery of your items your customer, at the right location in the right time through its effective distribution management.</p>
 
 				</div>
 				<!-- Grid column -->
