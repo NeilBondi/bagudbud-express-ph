@@ -80,6 +80,22 @@
 		</div>
 	</section>
 
+	<section id="about-us">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12 d-flex align-items-center d-flex justify-content-center">
+					<h1 class="about text-center font-weight-bold">Track all your deliveries at once</h1>
+				</div>
+				<div class="col-md-12 about-info d-flex justify-content-center mb-3">
+					<p>Get the latest status of your package.</p>
+				</div>
+				<div class="col-md-12 d-flex justify-content-center">
+					<a href="<?= base_url('/tracking') ?>" class="btn btn-first p-3 font-weight-bold" style="width: 12rem;">Track my Deliveries</a>
+				</div>
+			</div>
+		</div>
+	</section>
+
 	<!-- ------Consumer Section --------->
 	<section id="consumer">
 		<div class="container d-flex flex-column justify-content-center">
