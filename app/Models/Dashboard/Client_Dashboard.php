@@ -440,7 +440,7 @@ class Client_Dashboard extends Model{
         $builder->select('status');
         $builder->join('clients', 'clients.Client_id = notification.Client_id', 'left');
         $builder->where([
-            'notification.Client_id' => 11,
+            'notification.Client_id' => $clientID,
             'status' => 0
         ]);
 
