@@ -14,44 +14,43 @@ class Admin extends BaseController
 
 		$admin_model = new Admin_Model();
 
-		if($id != null){
+		if ($id != null) {
 			$data = array(
 				"page_title" => "Bagudbud | Admin",
 				"logdata"    => $admin_model->getAllRequest()
 			);
 			return view('admin/index', $data);
-		}else{
+		} else {
 			$data = array(
 				"page_title" => "Bagudbud | Admin",
 				// 'logData' => $clientData//fetch session data
 			);
 			return view('admin/login', $data);
 		}
-
 	}
 
 	public function login()
 	{
-        $data = array(
-            "page_title" => "Bagudbud | Login"
-        );
+		$data = array(
+			"page_title" => "Bagudbud | Login"
+		);
 		return view('admin/login', $data);
 	}
 
 	public function client()
 	{
 		$admin_model = new Admin_Model();
-       
+
 		$session = session();
 		$id = $session->get('admin');
 
-		if($id != null){
+		if ($id != null) {
 			$data = array(
 				"page_title" => "Bagudbud | Admin",
 				"logdata"    => $admin_model->getAllClients()
 			);
 			return view('admin/clients', $data);
-		}else{
+		} else {
 			$data = array(
 				"page_title" => "Bagudbud | Admin",
 				// 'logData' => $clientData//fetch session data
@@ -60,7 +59,8 @@ class Admin extends BaseController
 		}
 	}
 
-	public function notifyClient(){
+	public function notifyClient()
+	{
 		$admin_model = new Admin_Model();
 		$mssg = $this->request->getPost('mssg');
 		$cid = $this->request->getPost('cid');
@@ -74,42 +74,44 @@ class Admin extends BaseController
 			'status'  => 0
 		];
 
-		if($admin_model->notify($data)){
+		if ($admin_model->notify($data)) {
 			return json_encode([
 				'code' => 202,
 				'msg' => 'Send'
 			]);
-		}else{
+		} else {
 			return json_encode([
 				'code' => 404
 			]);
 		}
 	}
 
-	public function deleteClient(){
+	public function deleteClient()
+	{
 		$admin_model = new Admin_Model();
 		$cid = $this->request->getPost('cid');
 
-		if($admin_model->deleteC($cid)){
+		if ($admin_model->deleteC($cid)) {
 			return json_encode([
 				'code' => 202
 			]);
-		}else{
+		} else {
 			return json_encode([
 				'code' => 404
 			]);
 		}
 	}
 
-	public function deleteRequest(){
+	public function deleteRequest()
+	{
 		$admin_model = new Admin_Model();
 		$rid = $this->request->getPost('req_id');
 
-		if($admin_model->deleteR($rid)){
+		if ($admin_model->deleteR($rid)) {
 			return json_encode([
 				'code' => 202
 			]);
-		}else{
+		} else {
 			return json_encode([
 				'code' => 404
 			]);
@@ -121,17 +123,17 @@ class Admin extends BaseController
 		$admin_model = new Admin_Model();
 		$result['data'] = $admin_model->getAllApplications();
 
-    
+
 		$session = session();
 		$id = $session->get('admin');
-		
-		if($id != null){
+
+		if ($id != null) {
 			$data = array(
 				"page_title" => "Bagudbud | Admin",
 				"data" => $result
 			);
 			return view('admin/applications', $data);
-		}else{
+		} else {
 			$data = array(
 				"page_title" => "Bagudbud | Admin",
 				// 'logData' => $clientData//fetch session data
@@ -147,14 +149,14 @@ class Admin extends BaseController
 
 		$session = session();
 		$id = $session->get('admin');
-		
-		if($id != null){
+
+		if ($id != null) {
 			$data = array(
 				"page_title" => "Bagudbud | Admin",
 				"data" => $admin_model->getAllDeliveryPersonnels()
 			);
 			return view('admin/delivery-personnels', $data);
-		}else{
+		} else {
 			$data = array(
 				"page_title" => "Bagudbud | Admin",
 				// 'logData' => $clientData//fetch session data
@@ -165,15 +167,16 @@ class Admin extends BaseController
 
 	public function messages()
 	{
-        $data = array(
-            "page_title" => "Bagudbud | Admin"
-        );
+		$data = array(
+			"page_title" => "Bagudbud | Admin"
+		);
 		return view('admin/index', $data);
 	}
 
-    
-	public function adminLogin() {
-		
+
+	public function adminLogin()
+	{
+
 		$username = $this->request->getPost('username');
 		$password = $this->request->getPost('password');
 
@@ -195,53 +198,56 @@ class Admin extends BaseController
 		]);
 	}
 
-	public function getAllApplications() {
+	public function getAllApplications()
+	{
 		$admin_model = new Admin_Model();
 		$result['data'] = $admin_model->getAllApplications();
 
 		return view('Admin/displays/applications-row', $result);
 	}
 
-	public function setPersonnelStatus() {
+	public function setPersonnelStatus()
+	{
 		$id = $this->request->getPost('cid');
 		$email = $this->request->getPost('email');
 
 		$admin_model = new Admin_Model();
 
 		// send email process
-			$to = $email;
-			$subject = 'Account Verification';
-			$body = '<h1> Acount verified </h1>';
+		$to = $email;
+		$subject = 'Account Verification';
+		$body = '<h1> Acount verified </h1>';
 
-			$email = \Config\Services::email();
+		$email = \Config\Services::email();
 
-			$email->setFrom('johdigay@my.cspc.edu.ph', 'BAGUDBUD express');
-			$email->setTo($to);
-			$email->setSubject($subject);
-			$email->setMessage($body);			
+		$email->setFrom('bagudbudexpressph@gmail.com', 'BAGUDBUD express');
+		$email->setTo($to);
+		$email->setSubject($subject);
+		$email->setMessage($body);
 
-			if($email->send()){
+		if ($email->send()) {
 			// 	// go to EmailVerification Page
 
-				if($admin_model->setPersonnelsStatus($id)) {
-					return json_encode([
-						"code" => 202,
-						"msg" => "Successfully Hired!"
-					]);
-				}
+			if ($admin_model->setPersonnelsStatus($id)) {
 				return json_encode([
-					"status_code" => 404,
-					"message" => "Delivery Personnel not found!"
+					"code" => 202,
+					"msg" => "Successfully Hired!"
 				]);
-				// headrer("Location: ".base_url('/email-verification')."");
-					
-			}else{
-				$data = $email->printDebugger(['headers']);
-				echo json_encode(['code' => 505, 'msg' => $data]);
 			}
+			return json_encode([
+				"status_code" => 404,
+				"message" => "Delivery Personnel not found!"
+			]);
+			// headrer("Location: ".base_url('/email-verification')."");
+
+		} else {
+			$data = $email->printDebugger(['headers']);
+			echo json_encode(['code' => 505, 'msg' => $data]);
+		}
 	}
 
-	public function deletePersonnel() {
+	public function deletePersonnel()
+	{
 		$id = $this->request->getPost('cid');
 		$email = $this->request->getPost('email');
 
@@ -253,15 +259,15 @@ class Admin extends BaseController
 
 		$email = \Config\Services::email();
 
-		$email->setFrom('johdigay@my.cspc.edu.ph', 'BAGUDBUD express');
+		$email->setFrom('bagudbudexpressph@gmail.com', 'BAGUDBUD express');
 		$email->setTo($to);
 		$email->setSubject($subject);
-		$email->setMessage($body);			
+		$email->setMessage($body);
 
-		if($email->send()){
-		// 	// go to EmailVerification Page
+		if ($email->send()) {
+			// 	// go to EmailVerification Page
 
-			if($admin_model->deletePersonnel($id)) {
+			if ($admin_model->deletePersonnel($id)) {
 				return json_encode([
 					"code" => 202,
 					"msg" => "Removed From Delivery Personnel List!"
@@ -272,14 +278,15 @@ class Admin extends BaseController
 				"message" => "Delivery Personnel not found!"
 			]);
 			// headrer("Location: ".base_url('/email-verification')."");
-				
-		}else{
+
+		} else {
 			$data = $email->printDebugger(['headers']);
 			echo json_encode(['code' => 505, 'msg' => $data]);
 		}
 	}
 
-	public function deleteApplication() {
+	public function deleteApplication()
+	{
 		$id = $this->request->getPost('cid');
 		$email = $this->request->getPost('email');
 
@@ -294,12 +301,12 @@ class Admin extends BaseController
 		$email->setFrom('bagudbudexpressph@gmail.com', 'BAGUDBUD express');
 		$email->setTo($to);
 		$email->setSubject($subject);
-		$email->setMessage($body);			
+		$email->setMessage($body);
 
-		if($email->send()){
-		// 	// go to EmailVerification Page
+		if ($email->send()) {
+			// 	// go to EmailVerification Page
 
-			if($admin_model->deleteApplication($id)) {
+			if ($admin_model->deleteApplication($id)) {
 				return json_encode([
 					"code" => 202,
 					"msg" => "Removed From Application List!"
@@ -310,19 +317,20 @@ class Admin extends BaseController
 				"message" => "Application not found!"
 			]);
 			// headrer("Location: ".base_url('/email-verification')."");
-				
-		}else{
+
+		} else {
 			$data = $email->printDebugger(['headers']);
 			echo json_encode(['code' => 505, 'msg' => $data]);
 		}
 	}
 
 
-	public function countClient(){
+	public function countClient()
+	{
 		$model = new Admin_Model();
 
 		$db = \Config\Database::connect();
-        $builder = $db->table('clients');
+		$builder = $db->table('clients');
 
 
 		return json_encode([
@@ -330,11 +338,12 @@ class Admin extends BaseController
 		]);
 	}
 
-	public function countApplication(){
+	public function countApplication()
+	{
 		$model = new Admin_Model();
 
 		$db = \Config\Database::connect();
-        $builder = $db->table('dp_applications');
+		$builder = $db->table('dp_applications');
 
 
 		return json_encode([
@@ -342,17 +351,18 @@ class Admin extends BaseController
 		]);
 	}
 
-	public function countRequest(){
+	public function countRequest()
+	{
 		$model = new Admin_Model();
 
 		$db = \Config\Database::connect();
-        $builder = $db->table('clientrecords');
+		$builder = $db->table('clientrecords');
 		// $builder->select('requestrecord');
 		$query = $builder->get();
 		$data = $query->getResultArray();
 
 		$allrequest = 0;
-		foreach($data as $result){
+		foreach ($data as $result) {
 			$allrequest = $allrequest + $result['requestrecord'];
 		}
 
@@ -362,17 +372,18 @@ class Admin extends BaseController
 		]);
 	}
 
-	public function countDeliveries(){
+	public function countDeliveries()
+	{
 		$model = new Admin_Model();
 
 		$db = \Config\Database::connect();
-        $builder = $db->table('riderrecords');
+		$builder = $db->table('riderrecords');
 		// $builder->select('requestrecord');
 		$query = $builder->get();
 		$data = $query->getResultArray();
 
 		$allrequest = 0;
-		foreach($data as $result){
+		foreach ($data as $result) {
 			$allrequest = $allrequest + $result['successdelivery'];
 		}
 
@@ -383,10 +394,9 @@ class Admin extends BaseController
 	}
 
 	public function logout()
-    {
-        $session = session();
-        $session->destroy();
-        return redirect()->to(base_url('admin/login'));
-    }
-
+	{
+		$session = session();
+		$session->destroy();
+		return redirect()->to(base_url('admin/login'));
+	}
 }

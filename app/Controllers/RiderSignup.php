@@ -108,7 +108,7 @@ class RiderSignup extends BaseController
 
 			$email = \Config\Services::email();
 
-			$email->setFrom('johdigay@my.cspc.edu.ph', 'BAGUDBUD express');
+			$email->setFrom('bagudbudexpressph@gmail.com', 'BAGUDBUD express');
 			$email->setTo($to);
 			$email->setSubject($subject);
 			$email->setMessage($body);
