@@ -106,24 +106,23 @@ class RiderSignup extends BaseController
 			$to = $C_email;
 			$subject = 'Account Verification And Requirements Information';
 
-			// $email = \Config\Services::email();
+			$email = \Config\Services::email();
 
-			// $email->setFrom('johdigay@my.cspc.edu.ph', 'BAGUDBUD express');
-			// $email->setTo($to);
-			// $email->setSubject($subject);
-			// $email->setMessage($body);			
+			$email->setFrom('johdigay@my.cspc.edu.ph', 'BAGUDBUD express');
+			$email->setTo($to);
+			$email->setSubject($subject);
+			$email->setMessage($body);
 
-			// if($email->send()){
-			//go to EmailVerification Page---)
-			echo json_encode([
-				'redirect' => base_url('/riderNotif'),
-				'user_email' => $C_email
-			]);
-
-			// }else{
-			// 	$data = $email->printDebugger(['headers']);
-			// 	echo json_encode(['code' => 505, 'msg' => $data]);
-			// }
+			if ($email->send()) {
+				//go to EmailVerification Page---)
+				echo json_encode([
+					'redirect' => base_url('/riderNotif'),
+					'user_email' => $C_email
+				]);
+			} else {
+				$data = $email->printDebugger(['headers']);
+				echo json_encode(['code' => 505, 'msg' => $data]);
+			}
 			//end of send email process-----------------------------------
 		} else {
 			echo json_encode(['code' => 404, 'msg' => 'Error']);
