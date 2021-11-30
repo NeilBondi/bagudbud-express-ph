@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Controllers;
+
 use App\Models\Client_Signup;
 use CodeIgniter\HTTP\Header;
 
@@ -8,39 +9,41 @@ class ClientSignup extends BaseController
 {
 	public function index()
 	{
-        $data = array(
-            "page_title" => "Bagudbud | Signup"
-        );
+		$data = array(
+			"page_title" => "Bagudbud | Signup"
+		);
 		return view('client-signup', $data);
 	}
 
-	public function check_Email(){
-        if(!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)){
-            echo json_encode(['code' => 404, 'msg' => 'Invalid Email']);
-            // echo '400';
-        }else{
-            // $this->load->model('Sign_IN');
-            $Sign_IN = new Client_Signup();
-            if($Sign_IN->email_checker($_POST['email'])){
-                echo json_encode(['code' => 400, 'msg' => 'Email is Already Used']);
-                // echo '404';
-            }else{
-                echo json_encode(['code' => 200, 'msg' => '']);
-                // echo '200';
-            }
-        }
-    }
+	public function check_Email()
+	{
+		if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
+			echo json_encode(['code' => 404, 'msg' => 'Invalid Email']);
+			// echo '400';
+		} else {
+			// $this->load->model('Sign_IN');
+			$Sign_IN = new Client_Signup();
+			if ($Sign_IN->email_checker($_POST['email'])) {
+				echo json_encode(['code' => 400, 'msg' => 'Email is Already Used']);
+				// echo '404';
+			} else {
+				echo json_encode(['code' => 200, 'msg' => '']);
+				// echo '200';
+			}
+		}
+	}
 
-	public function register(){//insert data on database and send email verification
-       
+	public function register()
+	{ //insert data on database and send email verification
+
 		$fname = $this->request->getPost('first-name');
 		$lname = $this->request->getPost('last-name');
-	 
+
 		// $name = $fname.' '.$lname;
 
 		$street = $this->request->getPost('zone-street');
 		$barangay = $this->request->getPost('barangay');
-		$address = $street.', '.$barangay;
+		$address = $street . ', ' . $barangay;
 		$municipality = $this->request->getPost('municipality');
 		$c_num = $this->request->getPost('phone-number');
 		$C_email = $this->request->getPost('email');
@@ -54,7 +57,7 @@ class ClientSignup extends BaseController
 		$xdate = date_format($date, 'Y-m-d');
 
 		// creates a new password hash using a strong one-way hashing algorithm.
-		$password = password_hash($password, PASSWORD_DEFAULT); 
+		$password = password_hash($password, PASSWORD_DEFAULT);
 		// $vkey = md5(time() . $name);
 		//generate verifivation key
 		$vkey = substr(md5(time() . $fname), 0, 12);
@@ -278,7 +281,7 @@ class ClientSignup extends BaseController
 									<w:anchorlock/>
 									<center style="color:#fff !important;font-family:sans-serif;font-size:15px;">Verify Email</center>
 								  </v:roundrect><![endif]-->
-									<a href="'.base_url('ClientLogin/verify/'.$vkey.'').'" class="button button--blue">Verify Email</a>
+									<a href="' . base_url('ClientLogin/verify/' . $vkey . '') . '" class="button button--blue">Verify Email</a>
 								  </div>
 								</td>
 							  </tr>
@@ -290,7 +293,7 @@ class ClientSignup extends BaseController
 								<td>
 								  <p class="sub">If you’re having trouble clicking the button.
 								  </p>
-								  <p class="sub"><a href="'.base_url('ClientLogin/verify/'.$vkey.'').'">Click Here</a></p>
+								  <p class="sub"><a href="' . base_url('ClientLogin/verify/' . $vkey . '') . '">Click Here</a></p>
 								</td>
 							  </tr>
 							</table>
@@ -320,8 +323,8 @@ class ClientSignup extends BaseController
 		</body>
 		</html>';
 
-	$client = new Client_Signup();
-		if($client->insert($data)){
+		$client = new Client_Signup();
+		if ($client->insert($data)) {
 			$cid = $client->getInsertID();
 			$recorddata = [
 				'Client_id' => $cid,
@@ -335,49 +338,47 @@ class ClientSignup extends BaseController
 
 			$email = \Config\Services::email();
 
-			$email->setFrom('johdigay@my.cspc.edu.ph', 'BAGUDBUD express');
+			$email->setFrom('bagudbudexpressph@gmail.com', 'BAGUDBUD express');
 			$email->setTo($to);
 			$email->setSubject($subject);
-			$email->setMessage($body);			
+			$email->setMessage($body);
 
-			if($email->send()){
+			if ($email->send()) {
 				// go to EmailVerification Page
 				echo json_encode([
 					'redirect' => base_url('/email-verification'),
 					'user_email' => $C_email
 				]);
 				// headrer("Location: ".base_url('/email-verification')."")
-					
-			}else{
+
+			} else {
 				$data = $email->printDebugger(['headers']);
 				echo json_encode(['code' => 505, 'msg' => $data]);
 			}
-			 //end of send email process
-	   }
-	   else{
+			//end of send email process
+		} else {
 			echo json_encode(['code' => 404, 'msg' => 'Error']);
-	   }
-
+		}
 	}
 
-	public function emailPage($data = null){
+	public function emailPage($data = null)
+	{
 		$email = $data;
 		$data = array(
-            "page_title" => "Bagudbud | Email Verification",
+			"page_title" => "Bagudbud | Email Verification",
 			"email" => $email
-        );
+		);
 		return view('email-verification', $data);
 	}
 
-	public function verify($data = null){// get the verification key and validate
+	public function verify($data = null)
+	{ // get the verification key and validate
 		$vkey = $data;
 		$validation = new Client_Signup();
-		if ($validation->validation($vkey)){
+		if ($validation->validation($vkey)) {
 			return view('client-login');
-		}else{
+		} else {
 			echo 'errror 404';
 		}
-   }
-
-
+	}
 }

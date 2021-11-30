@@ -80,6 +80,22 @@
 		</div>
 	</section>
 
+	<section id="about-us">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12 d-flex align-items-center d-flex justify-content-center">
+					<h1 class="about text-center font-weight-bold">Track all your deliveries at once</h1>
+				</div>
+				<div class="col-md-12 about-info d-flex justify-content-center mb-3">
+					<p>Get the latest status of your package.</p>
+				</div>
+				<div class="col-md-12 d-flex justify-content-center">
+					<a href="<?= base_url('/tracking') ?>" class="btn btn-first p-3 font-weight-bold" style="width: 12rem;">Track my Deliveries</a>
+				</div>
+			</div>
+		</div>
+	</section>
+
 	<!-- ------Consumer Section --------->
 	<section id="consumer">
 		<div class="container d-flex flex-column justify-content-center">
@@ -270,9 +286,7 @@
 					<!-- Content -->
 					<h6 class="text-uppercase font-weight-bold">Bagudbud Express</h6>
 					<hr class="green accent-3 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
-					<p>Here you can use rows and columns to organize your footer content. Lorem ipsum dolor sit amet,
-						consectetur
-						adipisicing elit.</p>
+					<p>Bagudbud Express guarantees reliable delivery of your items your customer, at the right location in the right time through its effective distribution management.</p>
 
 				</div>
 				<!-- Grid column -->
