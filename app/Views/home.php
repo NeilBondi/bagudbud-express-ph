@@ -80,7 +80,7 @@
 		</div>
 	</section>
 
-	<section id="about-us">
+	<section id="track">
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12 d-flex align-items-center d-flex justify-content-center">
@@ -298,10 +298,10 @@
 					<h6 class="text-uppercase font-weight-bold">Useful links</h6>
 					<hr class="green accent-3 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
 					<p>
-						<a class="text-info" href="#home">Home</a>
+						<a class="text-info" href="">Your Account</a>
 					</p>
 					<p>
-						<a class="text-info" href="">Your Account</a>
+						<a class="text-info" href="<?= base_url('/tracking') ?>">Track a Package</a>
 					</p>
 					<p>
 						<a class="text-info" href="#about-us">About Us</a>

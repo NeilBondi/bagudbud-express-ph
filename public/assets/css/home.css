@@ -171,10 +171,12 @@ a.btn1:hover {
 .delivery-info p {
 	margin: 42px 0;
 }
-#about-us {
+#about-us,
+#track {
 	margin: 80px 0;
 }
-#about-us .row {
+#about-us .row,
+#track .row {
 	padding: 100px;
 }
 #contact {
@@ -310,7 +312,8 @@ a.btn1:hover {
 		max-width: 400px;
 		margin: 0 auto;
 	}
-	#about-us .row {
+	#about-us .row,
+	#track .row {
 		padding: 100px 20px;
 	}
 	.container .seller .seller-info {
